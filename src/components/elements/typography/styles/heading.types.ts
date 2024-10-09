@@ -1,0 +1,77 @@
+import { tv, type VariantProps } from "tailwind-variants";
+
+const headingVariants = tv({
+  slots: {
+    root: "",
+  },
+  variants: {
+    variant: {
+      default: { root: "" },
+    },
+    ashtml: {
+      h1: { root: "text-4xl" },
+      h2: { root: "text-3xl" },
+      h3: { root: "text-2xl" },
+      h4: { root: "text-xl" },
+      h5: { root: "text-lg" },
+      h6: { root: "text-md" },
+      strong: { root: "text-base" },
+    },
+    size: {
+      "10xl": { root: "text-10xl" },
+      "9xl": { root: "text-9xl" },
+      "8xl": { root: "text-8xl" },
+      "7xl": { root: "text-7xl" },
+      "6xl": { root: "text-6xl" },
+      "5xl": { root: "text-5xl" },
+      "4xl": { root: "text-4xl" },
+      "3xl": { root: "text-3xl" },
+      "2xl": { root: "text-2xl" },
+      xl: { root: "text-xl" },
+      lg: { root: "text-lg" },
+      md: { root: "text-md" },
+      base: { root: "text-base" },
+      sm: { root: "text-sm" },
+      xs: { root: "text-2xs" },
+      "2xs": { root: "text-2xs" },
+    },
+    weight: {
+      light: { root: "font-light" },
+      normal: { root: "font-normal" },
+      normalPlus: { root: "font-normal-plus" },
+      medium: { root: "font-medium" },
+      semibold: { root: "font-semibold" },
+      bold: { root: "font-bold" },
+    },
+    contrast: {
+      highest: { root: "text-contrast-highest" },
+      higher: { root: "text-contrast-higher" },
+      high: { root: "text-contrast-high" },
+      medium: { root: "text-contrast-medium" },
+      low: { root: "text-contrast-low" },
+      lower: { root: "text-contrast-lower" },
+      lowest: { root: "text-contrast-lowest" },
+    },
+    align: {
+      left: { root: "text-start" },
+      center: { root: "text-center" },
+      right: { root: "text-end" },
+    },
+    wrap: {
+      true: { root: "text-wrap" },
+      false: { root: "text-nowrap" },
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    font: "primary",
+    weight: "semibold",
+    contrast: "higher",
+    align: "left",
+    wrap: true,
+  },
+  compoundVariants: [],
+});
+
+export type HeadingVariantProps = VariantProps<typeof headingVariants>;
+export { headingVariants };

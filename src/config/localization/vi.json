@@ -1,0 +1,46 @@
+{
+  "header": {
+    "home": "Trang chủ",
+    "booking": "Đặt hẹn",
+    "assessment": "Đánh giá",
+    "team": "Đội ngũ",
+    "overview": "Tổng quát",
+    "history": "Lịch sử",
+    "btn_login": "Đăng nhập",
+    "btn_logout": "Đăng xuất"
+  },
+  "home": {
+    "hero": "Đảm bảo an toàn xe: Kiểm tra & bảo dưỡng dễ dàng với DeMaint",
+    "description": "Lịch trình bảo dưỡng theo xe, đặt hẹn linh hoạt, an tâm mọi lúc mọi nơi.",
+    "btn_cta_checkup": "Bắt đầu kiểm tra",
+    "btn_cta_services": "Xem dịch vụ"
+  },
+  "signin": {
+    "title": "Đăng nhập",
+    "subtitle": "Chào mừng bạn quay trở lại! Đăng nhập vào tài khoản bạn đã tạo trên DeMaint.",
+    "field_email_label": "Email",
+    "field_email_placeholder": "Nhập email",
+    "field_password_label": "Mật khẩu",
+    "field_password_placeholder": "Nhập mật khẩu",
+    "forgot_password": "Quên mật khẩu",
+    "btn_submit": "Đăng nhập",
+    "btn_google_signin": "Đăng nhập với Google",
+    "btn_create_account": "Tạo tài khoản"
+  },
+  "register": {
+    "title": "Tạo tài khoản",
+    "subtitle": "Chỉ cần 1 bước để trở thành hội viên của DeMaint!",
+    "field_fullname_label": "Họ và tên",
+    "field_fullname_placeholder": "Nhập họ và tên",
+    "field_phone_number_label": "Số điện thoại",
+    "field_phone_number_placeholder": "Nhập số điện thoại",
+    "field_email_label": "Email",
+    "field_email_placeholder": "Nhập email",
+    "field_password_label": "Mật khẩu",
+    "field_password_placeholder": "Nhập mật khẩu",
+    "field_confirm_password_label": "Nhập lại mật khẩu",
+    "field_confirm_password_placeholder": "Nhập lại mật khẩu",
+    "have_account": "Đã có tài khoản? Đăng nhập ngay!",
+    "btn_submit": "Đăng ký"
+  }
+}

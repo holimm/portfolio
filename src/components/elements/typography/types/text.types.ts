@@ -1,0 +1,15 @@
+export type TTextHtml =
+  | "p"
+  | "b"
+  | "i"
+  | "u"
+  | "cite"
+  | "del"
+  | "em"
+  | "ins"
+  | "kbd"
+  | "mark"
+  | "s"
+  | "samp"
+  | "sub"
+  | "sup";

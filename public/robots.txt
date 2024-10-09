@@ -1,0 +1,27 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /_next
+Disallow: /404
+Disallow: /500
+Disallow: /unsupported
+Disallow: /favicons
+
+# test-bot
+User-agent: test-bot
+Allow: /path
+Allow: /path-2
+
+# black-listed-bot
+User-agent: black-listed-bot
+Disallow: /sub-path-1
+Disallow: /path-2
+
+# Host
+Host: http://localhost:5000
+
+# Sitemaps
+Sitemap: http://localhost:5000/sitemap.xml

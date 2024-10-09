@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    "target": "ES6",
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -18,7 +19,24 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/config/*": ["./src/config/*"],
+      "@/libs/*": ["./src/libs/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/features/*": ["./features/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/public/*": ["./public/*"],
+      "@/themes/*": ["./themes/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/redux/*": ["./src/redux/*"],
+      "@/network/*": ["./src/network/*"],
+      "@/helpers/*": ["./src/helpers/*"],
+      "@/styles/*": ["./src/styles/*"],
+      "@/middlewares/*": ["./src/middlewares/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/mongoose/*": ["./src/mongoose/*"],
+      "@/assets/*": ["./src/assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
