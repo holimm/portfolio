@@ -1,10 +1,14 @@
-"use client";
-import React, { forwardRef, HTMLAttributes, useMemo } from "react";
-import { useHomepage, UseHomepageProps } from "../utils/useHomepage";
-import { ThemeTypes } from "@/types/styles/theme";
-import { Locale } from "../../../../../i18n.config";
-import { motion } from "motion/react";
-import { HomepageProvider } from "../utils/useHomepageContext";
+'use client';
+import React, { forwardRef, HTMLAttributes, useMemo } from 'react';
+import { useHomepage, UseHomepageProps } from '../utils/useHomepage';
+import { ThemeTypes } from '@/types/styles/theme';
+import { Locale } from '../../../../../i18n.config';
+import { motion } from 'motion/react';
+import { HomepageProvider } from '../utils/useHomepageContext';
+import { Typography } from '@/components/elements/typography';
+import { Card } from '@/components/elements/card';
+import { Flex } from '@/components/layout/flex';
+import { Grid } from '@/components/layout/grid';
 
 export interface HomepageData {}
 
@@ -26,63 +30,45 @@ export const Homepage = forwardRef<HTMLDivElement, HomepageProps>(
 
     return (
       <HomepageProvider value={ctx}>
-        <div
-          ref={ctx.refScroll}
-          className="max-h-screen overflow-y-auto"
-          style={{
-            scrollSnapType: "y mandatory",
-            scrollBehavior: "smooth",
-            WebkitOverflowScrolling: "touch",
-          }}
-          onKeyDown={(e) => {
-            if (ctx.isCompletedAnimation) {
-              if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-                e.preventDefault();
-                if (ctx.refScroll.current) {
-                  ctx.refScroll.current.scrollBy({
-                    top: window.innerHeight,
-                    behavior: "smooth",
-                  });
-                }
-              } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-                e.preventDefault();
-                if (ctx.refScroll.current) {
-                  ctx.refScroll.current.scrollBy({
-                    top: -window.innerHeight,
-                    behavior: "smooth",
-                  });
-                }
-              }
-            } else {
-              if (ctx.currentPage === "hero") {
-                if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-                  ctx.setHeroAnimateState(false);
-                  ctx.setIsCompletedAnimation(true);
-                  e.preventDefault();
-                }
-                if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-                  ctx.setHeroAnimateState(true);
-                  ctx.setIsCompletedAnimation(true);
-                  e.preventDefault();
-                }
-              }
-            }
-          }}
-          tabIndex={0}
-        >
-          <motion.div className="h-screen snap-center">
-            <div className="flex h-full w-full items-center justify-center bg-white">
-              <div className="inline-flex flex-col items-center gap-[258.113px] rounded-3xl px-[80.5px] pb-[60px] pt-[45.4px] shadow-xl">
-                <div className="w-[181px] text-center">Test</div>
-                <div className="w-[181px] text-center">Test</div>
-              </div>
-            </div>
-          </motion.div>
-          <motion.div className="h-screen snap-center bg-slate-200"></motion.div>
-        </div>
+        <Flex className="h-screen" align="center" justify="center">
+          <Grid variant="cols" dimension="6" gap="md">
+            <Grid.Item span="4">
+              <Card custom="elevated">
+                <Card.Header>TEst</Card.Header>
+                <Card.Body>
+                  <Typography
+                    ashtml="h1"
+                    color="primary"
+                    size="2xl"
+                    contrast="medium"
+                    weight="bold"
+                  >
+                    Welcome to the Homepage
+                  </Typography>
+                </Card.Body>
+              </Card>
+            </Grid.Item>
+            <Grid.Item>
+              <Card custom="elevated">
+                <Card.Header>TEst</Card.Header>
+                <Card.Body>
+                  <Typography
+                    ashtml="h1"
+                    color="primary"
+                    size="2xl"
+                    contrast="medium"
+                    weight="bold"
+                  >
+                    Welcome to the Homepage
+                  </Typography>
+                </Card.Body>
+              </Card>
+            </Grid.Item>
+          </Grid>
+        </Flex>
       </HomepageProvider>
     );
-  },
+  }
 );
 
-Homepage.displayName = "Homepage";
+Homepage.displayName = 'Homepage';

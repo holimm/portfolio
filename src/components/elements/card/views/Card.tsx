@@ -1,11 +1,12 @@
-"use client";
-import { forwardRef, useMemo, type HTMLAttributes } from "react";
-import { useCard, type UseCardProps } from "../utils/useCard";
-import { CardProvider } from "../utils/useCardContext";
+'use client';
+import { forwardRef, useMemo, type HTMLAttributes } from 'react';
+import { useCard, type UseCardProps } from '../utils/useCard';
+import { CardProvider } from '../utils/useCardContext';
 
 export interface CardData {
   title?: string;
   text?: string;
+  alignContent?: string;
 }
 
 export interface CardOptions extends UseCardProps {}
@@ -17,7 +18,8 @@ export interface CardProps
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, children, ...props }, ref) => {
-    const { ...context } = useCard({ ref, ...props });
+    const { alignContent, ...rest } = props;
+    const { ...context } = useCard({ ref, alignContent, ...props });
 
     const ctx = useMemo(() => context, [context]);
 
@@ -27,13 +29,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
           data-comp="card"
           className={`${className} ${ctx.cardStyle()}`}
           ref={ctx.cardRef}
-          {...props}
+          {...rest}
         >
           {children}
         </div>
       </CardProvider>
     );
-  },
+  }
 );
 
-Card.displayName = "CardRoot";
+Card.displayName = 'CardRoot';

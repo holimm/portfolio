@@ -1,7 +1,7 @@
-"use client";
-import { useMemo } from "react";
+'use client';
+import { useMemo } from 'react';
 
-import { flexVariants, type FlexVariantProps } from "../styles/flex.config";
+import { flexVariants, type FlexVariantProps } from '../styles/flex.config';
 
 export interface UseFlexProps extends FlexVariantProps {
   ref?: React.Ref<HTMLDivElement> | undefined;
@@ -10,8 +10,7 @@ export interface UseFlexProps extends FlexVariantProps {
 export const useFlex = (props: UseFlexProps) => {
   const {
     ref: flexRef,
-    variant = "default",
-    layout,
+    variant = 'row',
     justify,
     align,
     alignContent,
@@ -24,7 +23,6 @@ export const useFlex = (props: UseFlexProps) => {
     () =>
       flexVariants({
         variant,
-        layout,
         justify,
         align,
         alignContent,
@@ -32,7 +30,7 @@ export const useFlex = (props: UseFlexProps) => {
         gap,
         reverse,
       }),
-    [variant, layout, justify, align, alignContent, wrap, gap, reverse],
+    [variant, justify, align, alignContent, wrap, gap, reverse]
   );
 
   return {

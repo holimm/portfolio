@@ -1,20 +1,22 @@
-"use client";
-import { useMemo } from "react";
-import { cardVariants, type CardVariantProps } from "../styles/card.config";
+'use client';
+import { useMemo } from 'react';
+import { cardVariants, type CardVariantProps } from '../styles/card.config';
 
 export interface UseCardProps extends CardVariantProps {
   ref?: React.Ref<HTMLDivElement> | undefined;
+  alignContent?: string;
 }
 
 export const useCard = (props: UseCardProps) => {
   const {
     ref: cardRef,
-    variant = "default",
+    variant = 'default',
     rounded,
     color,
-    custom = "elevated",
-    direction = "vertical",
+    custom = 'elevated',
+    direction = 'vertical',
     padding,
+    height,
     width,
   } = props;
 
@@ -33,9 +35,10 @@ export const useCard = (props: UseCardProps) => {
         color,
         padding,
         direction,
+        height,
         width,
       }),
-    [variant, custom, rounded, color, padding, direction, width],
+    [variant, custom, rounded, color, padding, direction, height, width]
   );
 
   return {

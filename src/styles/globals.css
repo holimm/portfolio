@@ -1,5 +1,5 @@
-@import url("./reset.css");
-@import url("./font.css");
+@import url('./reset.css');
+@import url('./font.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -408,7 +408,7 @@
 }
 
 :root,
-[data-theme="default"] {
+[data-theme='default'] {
   /* Contrast */
   --color-contrast-highest: var(--color-black-alpha-900);
   --color-contrast-higher: var(--color-black-alpha-800);
@@ -437,7 +437,7 @@
   --color-background-lightest: var(--color-white);
 }
 :root,
-[data-theme="dark"] {
+[data-theme='dark'] {
   /* Contrast */
   --color-contrast-highest: var(--color-white-alpha-900);
   --color-contrast-higher: var(--color-white-alpha-800);
@@ -466,7 +466,7 @@
   --color-background-lightest: var(--color-black);
 }
 :root,
-[data-theme="light"] {
+[data-theme='light'] {
   /* Contrast */
   --color-contrast-highest: var(--color-black-alpha-900);
   --color-contrast-higher: var(--color-black-alpha-800);

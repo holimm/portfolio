@@ -1,0 +1,16 @@
+export const radius = {
+  none: { root: 'rounded-none' },
+  '3xs': { root: 'rounded-3xs' },
+  '2xs': { root: 'rounded-2xs' },
+  xs: { root: 'rounded-xs' },
+  sm: { root: 'rounded-sm' },
+  md: { root: 'rounded-md' },
+  lg: { root: 'rounded-lg' },
+  xl: { root: 'rounded-xl' },
+  '2xl': { root: 'rounded-2xl' },
+  '3xl': { root: 'rounded-3xl' },
+  '4xl': { root: 'rounded-4xl' },
+  '5xl': { root: 'rounded-5xl' },
+  '6xl': { root: 'rounded-6xl' },
+  full: { root: 'rounded-full' },
+};
