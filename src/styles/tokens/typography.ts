@@ -3,12 +3,16 @@ import { KeyValuePair, ResolvableTo } from "tailwindcss/types/config";
 export const fontWeight:
   | ResolvableTo<KeyValuePair<string, string>>
   | undefined = {
+  hairline: "100",
+  thin: "200",
   light: "300",
   normal: "400",
   "normal-plus": "450",
   medium: "500",
   semibold: "600",
   bold: "700",
+  extrabold: "800",
+  black: "900",
 };
 
 export const fontSize:
@@ -44,13 +48,17 @@ export const fontSize:
   "8xl": ["8rem", { lineHeight: "1" }], // 8rem = 128px
   "9xl": ["9rem", { lineHeight: "1" }], // 9rem = 144px
   "10xl": ["10rem", { lineHeight: "1" }], // 10rem = 160px
+  "11xl": ["13.375rem", { lineHeight: "0.9" }], // 13.375rem = 214px
 };
 
 export const letterSpacing:
   | ResolvableTo<KeyValuePair<string, string>>
   | undefined = {
-  caption: "0",
-  body: "-2%",
-  heading: "-3%",
-  display: "-4%",
+  tightest: "-0.06rem",
+  tighter: "-0.0338rem",
+  tight: "-0.0175rem",
+  normal: "0rem",
+  wide: "0.0175rem",
+  wider: "0.0338rem",
+  widest: "0.06rem",
 };

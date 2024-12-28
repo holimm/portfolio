@@ -12,7 +12,7 @@ export const AddIcon = forwardRef<SVGSVGElement, IconPlaintProps>(
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z" fill="#25262C" />
+      <path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
     </svg>
   ),
 );

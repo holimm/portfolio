@@ -15,16 +15,16 @@ const buttonVariants = tv({
     },
     custom: {
       solid: {
-        root: "font-primary flex justify-center items-center gap-2xs",
+        root: "font-primary flex justify-center items-center gap-xs",
       },
       outline: {
-        root: "font-primary flex justify-center items-center gap-2xs",
+        root: "font-primary flex justify-center items-center gap-xs",
       },
       ghost: {
-        root: "font-primary flex justify-center items-center gap-2xs",
+        root: "font-primary flex justify-center items-center gap-xs",
       },
       disabled: {
-        root: "font-primary flex justify-center items-center gap-2xs cursor-not-allowed",
+        root: "font-primary flex justify-center items-center gap-xs cursor-not-allowed",
       },
       reset: {
         root: "",
@@ -104,7 +104,6 @@ const buttonVariants = tv({
     width: "fit",
     rounded: "sm",
   },
-  // text-primary-dark border-solid border-1 border-primary-dark
   compoundVariants: [
     // VARIANT
     {
@@ -135,7 +134,7 @@ const buttonVariants = tv({
       color: "primary",
       contrast: "highest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-primary-darkest",
+        root: "bg-background-lightest border-solid border border-primary-darkest",
       },
     },
     {
@@ -143,7 +142,7 @@ const buttonVariants = tv({
       color: "primary",
       contrast: "higher",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-primary-darker",
+        root: "bg-background-lightest border-solid border border-primary-darker",
       },
     },
     {
@@ -151,7 +150,7 @@ const buttonVariants = tv({
       color: "primary",
       contrast: "high",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-primary-dark",
+        root: "bg-background-lightest border-solid border border-primary-dark",
       },
     },
     {
@@ -159,7 +158,7 @@ const buttonVariants = tv({
       color: "primary",
       contrast: "medium",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-primary",
+        root: "bg-background-lightest border-solid border border-primary",
       },
     },
     {
@@ -167,7 +166,7 @@ const buttonVariants = tv({
       color: "primary",
       contrast: "low",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-primary-light",
+        root: "bg-background-lightest border-solid border border-primary-light",
       },
     },
     {
@@ -175,7 +174,7 @@ const buttonVariants = tv({
       color: "primary",
       contrast: "lower",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-primary-lighter",
+        root: "bg-background-lightest border-solid border border-primary-lighter",
       },
     },
     {
@@ -183,7 +182,7 @@ const buttonVariants = tv({
       color: "primary",
       contrast: "lowest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-primary-lightest",
+        root: "bg-background-lightest border-solid border border-primary-lightest",
       },
     },
 
@@ -193,7 +192,7 @@ const buttonVariants = tv({
       color: "secondary",
       contrast: "highest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-secondary-darkest",
+        root: "bg-background-lightest border-solid border border-secondary-darkest",
       },
     },
     {
@@ -201,7 +200,7 @@ const buttonVariants = tv({
       color: "secondary",
       contrast: "higher",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-secondary-darker",
+        root: "bg-background-lightest border-solid border border-secondary-darker",
       },
     },
     {
@@ -209,7 +208,7 @@ const buttonVariants = tv({
       color: "secondary",
       contrast: "high",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-secondary-dark",
+        root: "bg-background-lightest border-solid border border-secondary-dark",
       },
     },
     {
@@ -217,7 +216,7 @@ const buttonVariants = tv({
       color: "secondary",
       contrast: "medium",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-secondary",
+        root: "bg-background-lightest border-solid border border-secondary",
       },
     },
     {
@@ -225,7 +224,7 @@ const buttonVariants = tv({
       color: "secondary",
       contrast: "low",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-secondary-light",
+        root: "bg-background-lightest border-solid border border-secondary-light",
       },
     },
     {
@@ -233,7 +232,7 @@ const buttonVariants = tv({
       color: "secondary",
       contrast: "lower",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-secondary-lighter",
+        root: "bg-background-lightest border-solid border border-secondary-lighter",
       },
     },
     {
@@ -241,7 +240,7 @@ const buttonVariants = tv({
       color: "secondary",
       contrast: "lowest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-secondary-lightest",
+        root: "bg-background-lightest border-solid border border-secondary-lightest",
       },
     },
 
@@ -251,7 +250,7 @@ const buttonVariants = tv({
       color: "background",
       contrast: "highest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-background-darkest",
+        root: "bg-background-lightest border-solid border border-background-darkest",
       },
     },
     {
@@ -259,7 +258,7 @@ const buttonVariants = tv({
       color: "background",
       contrast: "higher",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-background-darker",
+        root: "bg-background-lightest border-solid border border-background-darker",
       },
     },
     {
@@ -267,7 +266,7 @@ const buttonVariants = tv({
       color: "background",
       contrast: "high",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-background-dark",
+        root: "bg-background-lightest border-solid border border-background-dark",
       },
     },
     {
@@ -275,7 +274,7 @@ const buttonVariants = tv({
       color: "background",
       contrast: "medium",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-background-base",
+        root: "bg-background-lightest border-solid border border-background-base",
       },
     },
     {
@@ -283,7 +282,7 @@ const buttonVariants = tv({
       color: "background",
       contrast: "low",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-background-light",
+        root: "bg-background-lightest border-solid border border-background-light",
       },
     },
     {
@@ -291,7 +290,7 @@ const buttonVariants = tv({
       color: "background",
       contrast: "lower",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-background-lighter",
+        root: "bg-background-lightest border-solid border border-background-lighter",
       },
     },
     {
@@ -299,7 +298,7 @@ const buttonVariants = tv({
       color: "background",
       contrast: "lowest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-background-lightest",
+        root: "bg-background-lightest border-solid border border-background-lightest",
       },
     },
 
@@ -309,7 +308,7 @@ const buttonVariants = tv({
       color: "success",
       contrast: "highest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-success-darkest",
+        root: "bg-background-lightest border-solid border border-success-darkest",
       },
     },
     {
@@ -317,7 +316,7 @@ const buttonVariants = tv({
       color: "success",
       contrast: "higher",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-success-darker",
+        root: "bg-background-lightest border-solid border border-success-darker",
       },
     },
     {
@@ -325,7 +324,7 @@ const buttonVariants = tv({
       color: "success",
       contrast: "high",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-success-dark",
+        root: "bg-background-lightest border-solid border border-success-dark",
       },
     },
     {
@@ -333,7 +332,7 @@ const buttonVariants = tv({
       color: "success",
       contrast: "medium",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-success",
+        root: "bg-background-lightest border-solid border border-success",
       },
     },
     {
@@ -341,7 +340,7 @@ const buttonVariants = tv({
       color: "success",
       contrast: "low",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-success-light",
+        root: "bg-background-lightest border-solid border border-success-light",
       },
     },
     {
@@ -349,7 +348,7 @@ const buttonVariants = tv({
       color: "success",
       contrast: "lower",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-success-lighter",
+        root: "bg-background-lightest border-solid border border-success-lighter",
       },
     },
     {
@@ -357,7 +356,7 @@ const buttonVariants = tv({
       color: "success",
       contrast: "lowest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-success-lightest",
+        root: "bg-background-lightest border-solid border border-success-lightest",
       },
     },
 
@@ -367,7 +366,7 @@ const buttonVariants = tv({
       color: "error",
       contrast: "highest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-error-darkest",
+        root: "bg-background-lightest border-solid border border-error-darkest",
       },
     },
     {
@@ -375,7 +374,7 @@ const buttonVariants = tv({
       color: "error",
       contrast: "higher",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-error-darker",
+        root: "bg-background-lightest border-solid border border-error-darker",
       },
     },
     {
@@ -383,7 +382,7 @@ const buttonVariants = tv({
       color: "error",
       contrast: "high",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-error-dark",
+        root: "bg-background-lightest border-solid border border-error-dark",
       },
     },
     {
@@ -391,7 +390,7 @@ const buttonVariants = tv({
       color: "error",
       contrast: "medium",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-error",
+        root: "bg-background-lightest border-solid border border-error",
       },
     },
     {
@@ -399,7 +398,7 @@ const buttonVariants = tv({
       color: "error",
       contrast: "low",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-error-light",
+        root: "bg-background-lightest border-solid border border-error-light",
       },
     },
     {
@@ -407,7 +406,7 @@ const buttonVariants = tv({
       color: "error",
       contrast: "lower",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-error-lighter",
+        root: "bg-background-lightest border-solid border border-error-lighter",
       },
     },
     {
@@ -415,7 +414,7 @@ const buttonVariants = tv({
       color: "error",
       contrast: "lowest",
       className: {
-        root: "bg-background-lightest text-contrast-higher border-solid border border-error-lightest",
+        root: "bg-background-lightest border-solid border border-error-lightest",
       },
     },
 
@@ -425,7 +424,7 @@ const buttonVariants = tv({
       color: "warning",
       contrast: "highest",
       className: {
-        root: "bg-background-lighter text-contrast-higher border-solid border border-warning-darkest",
+        root: "bg-background-lighter border-solid border border-warning-darkest",
       },
     },
     {
@@ -433,7 +432,7 @@ const buttonVariants = tv({
       color: "warning",
       contrast: "higher",
       className: {
-        root: "bg-background-lighter text-contrast-higher border-solid border border-warning-darker",
+        root: "bg-background-lighter border-solid border border-warning-darker",
       },
     },
     {
@@ -441,7 +440,7 @@ const buttonVariants = tv({
       color: "warning",
       contrast: "high",
       className: {
-        root: "bg-background-lighter text-contrast-higher border-solid border border-warning-dark",
+        root: "bg-background-lighter border-solid border border-warning-dark",
       },
     },
     {
@@ -449,7 +448,7 @@ const buttonVariants = tv({
       color: "warning",
       contrast: "medium",
       className: {
-        root: "bg-background-lighter text-contrast-higher border-solid border border-warning",
+        root: "bg-background-lighter border-solid border border-warning",
       },
     },
     {
@@ -457,7 +456,7 @@ const buttonVariants = tv({
       color: "warning",
       contrast: "low",
       className: {
-        root: "bg-background-lighter text-contrast-higher border-solid border border-warning-light",
+        root: "bg-background-lighter border-solid border border-warning-light",
       },
     },
     {
@@ -465,7 +464,7 @@ const buttonVariants = tv({
       color: "warning",
       contrast: "lower",
       className: {
-        root: "bg-background-lighter text-contrast-higher border-solid border border-warning-lighter",
+        root: "bg-background-lighter border-solid border border-warning-lighter",
       },
     },
     {
@@ -473,7 +472,7 @@ const buttonVariants = tv({
       color: "warning",
       contrast: "lowest",
       className: {
-        root: "bg-background-lighter text-contrast-higher border-solid border border-warning-lightest",
+        root: "bg-background-lighter border-solid border border-warning-lightest",
       },
     },
 
@@ -496,7 +495,7 @@ const buttonVariants = tv({
       custom: "ghost",
       color: "background",
       className: {
-        root: "bg-transparent text-contrast-higher",
+        root: "bg-transparent",
       },
     },
     {
@@ -535,7 +534,7 @@ const buttonVariants = tv({
       custom: "solid",
       contrast: "highest",
       className: {
-        root: "bg-primary-darkest text-invert-higher",
+        root: "bg-primary-darkest",
       },
     },
     {
@@ -543,7 +542,7 @@ const buttonVariants = tv({
       custom: "solid",
       contrast: "higher",
       className: {
-        root: "bg-primary-darker text-invert-higher",
+        root: "bg-primary-darker",
       },
     },
     {
@@ -551,7 +550,7 @@ const buttonVariants = tv({
       custom: "solid",
       contrast: "high",
       className: {
-        root: "bg-primary-dark text-invert-higher",
+        root: "bg-primary-dark",
       },
     },
     {
@@ -559,7 +558,7 @@ const buttonVariants = tv({
       custom: "solid",
       contrast: "medium",
       className: {
-        root: "bg-primary text-invert-higher",
+        root: "bg-primary",
       },
     },
     {
@@ -567,7 +566,7 @@ const buttonVariants = tv({
       custom: "solid",
       contrast: "low",
       className: {
-        root: "bg-primary-light text-primary",
+        root: "bg-primary-light",
       },
     },
     {
@@ -575,7 +574,7 @@ const buttonVariants = tv({
       custom: "solid",
       contrast: "lower",
       className: {
-        root: "bg-primary-lighter text-primary",
+        root: "bg-primary-lighter",
       },
     },
     {
@@ -583,7 +582,7 @@ const buttonVariants = tv({
       custom: "solid",
       contrast: "lowest",
       className: {
-        root: "bg-primary-lightest text-primary",
+        root: "bg-primary-lightest",
       },
     },
     // SECONDARY

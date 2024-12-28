@@ -83,6 +83,21 @@ export const colorsConfig:
     950: "var(--color-red-950)",
   },
 
+  // Ruby Colors
+  ruby: {
+    50: "var(--color-ruby-50)",
+    100: "var(--color-ruby-100)",
+    200: "var(--color-ruby-200)",
+    300: "var(--color-ruby-300)",
+    400: "var(--color-ruby-400)",
+    500: "var(--color-ruby-500)",
+    600: "var(--color-ruby-600)",
+    700: "var(--color-ruby-700)",
+    800: "var(--color-ruby-800)",
+    900: "var(--color-ruby-900)",
+    950: "var(--color-ruby-950)",
+  },
+
   // Yellow Colors
   yellow: {
     50: "var(--color-yellow-50)",
@@ -128,7 +143,7 @@ export const colorsConfig:
     950: "var(--color-azure-950)",
   },
 
-  // Blue Colors
+  // Sky Colors
   sky: {
     50: "var(--color-sky-50)",
     100: "var(--color-sky-100)",
@@ -141,6 +156,21 @@ export const colorsConfig:
     800: "var(--color-sky-800)",
     900: "var(--color-sky-900)",
     950: "var(--color-sky-950)",
+  },
+
+  // Indigo Colors
+  indigo: {
+    50: "var(--color-indigo-50)",
+    100: "var(--color-indigo-100)",
+    200: "var(--color-indigo-200)",
+    300: "var(--color-indigo-300)",
+    400: "var(--color-indigo-400)",
+    500: "var(--color-indigo-500)",
+    600: "var(--color-indigo-600)",
+    700: "var(--color-indigo-700)",
+    800: "var(--color-indigo-800)",
+    900: "var(--color-indigo-900)",
+    950: "var(--color-indigo-950)",
   },
 };
 
@@ -184,13 +214,13 @@ export const colorContrast = {
   "success-lightest": "var(--color-leaf-100)",
 
   // Error
-  "error-darkest": "var(--color-red-900)",
-  "error-darker": "var(--color-red-800)",
-  "error-dark": "var(--color-red-700)",
-  error: "var(--color-red-500)",
-  "error-light": "var(--color-red-300)",
-  "error-lighter": "var(--color-red-200)",
-  "error-lightest": "var(--color-red-100)",
+  "error-darkest": "var(--color-ruby-900)",
+  "error-darker": "var(--color-ruby-800)",
+  "error-dark": "var(--color-ruby-700)",
+  error: "var(--color-ruby-500)",
+  "error-light": "var(--color-ruby-300)",
+  "error-lighter": "var(--color-ruby-200)",
+  "error-lightest": "var(--color-ruby-100)",
 
   // Background
   "background-darkest": "var(--color-background-darkest)",

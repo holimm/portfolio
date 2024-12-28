@@ -12,8 +12,13 @@ export interface TextProps
     TextData {}
 
 export const Text = forwardRef<HTMLDivElement, TextProps>(
-  ({ className, children, ...props }: TextProps, ref) => {
-    const { defaultConfig, ...context } = useText({ ref, ...props });
+  ({ className, children, letterSpacing, wrap, ...props }: TextProps, ref) => {
+    const { defaultConfig, ...context } = useText({
+      ref,
+      letterSpacing,
+      wrap,
+      ...props,
+    });
 
     const ctx = useMemo(() => context, [context]);
 

@@ -23,6 +23,7 @@ export const useHeading = (props: UseHeadingProps) => {
     contrast,
     align,
     wrap,
+    letterSpacing,
   } = props;
 
   const headingAsHtml: Record<typeof ashtml, THeadingHtml> = {
@@ -50,8 +51,9 @@ export const useHeading = (props: UseHeadingProps) => {
         contrast,
         align,
         wrap,
+        letterSpacing,
       }),
-    [variant, ashtml, size, weight, contrast, align, wrap],
+    [variant, ashtml, size, weight, contrast, align, wrap, letterSpacing],
   );
 
   return {

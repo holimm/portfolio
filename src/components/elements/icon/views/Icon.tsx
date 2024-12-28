@@ -16,12 +16,16 @@ export interface IconProps
 }
 
 export const Icon = forwardRef<HTMLDivElement, IconProps>(
-  ({ className, children, title, icon, iconClassName, ...props }, ref) => {
+  (
+    { className, children, title, icon, iconClassName, strokeColor, ...props },
+    ref,
+  ) => {
     const { ...context } = useIcon({
       ref,
       icon,
       className,
       iconClassName,
+      strokeColor,
       ...props,
     });
 

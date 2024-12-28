@@ -1,25 +1,39 @@
-import { Variants } from "framer-motion";
+import { Variants } from "motion/react";
 
-export const slideToRightVariants: Variants = {
-  hidden: { x: "-100vw" },
-  visible: { x: 0, transition: { ease: "easeInOut", duration: 0.5 } },
-  exit: { x: "-100vw", transition: { ease: "easeInOut", duration: 0.5 } },
+export const slideToRightVariants = (duration: number = 0.5): Variants => {
+  return {
+    hidden: { x: "-100vw" },
+    visible: { x: 0, transition: { ease: "easeInOut", duration: duration } },
+    exit: {
+      x: "-100vw",
+      transition: { ease: "easeInOut", duration: duration },
+    },
+  };
 };
 
-export const slideToLeftVariants: Variants = {
-  hidden: { x: "100vw" },
-  visible: { x: 0, transition: { ease: "easeInOut", duration: 0.5 } },
-  exit: { x: "100vw", transition: { ease: "easeInOut", duration: 0.5 } },
+export const slideToLeftVariants = (duration: number = 0.5): Variants => {
+  return {
+    hidden: { x: "100vw" },
+    visible: { x: 0, transition: { ease: "easeInOut", duration: duration } },
+    exit: { x: "100vw", transition: { ease: "easeInOut", duration: duration } },
+  };
 };
 
-export const slideToTopVariants = {
-  hidden: { y: "100vh" },
-  visible: { y: 0, transition: { ease: "easeInOut", duration: 0.5 } },
-  exit: { y: "100vh", transition: { ease: "easeInOut", duration: 0.5 } },
+export const slideToTopVariants = (duration: number = 0.5): Variants => {
+  return {
+    hidden: { y: "100vh" },
+    visible: { y: 0, transition: { ease: "easeInOut", duration: duration } },
+    exit: { y: "100vh", transition: { ease: "easeInOut", duration: duration } },
+  };
 };
 
-export const slideToBottomVariants = {
-  hidden: { y: "-100vh" },
-  visible: { y: 0, transition: { ease: "easeInOut", duration: 0.5 } },
-  exit: { y: "-100vh", transition: { ease: "easeInOut", duration: 0.5 } },
+export const slideToBottomVariants = (duration: number = 0.5): Variants => {
+  return {
+    hidden: { y: "-100vh" },
+    visible: { y: 0, transition: { ease: "easeInOut", duration: duration } },
+    exit: {
+      y: "-100vh",
+      transition: { ease: "easeInOut", duration: duration },
+    },
+  };
 };

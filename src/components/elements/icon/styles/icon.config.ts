@@ -30,6 +30,29 @@ const iconVariants = tv({
         root: "",
       },
     },
+    strokeColor: {
+      none: {
+        root: "",
+      },
+      primary: {
+        root: "",
+      },
+      secondary: {
+        root: "",
+      },
+      background: {
+        root: "",
+      },
+      success: {
+        root: "",
+      },
+      error: {
+        root: "",
+      },
+      warning: {
+        root: "",
+      },
+    },
     contrast: {
       highest: { root: "" },
       higher: { root: "" },
@@ -40,6 +63,7 @@ const iconVariants = tv({
       lowest: { root: "" },
     },
     size: {
+      "3xs": { root: "h-2xs w-2xs" },
       "2xs": { root: "h-xs w-xs" },
       xs: { root: "h-sm w-sm" },
       sm: { root: "h-md w-md" },
@@ -52,6 +76,7 @@ const iconVariants = tv({
   defaultVariants: {
     variant: "default",
     color: "primary",
+    strokeColor: "none",
     contrast: "medium",
     size: "md",
   },
@@ -355,6 +380,308 @@ const iconVariants = tv({
       contrast: "lower",
       className: {
         root: "fill-warning-lightest",
+      },
+    },
+
+    // STROKE
+    // PRIMARY
+    {
+      strokeColor: "primary",
+      contrast: "highest",
+      className: {
+        root: "stroke-primary-darkest",
+      },
+    },
+    {
+      strokeColor: "primary",
+      contrast: "higher",
+      className: {
+        root: "stroke-primary-darker",
+      },
+    },
+    {
+      strokeColor: "primary",
+      contrast: "high",
+      className: {
+        root: "stroke-primary-dark",
+      },
+    },
+    {
+      strokeColor: "primary",
+      contrast: "medium",
+      className: {
+        root: "stroke-primary",
+      },
+    },
+    {
+      strokeColor: "primary",
+      contrast: "low",
+      className: {
+        root: "stroke-primary-light",
+      },
+    },
+    {
+      strokeColor: "primary",
+      contrast: "lower",
+      className: {
+        root: "stroke-primary-lighter",
+      },
+    },
+    {
+      strokeColor: "primary",
+      contrast: "lowest",
+      className: {
+        root: "stroke-primary-lightest",
+      },
+    },
+    // SECONDARY
+    {
+      strokeColor: "secondary",
+      contrast: "highest",
+      className: {
+        root: "stroke-secondary-darkest",
+      },
+    },
+    {
+      strokeColor: "secondary",
+      contrast: "higher",
+      className: {
+        root: "stroke-secondary-darker",
+      },
+    },
+    {
+      strokeColor: "secondary",
+      contrast: "high",
+      className: {
+        root: "stroke-secondary-dark",
+      },
+    },
+    {
+      strokeColor: "secondary",
+      contrast: "medium",
+      className: {
+        root: "stroke-secondary",
+      },
+    },
+    {
+      strokeColor: "secondary",
+      contrast: "low",
+      className: {
+        root: "stroke-secondary-light",
+      },
+    },
+    {
+      strokeColor: "secondary",
+      contrast: "lower",
+      className: {
+        root: "stroke-secondary-lighter",
+      },
+    },
+    {
+      strokeColor: "secondary",
+      contrast: "lowest",
+      className: {
+        root: "stroke-secondary-lightest",
+      },
+    },
+    // BACKGROUND
+    {
+      strokeColor: "background",
+      contrast: "highest",
+      className: {
+        root: "stroke-background-darkest",
+      },
+    },
+    {
+      strokeColor: "background",
+      contrast: "higher",
+      className: {
+        root: "stroke-background-darker",
+      },
+    },
+    {
+      strokeColor: "background",
+      contrast: "high",
+      className: {
+        root: "stroke-background-dark",
+      },
+    },
+    {
+      strokeColor: "background",
+      contrast: "medium",
+      className: {
+        root: "stroke-background-base",
+      },
+    },
+    {
+      strokeColor: "background",
+      contrast: "low",
+      className: {
+        root: "stroke-background-light",
+      },
+    },
+    {
+      strokeColor: "background",
+      contrast: "lower",
+      className: {
+        root: "stroke-background-lighter",
+      },
+    },
+    {
+      strokeColor: "background",
+      contrast: "lowest",
+      className: {
+        root: "stroke-background-lightest",
+      },
+    },
+    // SUCCESS
+    {
+      strokeColor: "success",
+      contrast: "highest",
+      className: {
+        root: "stroke-success-darkest",
+      },
+    },
+    {
+      strokeColor: "success",
+      contrast: "higher",
+      className: {
+        root: "stroke-success-darker",
+      },
+    },
+    {
+      strokeColor: "success",
+      contrast: "high",
+      className: {
+        root: "stroke-success-dark",
+      },
+    },
+    {
+      strokeColor: "success",
+      contrast: "medium",
+      className: {
+        root: "stroke-success",
+      },
+    },
+    {
+      strokeColor: "success",
+      contrast: "low",
+      className: {
+        root: "stroke-success-light",
+      },
+    },
+    {
+      strokeColor: "success",
+      contrast: "lower",
+      className: {
+        root: "stroke-success-lighter",
+      },
+    },
+    {
+      strokeColor: "success",
+      contrast: "lower",
+      className: {
+        root: "stroke-success-lightest",
+      },
+    },
+    // ERROR
+    {
+      strokeColor: "error",
+      contrast: "highest",
+      className: {
+        root: "stroke-error-darkest",
+      },
+    },
+    {
+      strokeColor: "error",
+      contrast: "higher",
+      className: {
+        root: "stroke-error-darker",
+      },
+    },
+    {
+      strokeColor: "error",
+      contrast: "high",
+      className: {
+        root: "stroke-error-dark",
+      },
+    },
+    {
+      strokeColor: "error",
+      contrast: "medium",
+      className: {
+        root: "stroke-error",
+      },
+    },
+    {
+      strokeColor: "error",
+      contrast: "low",
+      className: {
+        root: "stroke-error-light",
+      },
+    },
+    {
+      strokeColor: "error",
+      contrast: "lower",
+      className: {
+        root: "stroke-error-lighter",
+      },
+    },
+    {
+      strokeColor: "error",
+      contrast: "lowest",
+      className: {
+        root: "stroke-error-lightest",
+      },
+    },
+    // WARNING
+    {
+      strokeColor: "warning",
+      contrast: "higher",
+      className: {
+        root: "stroke-warning-darkest",
+      },
+    },
+    {
+      strokeColor: "warning",
+      contrast: "higher",
+      className: {
+        root: "stroke-warning-darker",
+      },
+    },
+    {
+      strokeColor: "warning",
+      contrast: "high",
+      className: {
+        root: "stroke-warning-dark",
+      },
+    },
+    {
+      strokeColor: "warning",
+      contrast: "medium",
+      className: {
+        root: "stroke-warning",
+      },
+    },
+    {
+      strokeColor: "warning",
+      contrast: "low",
+      className: {
+        root: "stroke-warning-light",
+      },
+    },
+    {
+      strokeColor: "warning",
+      contrast: "lower",
+      className: {
+        root: "stroke-warning-lighter",
+      },
+    },
+    {
+      strokeColor: "warning",
+      contrast: "lower",
+      className: {
+        root: "stroke-warning-lightest",
       },
     },
   ],

@@ -1,7 +1,7 @@
-import { Variants } from "framer-motion";
+import { Variants } from "motion/react";
 
 export const rotateVariants: Variants = {
-  hidden: { rotate: 90, opacity: 0 },
-  visible: { rotate: 0, opacity: 1, transition: { duration: 0.5 } },
-  exit: { rotate: -90, opacity: 0, transition: { duration: 0.5 } },
+  hidden: { rotate: 90 },
+  visible: { rotate: 0, transition: { duration: 0.5 } },
+  exit: { rotate: -90, transition: { duration: 0.5 } },
 };

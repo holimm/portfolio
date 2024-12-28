@@ -15,6 +15,7 @@ export const useCard = (props: UseCardProps) => {
     custom = "elevated",
     direction = "vertical",
     padding,
+    width,
   } = props;
 
   const {
@@ -24,8 +25,17 @@ export const useCard = (props: UseCardProps) => {
     footer: cardFooterStyle,
     icon: cardIconStyle,
   } = useMemo(
-    () => cardVariants({ variant, custom, rounded, color, padding, direction }),
-    [variant, custom, rounded, color, padding, direction],
+    () =>
+      cardVariants({
+        variant,
+        custom,
+        rounded,
+        color,
+        padding,
+        direction,
+        width,
+      }),
+    [variant, custom, rounded, color, padding, direction, width],
   );
 
   return {

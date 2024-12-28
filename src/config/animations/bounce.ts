@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants } from "motion/react";
 
 export const bounceVariants: Variants = {
   hidden: { scale: 0.8, opacity: 0 },

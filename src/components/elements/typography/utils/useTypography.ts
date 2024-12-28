@@ -23,6 +23,7 @@ export const useTypography = (props: UseTypographyProps) => {
     contrast,
     align,
     wrap,
+    letterSpacing,
   } = props;
 
   const typographyAsHtml: Record<typeof ashtml, TTypographyHtml> = {
@@ -64,8 +65,9 @@ export const useTypography = (props: UseTypographyProps) => {
         contrast,
         align,
         wrap,
+        letterSpacing,
       }),
-    [variant, ashtml, size, weight, contrast, align, wrap],
+    [variant, ashtml, size, weight, contrast, align, wrap, letterSpacing],
   );
 
   return {

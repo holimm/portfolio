@@ -18,6 +18,7 @@ const headingVariants = tv({
       strong: { root: "text-base" },
     },
     size: {
+      "11xl": { root: "text-11xl" },
       "10xl": { root: "text-10xl" },
       "9xl": { root: "text-9xl" },
       "8xl": { root: "text-8xl" },
@@ -32,16 +33,20 @@ const headingVariants = tv({
       md: { root: "text-md" },
       base: { root: "text-base" },
       sm: { root: "text-sm" },
-      xs: { root: "text-2xs" },
+      xs: { root: "text-xs" },
       "2xs": { root: "text-2xs" },
     },
     weight: {
+      hairline: { root: "font-hairline" },
+      thin: { root: "font-thin" },
       light: { root: "font-light" },
       normal: { root: "font-normal" },
       normalPlus: { root: "font-normal-plus" },
       medium: { root: "font-medium" },
       semibold: { root: "font-semibold" },
       bold: { root: "font-bold" },
+      extrabold: { root: "font-extrabold" },
+      black: { root: "font-black" },
     },
     contrast: {
       highest: { root: "text-contrast-highest" },
@@ -60,6 +65,15 @@ const headingVariants = tv({
     wrap: {
       true: { root: "text-wrap" },
       false: { root: "text-nowrap" },
+    },
+    letterSpacing: {
+      tightest: { root: "tracking-tightest" },
+      tighter: { root: "tracking-tighter" },
+      tight: { root: "tracking-tight" },
+      normal: { root: "tracking-normal" },
+      wide: { root: "tracking-wide" },
+      wider: { root: "tracking-wider" },
+      widest: { root: "tracking-widest" },
     },
   },
   defaultVariants: {

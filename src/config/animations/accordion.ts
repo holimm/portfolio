@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants } from "motion/react";
 
 export const accordionVariants: Variants = {
   closed: { height: 0, opacity: 0, transition: { duration: 0.3 } },

@@ -2,9 +2,10 @@
 import { type Metadata } from "next";
 
 export async function generatePageMetadata(): Promise<Metadata> {
-  const siteName = "My Portfolio";
+  const siteName = "DeMaint";
   const siteSlogan = "Ho Chi Minh City";
-  const siteDescription = "Ho Lim";
+  const siteDescription =
+    "DeMaint is your trusted partner for all things bike maintenance. Whether it's a routine check-up or a complex fix, DeMaint ensures your ride is always smooth and reliable.";
   const titleSeparator = "·";
 
   const metadataTitle = `${siteName} ${titleSeparator} ${siteSlogan}`;

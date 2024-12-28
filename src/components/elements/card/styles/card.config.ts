@@ -11,16 +11,16 @@ const cardVariants = tv({
   variants: {
     variant: {
       default: {
-        root: "block h-full w-full",
-        header: "order-[-1]",
+        root: "block h-full",
+        header: "",
         body: "flex justify-between items-start space-x-md md:space-x-md",
-        footer: "order-[-1]",
+        footer: "",
         icon: "flex-shrink-0 fill-none text-contrast-medium",
       },
     },
     custom: {
       elevated: {
-        root: "shadow-sm",
+        root: "bg-background-lightest shadow-md",
       },
       outline: {
         root: "",
@@ -154,6 +154,11 @@ const cardVariants = tv({
         // icon: 'flex-shrink-0 fill-none text-contrast-medium',
       },
     },
+    width: {
+      none: { root: "" },
+      fluid: { root: "w-full" },
+      fit: { root: "w-fit" },
+    },
     // divider: {
     //   true: {
     //     root: `before:content-[''] before:border-solid before:border-1 before:border-primary-light before:opacity-25`,
@@ -167,6 +172,7 @@ const cardVariants = tv({
     direction: "vertical",
     rounded: "md",
     padding: "md",
+    width: "fluid",
   },
   compoundVariants: [
     // OUTLINE

@@ -1,4 +1,5 @@
 @import url("./reset.css");
+@import url("./font.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -297,11 +298,11 @@
   --color-rose-950: rgba(76, 5, 17, 1);
 
   /* RUBY */
+  --color-ruby-50: rgba(255, 241, 242, 1);
   --color-ruby-100: rgba(255, 225, 228, 1);
   --color-ruby-200: rgba(255, 200, 205, 1);
   --color-ruby-300: rgba(255, 161, 170, 1);
   --color-ruby-400: rgba(254, 107, 122, 1);
-  --color-ruby-50: rgba(255, 241, 242, 1);
   --color-ruby-500: rgba(246, 55, 74, 1);
   --color-ruby-600: rgba(228, 30, 50, 1);
   --color-ruby-700: rgba(192, 21, 38, 1);
@@ -430,7 +431,7 @@
   --color-background-darkest: var(--color-gray-900);
   --color-background-darker: var(--color-gray-800);
   --color-background-dark: var(--color-gray-500);
-  --color-background-base: var(--color-anti-flash-white-300);
+  --color-background-base: var(--color-anti-flash-white-500);
   --color-background-light: var(--color-gray-300);
   --color-background-lighter: var(--color-gray-100);
   --color-background-lightest: var(--color-white);
@@ -504,7 +505,7 @@
 
   html,
   body {
-    background-color: var(--color-background-base);
+    background-color: var(--color-anti-flash-white-500);
     height: 100%;
     width: 100%;
   }
@@ -523,6 +524,8 @@
   }
 
   main {
+    background-color: var(--color-anti-flash-white-500);
+    height: fit-content;
     min-height: 100svh;
   }
 

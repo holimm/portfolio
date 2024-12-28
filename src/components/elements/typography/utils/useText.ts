@@ -21,6 +21,7 @@ export const useText = (props: UseTextProps) => {
     color,
     align,
     wrap,
+    letterSpacing,
   } = props;
 
   const textAsHtml: Record<typeof ashtml, TTextHtml> = {
@@ -56,8 +57,19 @@ export const useText = (props: UseTextProps) => {
         color,
         align,
         wrap,
+        letterSpacing,
       }),
-    [variant, ashtml, size, weight, contrast, color, align, wrap],
+    [
+      variant,
+      ashtml,
+      size,
+      weight,
+      contrast,
+      color,
+      align,
+      wrap,
+      letterSpacing,
+    ],
   );
 
   return {

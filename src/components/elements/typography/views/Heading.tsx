@@ -12,8 +12,16 @@ export interface HeadingProps
     HeadingData {}
 
 export const Heading = forwardRef<HTMLDivElement, HeadingProps>(
-  ({ className, children, ...props }: HeadingProps, ref) => {
-    const { defaultConfig, ...context } = useHeading({ ref, ...props });
+  (
+    { className, children, letterSpacing, wrap, ...props }: HeadingProps,
+    ref,
+  ) => {
+    const { defaultConfig, ...context } = useHeading({
+      ref,
+      letterSpacing,
+      wrap,
+      ...props,
+    });
 
     const ctx = useMemo(() => context, [context]);
 

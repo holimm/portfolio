@@ -19,6 +19,7 @@ export const useIcon = (props: UseIconProps) => {
     color,
     contrast,
     className,
+    strokeColor,
     iconClassName,
     icon: iconProp,
   } = props;
@@ -28,10 +29,11 @@ export const useIcon = (props: UseIconProps) => {
       iconVariants({
         variant,
         color,
+        strokeColor,
         contrast,
         size,
       }),
-    [variant, color, contrast, size],
+    [variant, color, strokeColor, contrast, size],
   );
 
   const getIconClone = (icon: ReactNode) =>
@@ -39,7 +41,6 @@ export const useIcon = (props: UseIconProps) => {
       ? cloneElement(icon, {
           // @ts-ignore
           className: `${iconClassName} ${iconStyle()}`,
-          focusable: false,
           tabIndex: -1,
         })
       : null;

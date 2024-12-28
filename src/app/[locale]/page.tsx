@@ -1,13 +1,16 @@
 "use client";
+import { Homepage } from "@/components/sections/homepage";
 import { useState } from "react";
+import { Locale } from "../../../i18n.config";
 
-export default function Home() {
-  const [showMenu, setShowMenu] = useState(false);
-
+export default function Home({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}) {
   return (
     <>
-      <div className="h-screen w-full bg-slate-300">Test</div>
-      <div className="h-screen w-full bg-slate-500">Test</div>
+      <Homepage locale={locale}/>
     </>
   );
 }

@@ -12,8 +12,16 @@ export interface TypographyProps
     TypographyData {}
 
 export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
-  ({ className, children, ...props }: TypographyProps, ref) => {
-    const { defaultConfig, ...context } = useTypography({ ref, ...props });
+  (
+    { className, children, letterSpacing, wrap, ...props }: TypographyProps,
+    ref,
+  ) => {
+    const { defaultConfig, ...context } = useTypography({
+      ref,
+      letterSpacing,
+      wrap,
+      ...props,
+    });
 
     const ctx = useMemo(() => context, [context]);
 

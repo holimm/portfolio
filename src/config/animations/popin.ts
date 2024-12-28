@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants } from "motion/react";
 
 export const popInVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8 },
