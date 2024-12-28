@@ -1,4 +1,4 @@
-import gridConfigs from '@/styles/config/grid';
+import { gridConfigs } from '@/styles/config/grid';
 import { gapSpacing } from '@/styles/config/spacing';
 import { tv, type VariantProps } from 'tailwind-variants';
 

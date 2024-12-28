@@ -1,22 +1,22 @@
-import { KeyValuePair, ResolvableTo } from "tailwindcss/types/config";
+import { KeyValuePair, ResolvableTo } from 'tailwindcss/types/config';
 
 export const screens: ResolvableTo<KeyValuePair<string, string>> | undefined = {
-  xs: "0rem",
-  sm: "30rem",
-  md: "48rem",
-  lg: "62rem",
-  xl: "80rem",
-  "2xl": "96rem",
-  "3xl": "120rem",
+  xs: '0px',
+  sm: '480px',
+  md: '768px',
+  lg: '992px',
+  xl: '1280px',
+  '2xl': '1536px',
+  '3xl': '1920px',
 };
 
 export const maxWidth: ResolvableTo<KeyValuePair<string, string>> | undefined =
   {
-    xs: "0rem",
-    sm: "30rem",
-    md: "48rem",
-    lg: "62rem",
-    xl: "80rem",
-    "2xl": "96rem",
-    "3xl": "120rem",
+    xs: '0px',
+    sm: '480px',
+    md: '768px',
+    lg: '992px',
+    xl: '1280px',
+    '2xl': '1536px',
+    '3xl': '1920px',
   };

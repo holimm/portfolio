@@ -1,9 +1,9 @@
-"use client";
-import { useMemo } from "react";
+'use client';
+import { useMemo } from 'react';
 import {
   containerVariants,
   type ContainerVariantProps,
-} from "../styles/container.config";
+} from '../styles/container.config';
 
 export interface UseContainerProps extends ContainerVariantProps {
   ref?: React.Ref<HTMLDivElement> | undefined;
@@ -12,16 +12,17 @@ export interface UseContainerProps extends ContainerVariantProps {
 export const useContainer = (props: UseContainerProps) => {
   const {
     ref: containerRef,
-    variant = "default",
-    width = "2xl",
+    variant = 'default',
+    height,
+    width = '2xl',
     xspace,
     yspace,
     align,
   } = props;
 
   const { root: containerStyle } = useMemo(
-    () => containerVariants({ variant, width, xspace, yspace, align }),
-    [variant, width, xspace, yspace, align],
+    () => containerVariants({ variant, height, width, xspace, yspace, align }),
+    [variant, height, width, xspace, yspace, align]
   );
 
   return {

@@ -1,7 +1,6 @@
-"use client";
-import { Homepage } from "@/components/sections/homepage";
-import { useState } from "react";
-import { Locale } from "../../../i18n.config";
+'use client';
+import { Homepage } from '@/components/sections/homepage';
+import { Locale } from '../../../i18n.config';
 
 export default function Home({
   params: { locale },
@@ -10,7 +9,7 @@ export default function Home({
 }) {
   return (
     <>
-      <Homepage locale={locale}/>
+      <Homepage locale={locale} />
     </>
   );
 }

@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
-import "@/styles/globals.css";
-import { generatePageMetadata } from "@/config/seo";
-import { Locale } from "../../../i18n.config";
-import { getDictionary } from "@/utils/localization/getDictionary";
-import { Header } from "@/components/sections/header";
+import type { Metadata } from 'next';
+import { generatePageMetadata } from '@/config/seo';
+import { Locale } from '../../../i18n.config';
+import { getDictionary } from '@/utils/localization/getDictionary';
+import { Header } from '@/components/sections/header';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generatePageMetadata();
@@ -20,8 +19,8 @@ export default async function RootLayout({
   const translation = await getDictionary(params.locale);
   return (
     <>
-      {children}
       <Header translation={translation} locale={params.locale} />
+      {children}
     </>
   );
 }

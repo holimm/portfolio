@@ -12,7 +12,7 @@ import { maxWidth, screens } from './src/styles/tokens/sizes';
 import { animation, keyframes } from './src/styles/tokens/animation';
 
 const config: Config = {
-  content: ['./src/**/**/**/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       backgroundImage: {
@@ -35,9 +35,6 @@ const config: Config = {
       animation: animation,
     },
   },
-  plugins: [
-    // require("./src/styles/plugins/theme"),
-    // require("./src/styles/plugins/colors"),
-  ],
+  plugins: [],
 };
 export default config;

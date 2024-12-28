@@ -1,38 +1,29 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from 'tailwind-variants';
 
 const headerVariants = tv({
   slots: {
-    root: "!sticky bottom-0 z-50 w-full py-md border-solid border border-background-lighter",
+    root: '!fixed top-0 z-50 w-full py-lg bg-[unset]',
   },
   variants: {
     theme: {
-      default: { root: "" },
-      dark: { root: "" },
-      light: { root: "" },
+      default: { root: '' },
+      dark: { root: '' },
+      light: { root: '' },
     },
     variant: {
       default: {
-        root: "",
+        root: '',
       },
       dashboard: {
-        root: "",
+        root: '',
       },
     },
   },
   defaultVariants: {
-    variant: "default",
-    theme: "default",
+    variant: 'default',
+    theme: 'default',
   },
-  compoundVariants: [
-    // Body variant
-    // {
-    //   variant: "h1",
-    //   font: "secondary",
-    //   className: {
-    //     root: "text-sm",
-    //   },
-    // },
-  ],
+  compoundVariants: [],
 });
 
 export type HeaderVariantProps = VariantProps<typeof headerVariants>;

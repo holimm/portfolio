@@ -11,30 +11,30 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
     "framer-motion": "^11.11.4",
-    "lenis": "^1.1.6",
+    "lenis": "^1.1.11",
     "lodash": "^4.17.21",
     "motion": "^11.15.0",
     "negotiator": "^0.6.3",
     "next": "14.2.5",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tailwind-variants": "^0.2.1"
-    
   },
   "devDependencies": {
     "@types/lodash": "^4.17.10",
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
+    "@types/node": "^20.16.1",
+    "@types/react": "^18.3.4",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.2.5",
     "postcss": "^8.4.41",
     "postcss-import": "^16.1.0",
-    "postcss-nesting": "^13.0.0",
-    "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.1",
-    "prettier-plugin-tailwindcss": "^0.6.6",
-    "typescript": "^5"
+    "postcss-nesting": "^13.0.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.5.4"
   }
 }

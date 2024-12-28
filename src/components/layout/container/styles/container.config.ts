@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 const containerVariants = tv({
   slots: {
-    root: 'flex flex-col h-fit relative transition-all duration-200 overflow-hidden',
+    root: 'flex flex-col relative transition-all duration-200 overflow-hidden',
   },
   variants: {
     theme: {
@@ -19,8 +19,13 @@ const containerVariants = tv({
     },
     yspace: verticalSpacing,
     xspace: horizontalSpacing,
+    height: {
+      none: { root: '' },
+      full: { root: 'h-full' },
+      fit: { root: 'h-fit' },
+    },
     width: {
-      fluid: { root: 'w-full max-w-full' },
+      full: { root: 'w-full max-w-full' },
       sm: { root: 'w-full max-w-sm' },
       md: { root: 'w-full max-w-md' },
       lg: { root: 'w-full max-w-lg' },
@@ -31,19 +36,11 @@ const containerVariants = tv({
   },
   defaultVariants: {
     variant: 'default',
-    width: 'fluid',
+    height: 'fit',
+    width: 'full',
     theme: 'default',
   },
-  compoundVariants: [
-    // Body variant
-    // {
-    //   variant: "h1",
-    //   font: "secondary",
-    //   className: {
-    //     root: "text-sm",
-    //   },
-    // },
-  ],
+  compoundVariants: [],
 });
 
 export type ContainerVariantProps = VariantProps<typeof containerVariants>;
