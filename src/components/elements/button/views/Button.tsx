@@ -1,19 +1,13 @@
-"use client";
-import { forwardRef, useMemo, type HTMLAttributes } from "react";
+'use client';
+import { forwardRef, useMemo, type HTMLAttributes } from 'react';
 
-import { useButton, type UseButtonProps } from "../utils/useButton";
-import { Status } from "../types/button.types";
-
-export interface ButtonData {}
-
-export interface ButtonOptions extends UseButtonProps {
-  state?: Status;
-}
+import { useButton, type UseButtonProps } from '../utils/Button.Util';
+import { Status } from '@/types';
 
 export interface ButtonProps
-  extends ButtonOptions,
-    Omit<HTMLAttributes<HTMLButtonElement>, keyof UseButtonProps>,
-    ButtonData {
+  extends UseButtonProps,
+    Omit<HTMLAttributes<HTMLButtonElement>, keyof UseButtonProps> {
+  state?: Status;
   asChild?: boolean;
 }
 
@@ -29,7 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       startContent,
       ...props
     },
-    ref,
+    ref
   ) => {
     const { ...context } = useButton({
       ref,
@@ -39,7 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     });
 
     const ctx = useMemo(() => context, [context]);
-    const Component = "button";
+    const Component = 'button';
 
     return (
       <Component
@@ -58,7 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {ctx.endContent}
       </Component>
     );
-  },
+  }
 );
 
-Button.displayName = "Button";
+Button.displayName = 'Button';

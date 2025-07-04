@@ -1,1 +1,1 @@
-export * from "./metadata";
+export * from './Metadata.Config';

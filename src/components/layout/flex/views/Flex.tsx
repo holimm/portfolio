@@ -1,16 +1,11 @@
-"use client";
-import { forwardRef, HTMLAttributes, useMemo } from "react";
-import { useFlex, UseFlexProps } from "../utils/useFlex";
-import { FlexProvider } from "../utils/useFlexContext";
+'use client';
 
-export interface FlexData {}
-
-export interface FlexOptions extends UseFlexProps {}
+import { forwardRef, HTMLAttributes, useMemo } from 'react';
+import { FlexProvider, useFlex, UseFlexProps } from '../utils/Flex.Util';
 
 export interface FlexProps
-  extends FlexOptions,
-    Omit<HTMLAttributes<HTMLDivElement>, keyof FlexData>,
-    FlexData {}
+  extends UseFlexProps,
+    Omit<HTMLAttributes<HTMLDivElement>, 'ref'> {}
 
 export const Flex = forwardRef<HTMLDivElement, FlexProps>(
   ({ className, children, ...props }, ref) => {
@@ -32,7 +27,7 @@ export const Flex = forwardRef<HTMLDivElement, FlexProps>(
         </div>
       </FlexProvider>
     );
-  },
+  }
 );
 
-Flex.displayName = "Flex";
+Flex.displayName = 'Flex';
