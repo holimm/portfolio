@@ -1,16 +1,11 @@
-"use client";
-import { forwardRef, HTMLAttributes, useMemo } from "react";
-import { useGrid, UseGridProps } from "../utils/useGrid";
-import { GridProvider } from "../utils/useGridContext";
+'use client';
 
-export interface GridData {}
-
-export interface GridOptions extends UseGridProps {}
+import { forwardRef, HTMLAttributes, useMemo } from 'react';
+import { GridProvider, useGrid, UseGridProps } from '../utils/Grid.Util';
 
 export interface GridProps
-  extends GridOptions,
-    Omit<HTMLAttributes<HTMLDivElement>, keyof GridData>,
-    GridData {}
+  extends UseGridProps,
+    Omit<HTMLAttributes<HTMLDivElement>, 'cols' | 'rows'> {}
 
 export const Grid = forwardRef<HTMLDivElement, GridProps>(
   ({ className, children, ...props }, ref) => {
@@ -32,7 +27,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         </div>
       </GridProvider>
     );
-  },
+  }
 );
 
-Grid.displayName = "Grid";
+Grid.displayName = 'Grid';

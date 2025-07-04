@@ -1,75 +1,68 @@
-"use client";
-import React from "react";
+'use client';
 
-import { forwardRef, useEffect, useMemo, type HTMLAttributes } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { useDrawer, type UseDrawerProps } from "../utils/useDrawer";
-import { Locale } from "../../../../../i18n.config";
-import { fadeVariants, slideToTopVariants } from "@/config/animations";
+import React, { forwardRef, useMemo, type ReactNode } from 'react';
+import { motion, AnimatePresence, Easing } from 'motion/react';
+import { slideVariants } from '@/config';
+import { type SlideOptions } from '@/types';
+import { useDrawer } from '../utils/Drawer.Util';
 
-export interface DrawerData {}
-
-export interface DrawerOptions extends UseDrawerProps {}
-
-export interface DrawerProps
-  extends DrawerOptions,
-    Omit<HTMLAttributes<HTMLDivElement>, keyof UseDrawerProps>,
-    DrawerData {
-  locale?: Locale;
+interface DrawerProps extends SlideOptions {
+  open: boolean;
+  onClose?: () => void;
+  direction?: 'left' | 'right' | 'top' | 'bottom';
+  ease?: Easing;
+  children: ReactNode;
+  className?: string;
+  backdropClassName?: string;
 }
 
 export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
-  ({ className, children, locale, ...props }, ref) => {
-    const { ...context } = useDrawer({ ref, ...props });
+  ({ className, children, ...props }, ref) => {
+    const { ...context } = useDrawer({
+      ref,
+      ...props,
+    });
 
     const ctx = useMemo(() => context, [context]);
-
-    useEffect(() => {
-      if (ctx.open) {
-        if (typeof window !== "undefined" && window.document) {
-          document.body.style.overflow = "hidden";
-        }
-      }
-      return () => {
-        document.body.style.overflow = "";
-      };
-    }, [ctx.open]);
 
     return (
       <AnimatePresence>
         {ctx.open && (
-          <div
-            ref={ctx.drawerRef}
-            data-comp="drawer"
-            className={`${ctx.drawerStyle()}`}
-            data-lenis-prevent="true"
-            tabIndex={-1}
-            {...props}
-          >
+          <>
+            {/* Backdrop */}
             <motion.div
-              data-comp="drawer-overlay"
-              onClick={() => ctx.onCancel && ctx.onCancel()}
-              className={`${ctx.drawerOverlayStyle()}`}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={fadeVariants()}
+              className={
+                ctx.backdropClassName || 'fixed inset-0 z-40 bg-black/50'
+              }
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={ctx.onClose}
             />
+            {/* Drawer */}
             <motion.div
-              data-comp="drawer-content"
-              className={`${className} ${ctx.drawerContentStyle()}`}
+              ref={ctx.drawerRef}
+              className="fixed top-0 right-0 z-50 h-full w-fit bg-white shadow-lg"
+              variants={slideVariants({
+                x: ctx.x,
+                y: ctx.y,
+                duration: ctx.duration,
+                ease: ctx.ease,
+              })}
               initial="hidden"
               animate="visible"
               exit="exit"
-              variants={slideToTopVariants(0.4)}
+              transition={{ duration: ctx.duration }}
+              style={ctx.getDrawerStyle(ctx.direction)}
             >
-              {children}
+              <div className={className}>{children}</div>
             </motion.div>
-          </div>
+          </>
         )}
       </AnimatePresence>
     );
-  },
+  }
 );
 
-Drawer.displayName = "Drawer";
+Drawer.displayName = 'Drawer';

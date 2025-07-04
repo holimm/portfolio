@@ -1,15 +1,17 @@
-"use client";
-import { forwardRef, HTMLAttributes, useMemo } from "react";
-import { useGridItem, UseGridItemProps } from "../utils/useGridItem";
+'use client';
 
-export interface GridItemData {}
-
-export interface GridItemOptions extends UseGridItemProps {}
+import { forwardRef, HTMLAttributes, useMemo } from 'react';
+import { cn } from '@/utils';
+import { ResponsiveSpan } from '@/types';
+import { useGridItem, UseGridItemProps } from '../utils/Grid.Util';
 
 export interface GridItemProps
-  extends GridItemOptions,
-    Omit<HTMLAttributes<HTMLDivElement>, keyof GridItemData>,
-    GridItemData {}
+  extends Omit<UseGridItemProps, 'span'>,
+    Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+  className?: string;
+  children?: React.ReactNode;
+  span?: string | number | ResponsiveSpan[];
+}
 
 export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
   ({ className, children, ...props }, ref) => {
@@ -22,14 +24,14 @@ export const GridItem = forwardRef<HTMLDivElement, GridItemProps>(
         id={props.id}
         data-variant={ctx.variant}
         data-comp="grid-item"
-        className={`${className} ${ctx.gridItemStyle()}`}
+        className={cn(className, ctx.gridItemStyle(), ctx.spanClass)}
         ref={ctx.gridItemRef}
         {...props}
       >
         {children}
       </div>
     );
-  },
+  }
 );
 
-GridItem.displayName = "GridItem";
+GridItem.displayName = 'GridItem';

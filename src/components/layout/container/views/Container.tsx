@@ -1,16 +1,15 @@
-"use client";
-import { forwardRef, HTMLAttributes, useMemo } from "react";
-import { useContainer, UseContainerProps } from "../utils/useContainer";
-import { ContainerProvider } from "../utils/useContainerContext";
+'use client';
 
-export interface ContainerData {}
-
-export interface ContainerOptions extends UseContainerProps {}
+import { forwardRef, HTMLAttributes, useMemo } from 'react';
+import {
+  ContainerProvider,
+  useContainer,
+  UseContainerProps,
+} from '../utils/Container.Util';
 
 export interface ContainerProps
-  extends ContainerOptions,
-    Omit<HTMLAttributes<HTMLDivElement>, keyof ContainerData>,
-    ContainerData {}
+  extends UseContainerProps,
+    Omit<HTMLAttributes<HTMLDivElement>, keyof UseContainerProps> {}
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -33,7 +32,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
         </div>
       </ContainerProvider>
     );
-  },
+  }
 );
 
-Container.displayName = "Container";
+Container.displayName = 'Container';

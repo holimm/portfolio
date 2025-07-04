@@ -1,7 +1,8 @@
-import '@/styles/globals.css';
 import type { Metadata } from 'next';
-import { generatePageMetadata } from '../config/seo/metadata';
-import { LenisProvider } from '@/components/providers/lenisProvider';
+import { generatePageMetadata } from '../config/seo/Metadata.Config';
+import { Header } from '@/components/sections/header';
+import { LenisProvider } from '@/components/providers';
+import '../styles/globals.css';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generatePageMetadata();
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-oldschool-grotesk-normal">
-        <LenisProvider>{children}</LenisProvider>
+        <LenisProvider>
+          <Header />
+          {children}
+        </LenisProvider>
       </body>
     </html>
   );
