@@ -3,6 +3,7 @@ import { generatePageMetadata } from '../config/seo/Metadata.Config';
 import { Header } from '@/components/sections/header';
 import { LenisProvider } from '@/components/providers';
 import '../styles/globals.css';
+import { Footer } from '@/components/sections';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generatePageMetadata();
@@ -20,6 +21,7 @@ export default function RootLayout({
         <LenisProvider>
           <Header />
           {children}
+          <Footer />
         </LenisProvider>
       </body>
     </html>

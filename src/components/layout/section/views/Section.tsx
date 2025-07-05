@@ -6,6 +6,7 @@ import {
   useSection,
   UseSectionProps,
 } from '../utils/Section.Util';
+import { cn } from '@/utils';
 
 export interface SectionProps
   extends HTMLAttributes<HTMLDivElement>,
@@ -16,8 +17,16 @@ export interface SectionProps
 }
 
 export const Section = forwardRef<HTMLDivElement, SectionProps>(
-  ({ className, children, theme, layout, ...props }, ref) => {
-    const { ...context } = useSection({ ref, layout, ...props });
+  (
+    { className, children, theme, layout, parallaxDirection, ...props },
+    ref
+  ) => {
+    const { ...context } = useSection({
+      ref,
+      layout,
+      parallaxDirection,
+      ...props,
+    });
 
     const ctx = useMemo(() => context, [context]);
 
@@ -28,9 +37,21 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
           data-variant={ctx.variant}
           data-comp={'section'}
           data-theme={theme || 'default'}
-          className={`${className} ${ctx.sectionStyle()}`}
+          className={cn(className, ctx.sectionStyle())}
           ref={ctx.sectionRef}
-          {...props}
+          style={{
+            ...props.style,
+            ...(ctx.variant === 'parallax'
+              ? {
+                  transform: `translateY(${
+                    ctx.parallaxDirection === 'top'
+                      ? ctx.parallaxOffset *
+                        (1 - ctx.visibilityPercentage / 100)
+                      : ctx.parallaxOffset
+                  }px)`,
+                }
+              : {}),
+          }}
         >
           {children}
         </section>

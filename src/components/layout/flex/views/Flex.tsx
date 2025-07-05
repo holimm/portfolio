@@ -2,6 +2,7 @@
 
 import { forwardRef, HTMLAttributes, useMemo } from 'react';
 import { FlexProvider, useFlex, UseFlexProps } from '../utils/Flex.Util';
+import { cn } from '@/utils';
 
 export interface FlexProps
   extends UseFlexProps,
@@ -19,7 +20,7 @@ export const Flex = forwardRef<HTMLDivElement, FlexProps>(
           id={props.id}
           data-variant={ctx.variant}
           data-comp="flex"
-          className={`${className} ${ctx.flexStyle()}`}
+          className={cn(className, ctx.flexStyle())}
           ref={ctx.flexRef}
           {...props}
         >

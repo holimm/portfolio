@@ -19,4 +19,5 @@ export type TypographyHtmlTagType =
   | 's'
   | 'samp'
   | 'sub'
-  | 'sup';
+  | 'sup'
+  | 'span';
