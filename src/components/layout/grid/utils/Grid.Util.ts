@@ -39,11 +39,13 @@ export const useGrid = (props: UseGridProps) => {
     dimension = '12',
     layout = 'cols',
     gap = 'md',
+    height,
+    width,
   } = props;
 
   const { root: gridStyle } = useMemo(
-    () => gridVariants({ variant, dimension, layout, gap }),
-    [variant, dimension, layout, gap]
+    () => gridVariants({ variant, dimension, layout, gap, height, width }),
+    [variant, dimension, layout, gap, height, width]
   );
 
   return {
@@ -70,11 +72,13 @@ export const useGridItem = (props: UseGridItemProps) => {
     layout = 'cols',
     span,
     start,
+    height,
+    width,
   } = props;
 
   const { root: gridItemStyle } = useMemo(
-    () => gridItemVariants({ variant, layout, start }),
-    [variant, layout, start]
+    () => gridItemVariants({ variant, layout, start, height, width }),
+    [variant, layout, start, height, width]
   );
 
   const generateSpanClass = useCallback(

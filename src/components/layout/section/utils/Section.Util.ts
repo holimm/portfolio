@@ -72,12 +72,6 @@ export const useSection = (props: UseSectionProps) => {
     return 0;
   }, [sectionRef, scrollY]);
 
-  if (props.comp === 'footer') {
-    console.log('Parallax Offset:', parallaxOffset);
-    console.log('Current Position:', currentPosition);
-    console.log('Visibility Percentage:', visibilityPercentage);
-  }
-
   return {
     layout,
     variant,

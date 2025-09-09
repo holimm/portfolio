@@ -42,6 +42,20 @@ const flexVariants = tv({
       true: { root: '' },
       false: { root: '' },
     },
+    height: {
+      none: { root: '' },
+      full: { root: 'h-full' },
+      fit: { root: 'h-fit' },
+      screen: { root: 'h-screen' },
+      auto: { root: 'h-auto' },
+    },
+    width: {
+      none: { root: '' },
+      full: { root: 'w-full max-w-screen-full' },
+      fit: { root: 'w-fit' },
+      screen: { root: 'w-screen' },
+      auto: { root: 'w-auto' },
+    },
   },
   defaultVariants: {
     variant: 'row',

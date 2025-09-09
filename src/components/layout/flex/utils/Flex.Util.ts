@@ -34,6 +34,8 @@ export const useFlex = (props: UseFlexProps) => {
     wrap,
     gap,
     reverse,
+    height,
+    width,
   } = props;
 
   const { root: flexStyle } = useMemo(
@@ -46,8 +48,10 @@ export const useFlex = (props: UseFlexProps) => {
         wrap,
         gap,
         reverse,
+        height,
+        width,
       }),
-    [variant, justify, align, alignContent, wrap, gap, reverse]
+    [variant, justify, align, alignContent, wrap, gap, reverse, height, width]
   );
 
   return {
