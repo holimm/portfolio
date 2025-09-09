@@ -49,6 +49,7 @@ export const useTypography = (props: UseTypographyProps) => {
     sample: 'samp',
     sub: 'sub',
     sup: 'sup',
+    span: 'span',
   };
 
   const defaultConfig = useMemo(

@@ -425,9 +425,9 @@
   --color-background-darkest: var(--color-gray-900);
   --color-background-darker: var(--color-gray-800);
   --color-background-dark: var(--color-gray-500);
-  --color-background-base: var(--color-anti-flash-white-500);
-  --color-background-light: var(--color-gray-300);
-  --color-background-lighter: var(--color-gray-100);
+  --color-background-base: var(--color-anti-flash-white-300);
+  --color-background-light: var(--color-gray-100);
+  --color-background-lighter: var(--color-gray-50);
   --color-background-lightest: var(--color-white);
 }
 :root,
@@ -483,8 +483,8 @@
   --color-background-darkest: var(--color-gray-900);
   --color-background-darker: var(--color-gray-800);
   --color-background-dark: var(--color-gray-500);
-  --color-background-base: var(--color-anti-flash-white-300);
-  --color-background-light: var(--color-gray-100);
-  --color-background-lighter: var(--color-gray-50);
+  --color-background-base: var(--color-anti-flash-white-500);
+  --color-background-light: var(--color-gray-300);
+  --color-background-lighter: var(--color-gray-100);
   --color-background-lightest: var(--color-white);
 }

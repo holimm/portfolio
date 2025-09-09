@@ -6,6 +6,7 @@ import {
   useContainer,
   UseContainerProps,
 } from '../utils/Container.Util';
+import { cn } from '@/utils';
 
 export interface ContainerProps
   extends UseContainerProps,
@@ -24,7 +25,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
           data-variant={ctx.variant}
           data-comp="container"
           data-theme={theme}
-          className={`${className} ${ctx.containerStyle()}`}
+          className={cn(className, ctx.containerStyle())}
           ref={ctx.containerRef}
           {...props}
         >

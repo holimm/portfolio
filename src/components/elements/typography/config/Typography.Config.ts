@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 const typographyVariants = tv({
   slots: {
-    root: '',
+    root: 'mt-1.5',
   },
   variants: {
     variant: {
@@ -31,6 +31,7 @@ const typographyVariants = tv({
       sample: { root: '' },
       sub: { root: '' },
       sup: { root: '' },
+      span: { root: '' },
     },
     size: textSize,
     weight: fontWeight,

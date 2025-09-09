@@ -1,4 +1,4 @@
-import { radiusConfigs } from '@/styles';
+import { paddingSpacing, radiusConfigs } from '@/styles';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 const buttonVariants = tv({
@@ -81,6 +81,7 @@ const buttonVariants = tv({
         root: 'uppercase',
       },
     },
+    padding: paddingSpacing,
   },
   defaultVariants: {
     variant: 'default',

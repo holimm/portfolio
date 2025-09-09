@@ -5,6 +5,7 @@ import {
   sectionVariants,
   type SectionVariantProps,
 } from '../config/Section.Config';
+import { useScrollParallax } from '@/hooks';
 
 // Context Provider
 const SectionContext = createContext<UseSectionReturn | undefined>(undefined);
@@ -35,18 +36,57 @@ export const useSection = (props: UseSectionProps) => {
     variant = 'default',
     yspace,
     xspace,
+    rounded,
+    parallaxDirection = 'bottom',
   } = props;
 
   const { root: sectionStyle } = useMemo(
-    () => sectionVariants({ layout, variant, yspace, xspace }),
-    [layout, variant, yspace, xspace]
+    () =>
+      sectionVariants({
+        layout,
+        variant,
+        yspace,
+        xspace,
+        rounded,
+        parallaxDirection,
+      }),
+    [layout, variant, yspace, xspace, rounded, parallaxDirection]
   );
+
+  // Parallax effect for sections
+  const { scrollY, visibilityPercentage } = useScrollParallax(
+    sectionRef as React.RefObject<HTMLElement>
+  );
+
+  const parallaxOffset = useMemo(() => scrollY * 0.5, [scrollY]);
+
+  const currentPosition = useMemo(() => {
+    if (
+      sectionRef &&
+      typeof sectionRef === 'object' &&
+      'current' in sectionRef &&
+      sectionRef.current
+    ) {
+      return sectionRef.current.getBoundingClientRect().top;
+    }
+    return 0;
+  }, [sectionRef, scrollY]);
+
+  if (props.comp === 'footer') {
+    console.log('Parallax Offset:', parallaxOffset);
+    console.log('Current Position:', currentPosition);
+    console.log('Visibility Percentage:', visibilityPercentage);
+  }
 
   return {
     layout,
     variant,
     sectionRef,
     sectionStyle,
+    parallaxOffset,
+    parallaxDirection,
+    currentPosition,
+    visibilityPercentage,
   };
 };
 

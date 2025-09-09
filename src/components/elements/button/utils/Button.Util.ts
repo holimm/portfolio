@@ -27,6 +27,7 @@ export const useButton = (props: UseButtonProps) => {
     variant = 'default',
     color,
     contrast,
+    padding,
     endContent: endContentProp,
     startContent: startContentProp,
   } = props;
@@ -54,8 +55,9 @@ export const useButton = (props: UseButtonProps) => {
         upperCase,
         size,
         width,
+        padding,
       }),
-    [variant, custom, color, contrast, rounded, upperCase, size, width]
+    [variant, custom, color, contrast, rounded, upperCase, size, width, padding]
   );
 
   return {

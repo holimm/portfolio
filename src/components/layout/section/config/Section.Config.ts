@@ -1,9 +1,9 @@
-import { xPaddingSpacing, yPaddingSpacing } from '@/styles';
+import { radiusConfigs, xPaddingSpacing, yPaddingSpacing } from '@/styles';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 const sectionVariants = tv({
   slots: {
-    root: 'relative transition-all duration-200 bg-background overflow-x-hidden',
+    root: 'relative bg-background',
   },
   variants: {
     theme: {
@@ -12,7 +12,12 @@ const sectionVariants = tv({
       light: { root: '' },
     },
     variant: {
-      default: { root: '' },
+      default: { root: 'transition-all duration-200' },
+      parallax: { root: '' },
+    },
+    parallaxDirection: {
+      top: { root: '' },
+      bottom: { root: '' },
     },
     layout: {
       flex: { root: 'flex flex-col justify-center items-center' },
@@ -20,6 +25,7 @@ const sectionVariants = tv({
     },
     yspace: yPaddingSpacing,
     xspace: xPaddingSpacing,
+    rounded: radiusConfigs,
   },
   defaultVariants: {
     variant: 'default',

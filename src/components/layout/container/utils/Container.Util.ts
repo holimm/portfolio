@@ -38,11 +38,21 @@ export const useContainer = (props: UseContainerProps) => {
     xspace,
     yspace,
     align,
+    rounded,
   } = props;
 
   const { root: containerStyle } = useMemo(
-    () => containerVariants({ variant, height, width, xspace, yspace, align }),
-    [variant, height, width, xspace, yspace, align]
+    () =>
+      containerVariants({
+        variant,
+        height,
+        width,
+        xspace,
+        yspace,
+        align,
+        rounded,
+      }),
+    [variant, height, width, xspace, yspace, align, rounded]
   );
 
   return {
