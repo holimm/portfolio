@@ -8,12 +8,14 @@ import { Contact } from './Contact';
 import { About } from './About';
 import { Testimonials } from './Testimonials';
 import { Services } from './Services';
+import { SubHero } from './SubHero';
 
 export const Homepage = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     return (
       <>
         <Hero />
+        <SubHero />
         <About />
         <Services />
         <Work />

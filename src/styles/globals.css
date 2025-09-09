@@ -87,6 +87,16 @@
   --text-8xl--line-height: 0.5;
   --text-9xl: 8rem; /* 128px */
   --text-9xl--line-height: 1;
+  --text-10xl: 9rem; /* 144px */
+  --text-10xl--line-height: 1;
+  --text-11xl: 10rem; /* 160px */
+  --text-11xl--line-height: 1;
+  --text-12xl: 12rem; /* 192px */
+  --text-12xl--line-height: 1;
+  --text-13xl: 14rem; /* 224px */
+  --text-13xl--line-height: 1;
+  --text-14xl: 16rem; /* 256px */
+  --text-14xl--line-height: 1;
 
   /* COLORS */
   /* Primary */
