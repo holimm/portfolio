@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useRef } from 'react';
 import { Typography } from '@/components/elements';
 import { Section, Container, Grid, Flex } from '@/components/layout';

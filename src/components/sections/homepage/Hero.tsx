@@ -1,9 +1,11 @@
+'use client';
+
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { Button, Typography } from '@/components/elements';
-import { Section, Container, Grid, Flex } from '@/components/layout';
+import { Section, Container, Flex } from '@/components/layout';
 import { LayoutProps } from '@/types';
 import { ArrowRight, Clock, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import HeroImage from '@/assets/images/hero-image.webp';
 
 export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -38,7 +40,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
     return (
       <Section
         id={props.id}
-        variant={'parallax'}
+        variant={'default'}
         comp="hero-section"
         theme={'default'}
         className={`relative h-screen overflow-hidden ${className}`}
@@ -46,17 +48,17 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
         ref={heroRef}
         {...props}
       >
-        {/* Noise background */}
-        <div
+        {/* Hero background image */}
+        {/* <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0"
+          className="pointer-events-none absolute inset-0 z-0 opacity-20"
           style={{
-            background:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='6' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.18'/></svg>\")",
-            backgroundRepeat: 'repeat',
-            backgroundSize: 'auto',
+            backgroundImage: `url(${HeroImage.src || HeroImage})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
-        />
+        /> */}
         <Container height="full" width="2xl">
           {/* UTC+7 Clock */}
           <div className="animate-fadeInUp animation-delay-900 absolute right-0 bottom-10 text-right">
@@ -122,7 +124,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
           >
             <Typography
               ashtml="h1"
-              size="8xl"
+              size="10xl"
               weight="bold"
               align="center"
               className="animate-fadeInUp"
