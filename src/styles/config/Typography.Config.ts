@@ -1,4 +1,13 @@
 export const textSize = {
+  '20xl': { root: 'text-20xl' },
+  '19xl': { root: 'text-19xl' },
+  '18xl': { root: 'text-18xl' },
+  '17xl': { root: 'text-17xl' },
+  '16xl': { root: 'text-16xl' },
+  '15xl': { root: 'text-15xl' },
+  '14xl': { root: 'text-14xl' },
+  '13xl': { root: 'text-13xl' },
+  '12xl': { root: 'text-12xl' },
   '11xl': { root: 'text-11xl' },
   '10xl': { root: 'text-10xl' },
   '9xl': { root: 'text-9xl' },
@@ -16,6 +25,9 @@ export const textSize = {
   sm: { root: 'text-sm' },
   xs: { root: 'text-xs' },
   '2xs': { root: 'text-2xs' },
+  '3xs': { root: 'text-3xs' },
+  '4xs': { root: 'text-4xs' },
+  '5xs': { root: 'text-5xs' },
 };
 
 export const fontWeight = {

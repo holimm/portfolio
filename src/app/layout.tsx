@@ -21,7 +21,7 @@ export default function RootLayout({
         <LenisProvider>
           <Header />
           {children}
-          <Footer />
+          <Footer theme="dark" />
         </LenisProvider>
       </body>
     </html>

@@ -40,16 +40,16 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
     return (
       <Section
         id={props.id}
-        variant={'default'}
+        variant={'parallax'}
         comp="hero-section"
-        theme={'default'}
+        theme={theme}
         className={`relative h-screen overflow-hidden ${className}`}
         yspace="10xl"
         ref={heroRef}
         {...props}
       >
         {/* Hero background image */}
-        {/* <div
+        <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0 opacity-20"
           style={{
@@ -58,7 +58,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-        /> */}
+        />
         <Container height="full" width="2xl">
           {/* UTC+7 Clock */}
           <div className="animate-fadeInUp animation-delay-900 absolute right-0 bottom-10 text-right">
@@ -70,7 +70,11 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                 weight="semibold"
                 contrast="higher"
                 align="center"
-                className="animate-fadeInUp"
+                animation={{
+                  type: 'split-words',
+                  delay: 0.1,
+                  duration: 0.2,
+                }}
               >
                 UTC+7
               </Typography>
@@ -81,7 +85,6 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
               contrast="high"
               align="center"
               letterSpacing="widest"
-              className="animate-fadeInUp"
             >
               {currentTime}
             </Typography>
@@ -97,7 +100,11 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                 weight="semibold"
                 contrast="higher"
                 align="center"
-                className="animate-fadeInUp"
+                animation={{
+                  type: 'split-words',
+                  delay: 0.1,
+                  duration: 0.2,
+                }}
               >
                 Vietnam
               </Typography>
@@ -108,7 +115,11 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
               contrast="high"
               align="center"
               letterSpacing="widest"
-              className="animate-fadeInUp"
+              animation={{
+                type: 'split-words',
+                delay: 0.1,
+                duration: 0.2,
+              }}
             >
               Ho Chi Minh City
             </Typography>
@@ -127,7 +138,11 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
               size="10xl"
               weight="bold"
               align="center"
-              className="animate-fadeInUp"
+              animation={{
+                type: 'split-chars',
+                delay: 0.1,
+                duration: 0.5,
+              }}
             >
               HO LIM
             </Typography>
@@ -136,7 +151,11 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
               size="lg"
               weight="light"
               align="center"
-              className="animate-fadeInUp"
+              animation={{
+                type: 'split-words',
+                delay: 0.1,
+                duration: 0.4,
+              }}
             >
               Crafting visual stories that captivate and inspire
             </Typography>
