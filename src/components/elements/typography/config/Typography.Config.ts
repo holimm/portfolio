@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 const typographyVariants = tv({
   slots: {
-    root: 'mt-1.5',
+    root: 'transition-all duration-200 ease-in-out',
   },
   variants: {
     variant: {
@@ -63,6 +63,16 @@ const typographyVariants = tv({
       false: { root: 'text-nowrap' },
     },
     letterSpacing: letterSpacing,
+    fontFamily: {
+      'oldschool-grotesk': { root: 'font-oldschool-grotesk-normal' },
+      'oldschool-grotesk-compact': { root: 'font-oldschool-grotesk-compact' },
+      'oldschool-grotesk-compressed': {
+        root: 'font-oldschool-grotesk-compressed',
+      },
+      'oldschool-grotesk-condensed': {
+        root: 'font-oldschool-grotesk-condensed',
+      },
+    },
   },
   defaultVariants: {
     variant: 'default',
@@ -71,6 +81,7 @@ const typographyVariants = tv({
     contrast: 'higher',
     align: 'left',
     wrap: true,
+    fontFamily: 'oldschool-grotesk',
   },
   compoundVariants: [
     // INVERT

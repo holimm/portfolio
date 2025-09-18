@@ -1,4 +1,4 @@
-import { gapSpacing } from '@/styles';
+import { gapSpacing, xPaddingSpacing, yPaddingSpacing } from '@/styles';
 import { tv, type VariantProps } from 'tailwind-variants';
 
 const flexVariants = tv({
@@ -56,6 +56,8 @@ const flexVariants = tv({
       screen: { root: 'w-screen' },
       auto: { root: 'w-auto' },
     },
+    yspace: yPaddingSpacing,
+    xspace: xPaddingSpacing,
   },
   defaultVariants: {
     variant: 'row',
