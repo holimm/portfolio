@@ -110,8 +110,8 @@ export const About = forwardRef<HTMLDivElement, LayoutProps>(
     return (
       <Section
         variant={'default'}
-        comp="about-section"
-        theme={'default'}
+        comp="about"
+        theme={theme}
         className={`${className}`}
         yspace="none"
         xspace="none"

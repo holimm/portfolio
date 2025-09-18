@@ -20,7 +20,7 @@ export const Homepage = forwardRef<HTMLDivElement, LayoutProps>(
         <Services />
         <Work />
         <Testimonials />
-        <Contact theme="light" />
+        <Contact theme="light" className="z-20" />
       </>
     );
   }
