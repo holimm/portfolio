@@ -36,6 +36,8 @@ export const useFlex = (props: UseFlexProps) => {
     reverse,
     height,
     width,
+    xspace,
+    yspace,
   } = props;
 
   const { root: flexStyle } = useMemo(
@@ -50,8 +52,22 @@ export const useFlex = (props: UseFlexProps) => {
         reverse,
         height,
         width,
+        xspace,
+        yspace,
       }),
-    [variant, justify, align, alignContent, wrap, gap, reverse, height, width]
+    [
+      variant,
+      justify,
+      align,
+      alignContent,
+      wrap,
+      gap,
+      reverse,
+      height,
+      width,
+      xspace,
+      yspace,
+    ]
   );
 
   return {

@@ -25,6 +25,7 @@ export const useTypography = (props: UseTypographyProps) => {
     align,
     wrap,
     letterSpacing,
+    fontFamily,
   } = props;
 
   const typographyAsHtml: Record<typeof ashtml, TypographyHtmlTagType> = {
@@ -69,8 +70,20 @@ export const useTypography = (props: UseTypographyProps) => {
         align,
         wrap,
         letterSpacing,
+        fontFamily,
       }),
-    [variant, ashtml, size, weight, contrast, color, align, wrap, letterSpacing]
+    [
+      variant,
+      ashtml,
+      size,
+      weight,
+      contrast,
+      color,
+      align,
+      wrap,
+      letterSpacing,
+      fontFamily,
+    ]
   );
 
   return {

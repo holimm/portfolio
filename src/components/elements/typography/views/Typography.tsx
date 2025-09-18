@@ -13,6 +13,7 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
       className,
       children,
       letterSpacing,
+      fontFamily,
       wrap,
       size,
       weight,
@@ -32,6 +33,7 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
       variant,
       ashtml,
       color,
+      fontFamily,
       ...props,
     });
 

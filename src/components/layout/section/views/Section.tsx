@@ -36,6 +36,7 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
           id={props.id}
           data-variant={ctx.variant}
           data-comp={'section'}
+          data-section={props.comp}
           data-theme={theme || 'default'}
           className={cn(className, ctx.sectionStyle())}
           ref={ctx.sectionRef}
