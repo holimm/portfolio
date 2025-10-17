@@ -1,13 +1,19 @@
 'use client';
 
-import React, { forwardRef, useRef } from 'react';
-import { LayoutProps } from '@/types';
-import { Typography, Card } from '@/components/elements';
+import React, { forwardRef, useMemo, useRef } from 'react';
+import { LayoutProps, SELECTED_PROJECTS } from '@/types';
+import { Typography } from '@/components/elements';
 import { Section, Container, Grid, Flex } from '@/components/layout';
-import { Eye } from 'lucide-react';
+import Marquee from 'react-fast-marquee';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, useScroll } from 'framer-motion';
 
 export const Work = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
+    const selectedProjects = useMemo(() => SELECTED_PROJECTS, []);
+    const { scrollY } = useScroll();
+
     return (
       <Section
         id={props.id}
@@ -20,68 +26,125 @@ export const Work = forwardRef<HTMLDivElement, LayoutProps>(
         rounded="2xl"
         {...props}
       >
-        <Container className="gap-4xl" height="full" width="2xl">
-          <div className="mb-16 text-center">
-            <h2 className="mb-6 text-4xl font-bold tracking-tighter md:text-6xl">
-              SELECTED WORKS
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg opacity-70">
-              A curated collection of projects that showcase creative excellence
-              and visual innovation
-            </p>
-          </div>
-
-          {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: 'Editorial Series',
-                category: 'Photography',
-                size: 'large',
-              },
-              { title: 'Brand Identity', category: 'Design', size: 'medium' },
-              {
-                title: 'Fashion Campaign',
-                category: 'Creative Direction',
-                size: 'medium',
-              },
-              {
-                title: 'Digital Art',
-                category: 'Illustration',
-                size: 'medium',
-              },
-              {
-                title: 'Magazine Layout',
-                category: 'Print Design',
-                size: 'large',
-              },
-              { title: 'Web Experience', category: 'Digital', size: 'medium' },
-            ].map((project, index) => (
-              <div
-                key={index}
-                className={`group relative cursor-pointer overflow-hidden transition-all duration-700 hover:scale-105 ${
-                  project.size === 'large' ? 'md:col-span-2 lg:col-span-1' : ''
-                }`}
-                style={{
-                  animationDelay: `${index * 100}ms`,
+        <Container className="gap-4xl" height="full" width="3xl">
+          <Flex variant="col" gap="8xl">
+            {/* Heading */}
+            <Flex width="full" justify="center" align="center">
+              <Typography
+                className="select-none"
+                size="10xl"
+                weight="bold"
+                align="center"
+                animation={{
+                  type: 'split-words',
+                  duration: 0.2,
+                  delay: 0.05,
+                  ease: 'easeInOut',
+                  hover: {
+                    text: 'SELECTED PROJECTS',
+                    duration: 0.2,
+                    delay: 0.05,
+                    ease: 'easeInOut',
+                    stagger: 0.05,
+                  },
                 }}
               >
-                <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-900 to-black">
-                  <div className="absolute inset-0 bg-black/20 transition-all duration-500 group-hover:bg-black/40"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Eye
-                      size={48}
-                      className="transform text-white opacity-0 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100"
-                    />
-                  </div>
-                </div>
-                <div className="absolute right-0 bottom-0 left-0 translate-y-full transform p-6 text-white transition-transform duration-500 group-hover:translate-y-0">
-                  <h3 className="mb-2 text-xl font-bold">{project.title}</h3>
-                  <p className="text-sm opacity-80">{project.category}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+                SELECTED PROJECTS
+              </Typography>
+            </Flex>
+
+            {/* Work Grid */}
+            <Grid width="full" gap="xl">
+              {selectedProjects.map((project, index) => (
+                <Grid.Item key={`project-${index}`} span={6}>
+                  <Link
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Container
+                      className={`group bg-invert-highest relative cursor-pointer overflow-hidden transition-all duration-700`}
+                      width="full"
+                      xspace="md"
+                      yspace="md"
+                      rounded="md"
+                    >
+                      <Container
+                        className="group relative aspect-square overflow-hidden bg-gradient-to-br from-gray-900 to-black"
+                        width="full"
+                        rounded="sm"
+                      >
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          priority
+                        />
+                      </Container>
+                      <Container xspace="none" yspace="xl">
+                        <Flex variant="col" gap="sm">
+                          <Flex justify="between" align="center">
+                            <Typography
+                              className="py-1"
+                              ashtml="h5"
+                              size="2xl"
+                              weight="bold"
+                            >
+                              {project.title}
+                            </Typography>
+                            {project.liveSite && (
+                              <Link
+                                href={project.liveSite}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <Container
+                                  className="!bg-contrast-highest hover:!bg-contrast-high duration-400"
+                                  yspace="2xs"
+                                  xspace="sm"
+                                  rounded="full"
+                                >
+                                  <Flex align="center" gap="sm">
+                                    <Typography
+                                      ashtml="h5"
+                                      size="md"
+                                      color="invert"
+                                      weight="medium"
+                                    >
+                                      Live Site
+                                    </Typography>
+                                    <div className="bg-success shadow-success h-3 w-3 animate-pulse rounded-full shadow-[0_0_10px_#22c55e]" />
+                                  </Flex>
+                                </Container>
+                              </Link>
+                            )}
+                          </Flex>
+                          <Marquee
+                            speed={20}
+                            direction="left"
+                            gradientColor="#1a1a1a"
+                            autoFill
+                          >
+                            <Typography
+                              className="uppercase"
+                              fontFamily="oldschool-grotesk-compact"
+                              weight="medium"
+                              letterSpacing="wider"
+                              size="md"
+                            >
+                              {project.category}
+                            </Typography>
+                          </Marquee>
+                        </Flex>
+                      </Container>
+                    </Container>
+                  </Link>
+                </Grid.Item>
+              ))}
+            </Grid>
+          </Flex>
         </Container>
       </Section>
     );

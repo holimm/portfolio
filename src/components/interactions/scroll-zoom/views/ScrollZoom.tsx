@@ -3,6 +3,7 @@
 import { Container, Flex } from '@/components/layout';
 import React, { forwardRef, HTMLAttributes, useEffect, useRef } from 'react';
 import { useScrollZoom, UseScrollZoomProps } from '../utils/ScrollZoom.Util';
+import { cn } from '@/utils';
 
 export interface ScrollZoomProps
   extends UseScrollZoomProps,
@@ -44,7 +45,7 @@ export const ScrollZoom = forwardRef<HTMLDivElement, ScrollZoomProps>(
         ref={context.sectionRef}
         style={{ height: context.sectionHeight }}
         width="full"
-        className={`relative z-10 ${className}`}
+        className={cn('relative z-10')}
         aria-label="scroll-zoom-section"
       >
         <div className="sticky top-0 z-20 flex h-screen items-center justify-center overflow-hidden">

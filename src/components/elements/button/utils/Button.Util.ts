@@ -18,7 +18,6 @@ export type UseButtonProps = ButtonProps &
 export const useButton = (props: UseButtonProps) => {
   const {
     custom,
-    size,
     width,
     type,
     rounded,
@@ -53,11 +52,10 @@ export const useButton = (props: UseButtonProps) => {
         contrast,
         rounded,
         upperCase,
-        size,
         width,
         padding,
       }),
-    [variant, custom, color, contrast, rounded, upperCase, size, width, padding]
+    [variant, custom, color, contrast, rounded, upperCase, width, padding]
   );
 
   return {

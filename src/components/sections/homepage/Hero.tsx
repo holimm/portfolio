@@ -2,9 +2,9 @@
 
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { Button, Typography } from '@/components/elements';
-import { Section, Container, Flex } from '@/components/layout';
+import { Section, Container, Flex, Grid } from '@/components/layout';
 import { LayoutProps } from '@/types';
-import { ArrowRight, Clock, MapPin } from 'lucide-react';
+import { ArrowDown, ArrowRight, Clock, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HeroImage from '@/assets/images/hero-image.webp';
 
@@ -15,25 +15,28 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
     const [currentTime, setCurrentTime] = useState(' ');
 
     useEffect(() => {
-      const updateTime = () => {
+      const updateDateTime = () => {
         const now = new Date();
         const utcTime = new Date(
           now.getTime() + now.getTimezoneOffset() * 60000
         );
         const utcPlus7 = new Date(utcTime.getTime() + 7 * 3600000);
 
-        const timeString = utcPlus7.toLocaleTimeString('en-US', {
+        const dateTimeString = utcPlus7.toLocaleString('en-US', {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
           hour12: false,
           hour: '2-digit',
           minute: '2-digit',
           second: '2-digit',
         });
 
-        setCurrentTime(timeString);
+        setCurrentTime(dateTimeString);
       };
 
-      updateTime();
-      const interval = setInterval(updateTime, 1000);
+      updateDateTime();
+      const interval = setInterval(updateDateTime, 1000);
 
       return () => clearInterval(interval);
     }, []);
@@ -45,7 +48,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
         comp="hero-section"
         theme={theme}
         className={`relative h-screen overflow-hidden ${className}`}
-        yspace="10xl"
+        yspace="4xl"
         ref={heroRef}
         {...props}
       >
@@ -60,152 +63,250 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
             backgroundPosition: 'center',
           }}
         />
-        <Container height="full" width="2xl">
-          {/* UTC+7 Clock */}
-          <div className="animate-fadeInUp animation-delay-900 absolute right-0 bottom-10 text-right">
-            <Flex variant="col" gap="xs">
-              <Flex justify="start" align="center" gap="sm">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, rotate: 360 }}
-                  transition={{
-                    opacity: { duration: 1 },
-                  }}
-                >
-                  <Clock size={16} className="text-contrast-higher font-bold" />
-                </motion.div>
-                <Typography
-                  ashtml="h1"
-                  size="xl"
-                  weight="semibold"
-                  contrast="higher"
-                  align="center"
-                  animation={{
-                    type: 'split-words',
-                    delay: 0.1,
-                    duration: 0.2,
-                  }}
-                >
-                  UTC+7
-                </Typography>
-              </Flex>
-              <Typography
-                ashtml="h1"
-                size="lg"
-                contrast="high"
-                align="center"
-                letterSpacing="widest"
-                animation={{
-                  type: 'split-chars',
-                  delay: 0.1,
-                  duration: 0.2,
-                }}
-              >
-                {currentTime}
-              </Typography>
-            </Flex>
-          </div>
-
-          {/* UTC+7 Clock */}
-          <div className="animate-fadeInUp animation-delay-900 absolute bottom-10 left-0 text-left">
-            <Flex variant="col" gap="xs">
-              <Flex justify="start" align="center" gap="sm">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, rotate: 360 }}
-                  transition={{
-                    opacity: { duration: 1 },
-                  }}
-                >
-                  <MapPin
-                    size={16}
-                    className="text-contrast-higher font-bold"
-                  />
-                </motion.div>
-                <Typography
-                  ashtml="h1"
-                  size="xl"
-                  weight="semibold"
-                  contrast="higher"
-                  align="center"
-                  animation={{
-                    type: 'split-words',
-                    delay: 0.1,
-                    duration: 0.2,
-                  }}
-                >
-                  Vietnam
-                </Typography>
-              </Flex>
-              <Typography
-                ashtml="h1"
-                size="lg"
-                contrast="high"
-                align="center"
-                letterSpacing="widest"
-                animation={{
-                  type: 'split-chars',
-                  delay: 0.1,
-                  duration: 0.2,
-                }}
-              >
-                Ho Chi Minh City
-              </Typography>
-            </Flex>
-          </div>
-
-          {/* Hero Content */}
+        <Container height="full" width="full" xspace="xl">
           <Flex
+            height="full"
+            width="full"
             variant="col"
-            justify="center"
+            justify="between"
             align="center"
-            className="relative z-10 h-full"
-            gap="xl"
           >
-            <Typography
-              ashtml="h1"
-              size="10xl"
-              weight="bold"
-              align="center"
-              animation={{
-                type: 'split-chars',
-                delay: 0.1,
-                duration: 0.5,
-              }}
-            >
-              HO LIM
-            </Typography>
-            <Typography
-              ashtml="h1"
-              size="lg"
-              weight="light"
-              align="center"
-              animation={{
-                type: 'split-words',
-                delay: 0.1,
-                duration: 0.4,
-              }}
-            >
-              Crafting visual stories that captivate and inspire
-            </Typography>
-            <Button
-              // onClick={() => scrollToSection('work')}
-              color="primary"
-              custom="outline"
-              rounded="none"
-              padding="md"
-            >
-              <Typography className="tracking-[0px]" ashtml="span">
-                VIEW MY WORK
-              </Typography>
-              <ArrowRight size={16} className="text-contrast-highest ml-2" />
-            </Button>
-          </Flex>
+            <Grid>
+              <Grid.Item span={3}>
+                <Flex variant="col" gap="xs">
+                  <Typography
+                    className="select-none lg:text-xl 2xl:text-2xl"
+                    ashtml="h1"
+                    size="lg"
+                    align="center"
+                    contrast="medium"
+                    animation={{
+                      type: 'split-words',
+                      delay: 0.1,
+                      duration: 0.4,
+                    }}
+                  >
+                    Based in
+                  </Typography>
+                  <Typography
+                    className="select-none lg:text-xl 2xl:text-2xl"
+                    ashtml="h1"
+                    size="lg"
+                    align="center"
+                    animation={{
+                      type: 'split-words',
+                      delay: 0.1,
+                      duration: 0.3,
+                      ease: 'easeInOut',
+                      hover: {
+                        text: 'Ho Chi Minh City, Viet Nam',
+                        duration: 0.3,
+                        delay: 0.1,
+                        ease: 'easeInOut',
+                        stagger: 0.05,
+                      },
+                    }}
+                  >
+                    Ho Chi Minh City, Viet Nam
+                  </Typography>
+                </Flex>
+              </Grid.Item>
+              <Grid.Item span={3}>
+                <Flex variant="col" gap="xs">
+                  <Typography
+                    className="select-none lg:text-xl 2xl:text-2xl"
+                    ashtml="h1"
+                    size="lg"
+                    align="center"
+                    contrast="medium"
+                    animation={{
+                      type: 'split-words',
+                      delay: 0.1,
+                      duration: 0.4,
+                    }}
+                  >
+                    UTC+7
+                  </Typography>
+                  <Typography
+                    className="select-none lg:text-xl 2xl:text-2xl"
+                    ashtml="h1"
+                    size="lg"
+                    align="center"
+                    animation={{
+                      type: 'split-words',
+                      delay: 0.1,
+                      duration: 0.3,
+                      ease: 'easeInOut',
+                      hover: {
+                        text: currentTime,
+                        duration: 0.3,
+                        delay: 0.1,
+                        ease: 'easeInOut',
+                        stagger: 0.05,
+                      },
+                    }}
+                  >
+                    {currentTime}
+                  </Typography>
+                </Flex>
+              </Grid.Item>
+              <Grid.Item span={3}>
+                <Flex variant="col" gap="xs">
+                  <Flex align="center">
+                    <Typography
+                      className="select-none lg:text-xl 2xl:text-2xl"
+                      ashtml="h1"
+                      size="lg"
+                      align="center"
+                      contrast="medium"
+                      animation={{
+                        type: 'split-words',
+                        delay: 0.1,
+                        duration: 0.4,
+                      }}
+                    >
+                      Freelance availability
+                    </Typography>
+                    <div className="bg-success shadow-success h-3 w-3 animate-pulse rounded-full shadow-[0_0_10px_#22c55e]" />
+                  </Flex>
+                  <Typography
+                    className="select-none lg:text-xl 2xl:text-2xl"
+                    ashtml="h1"
+                    size="lg"
+                    align="center"
+                    animation={{
+                      type: 'split-words',
+                      delay: 0.1,
+                      duration: 0.3,
+                      ease: 'easeInOut',
+                      hover: {
+                        text: 'October 2025',
+                        duration: 0.3,
+                        delay: 0.1,
+                        ease: 'easeInOut',
+                        stagger: 0.05,
+                      },
+                    }}
+                  >
+                    October 2025
+                  </Typography>
+                </Flex>
+              </Grid.Item>
+              <Grid.Item span={3}>
+                <Flex justify="end" align="start">
+                  <Button
+                    className="cursor-pointer transition-all duration-200 hover:scale-105"
+                    variant="default"
+                    color="primary"
+                    contrast="highest"
+                    padding="lg"
+                    rounded="md"
+                  >
+                    <Typography
+                      className="select-none lg:text-xl 2xl:text-2xl"
+                      ashtml="h1"
+                      size="lg"
+                      align="center"
+                      color="invert"
+                      weight="medium"
+                      animation={{
+                        type: 'split-words',
+                        delay: 0.1,
+                        duration: 0.4,
+                      }}
+                    >
+                      Get In Touch
+                    </Typography>
+                  </Button>
+                </Flex>
+              </Grid.Item>
+            </Grid>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 transform animate-bounce">
-            <div className="h-16 w-px bg-black/30"></div>
-          </div>
+            {/* Hero Content */}
+            <Flex variant="col" justify="center" align="center" gap="lg">
+              <Typography
+                className="4xl:text-3xl 3xl:text-4xl select-none lg:text-xl 2xl:text-2xl"
+                ashtml="h1"
+                size="lg"
+                weight="light"
+                align="center"
+                animation={{
+                  type: 'split-words',
+                  delay: 0.1,
+                  duration: 0.3,
+                  hover: {
+                    text: "Hello there! I'm",
+                    duration: 0.3,
+                    delay: 0.1,
+                    ease: 'easeInOut',
+                    stagger: 0.05,
+                  },
+                }}
+                wrap={false}
+              >
+                Hello there! I&apos;m
+              </Typography>
+              <Typography
+                className="4xl:text-14xl 3xl:text-13xl 2xl:text-12xl lg:text-10xl select-none"
+                ashtml="h1"
+                size="14xl"
+                weight="bold"
+                align="center"
+                animation={{
+                  type: 'split-chars',
+                  delay: 0.1,
+                  duration: 0.3,
+                  hover: {
+                    text: 'HO LIM',
+                    duration: 0.3,
+                    delay: 0.1,
+                    ease: 'easeInOut',
+                    stagger: 0.05,
+                  },
+                }}
+                wrap={true}
+              >
+                HO LIM
+              </Typography>
+            </Flex>
+            <Flex height="fit" width="full" justify="between">
+              <Flex justify="start" gap="sm">
+                <ArrowDown className="text-contrast-medium animate-bounce" />
+                <Typography
+                  className="4xl:text-2xl lg:text-lg 2xl:text-xl"
+                  ashtml="h1"
+                  size="lg"
+                  weight="medium"
+                  contrast="medium"
+                  align="center"
+                  animation={{
+                    type: 'split-words',
+                    delay: 0.1,
+                    duration: 0.4,
+                  }}
+                >
+                  Scroll for
+                </Typography>
+              </Flex>
+              <Flex justify="start" gap="sm">
+                <Typography
+                  ashtml="h1"
+                  size="xl"
+                  weight="medium"
+                  contrast="medium"
+                  align="center"
+                  animation={{
+                    type: 'split-words',
+                    delay: 0.1,
+                    duration: 0.4,
+                  }}
+                >
+                  more
+                </Typography>
+                <ArrowDown className="text-contrast-medium animate-bounce" />
+              </Flex>
+            </Flex>
+          </Flex>
         </Container>
       </Section>
     );

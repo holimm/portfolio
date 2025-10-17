@@ -13,12 +13,15 @@ import { HEADER_NAVIGATION } from '@/types';
 import { Section, Container, Flex } from '@/components/layout';
 import { Typography } from '@/components/elements';
 import { cn } from '@/utils';
+import Marquee from 'react-fast-marquee';
+import { Menu } from 'lucide-react';
 
 export const Header = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     // States & refs
     const [currentPath, setCurrentPath] = useState(HEADER_NAVIGATION[0].key);
     const [currentSection, setCurrentSection] = useState<string>('');
+    const [openMenu, setOpenMenu] = useState<boolean>(false);
     const headerRef = useRef<HTMLDivElement>(null);
 
     // Methods
@@ -29,9 +32,10 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
         return (
           <Container
             className="group relative cursor-pointer"
+            width="fit"
             onClick={() => setCurrentPath(key)}
           >
-            <Flex height="full" width="full" align="center" justify="center">
+            <Flex height="full" width="full" align="start" justify="end">
               <AnimatePresence>
                 {currentSection === key && (
                   <motion.div
@@ -61,7 +65,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
               >
                 <Typography
                   ref={linkLabelRef}
-                  size="sm"
+                  size="lg"
                   color="invert"
                   weight="semibold"
                   animation={{
@@ -126,55 +130,104 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
         variant={'default'}
         comp="header"
         theme={theme}
-        className={cn('!fixed top-8 left-0 z-50 w-full !bg-[unset]', className)}
+        className={cn(
+          '!fixed bottom-12 left-0 z-50 h-24 w-full !bg-[unset]',
+          className
+        )}
         xspace="none"
         yspace="none"
         ref={ref}
         {...props}
       >
+        <AnimatePresence>
+          {openMenu && (
+            <motion.div
+              className="bg-contrast-highest/80 absolute bottom-20 h-60 w-full max-w-[600px] overflow-hidden rounded-t-lg backdrop-blur-md"
+              initial={{ height: 0 }}
+              animate={{ height: 'fit-content' }}
+              exit={{ height: 0 }}
+            >
+              <Container
+                className="!pb-8"
+                height="full"
+                width="full"
+                yspace="lg"
+                xspace="md"
+              >
+                <Flex
+                  variant="col"
+                  width="full"
+                  justify="start"
+                  align="end"
+                  gap="xs"
+                >
+                  {HEADER_NAVIGATION.map((item) => (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      key={item.key}
+                    >
+                      {renderLink(item.key, item.name)}
+                    </motion.div>
+                  ))}
+                </Flex>
+              </Container>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <Container
           id="header"
-          className={cn(
-            'bg-contrast-highest/40 h-full max-w-screen-md overflow-hidden rounded-md shadow-sm backdrop-blur-md'
-          )}
+          className="relative max-w-[600px] overflow-hidden bg-gray-900 shadow-sm"
+          height="full"
           width="full"
           yspace="sm"
-          xspace="xs"
+          xspace="sm"
+          rounded="md"
           ref={headerRef}
         >
-          <Flex height="full" gap="xs" justify="between" align="center">
-            <Container xspace="xs" width="fit">
-              <Flex variant="col" gap="none">
+          <Flex height="full" gap="md" justify="between" align="center">
+            <div className="bg-invert-highest aspect-square h-full w-auto rounded-sm"></div>
+            <Flex className="relative basis-full" variant="col" gap="sm">
+              <Typography
+                fontFamily="oldschool-grotesk-compact"
+                weight="bold"
+                color="invert"
+                size="xl"
+              >
+                HO LIM
+              </Typography>
+              <Marquee
+                speed={20}
+                direction="left"
+                gradientColor="#101828"
+                gradientWidth={20}
+                gradient
+                autoFill
+              >
                 <Typography
-                  className="select-none"
-                  size="xl"
+                  className="uppercase"
+                  fontFamily="oldschool-grotesk-compact"
+                  weight="medium"
                   color="invert"
-                  weight="semibold"
-                  fontFamily="oldschool-grotesk-condensed"
-                  animation={{
-                    type: 'split-chars',
-                    duration: 0.2,
-                    delay: 0.05,
-                    ease: 'easeInOut',
-                    hover: {
-                      text: 'HO LIM',
-                      duration: 0.2,
-                      delay: 0.05,
-                      ease: 'easeInOut',
-                      stagger: 0.05,
-                    },
-                  }}
+                  letterSpacing="wider"
+                  size="lg"
                 >
-                  HO LIM
+                  Full-stack Developer, Web Designer, UI/UX Designer, Next.js
+                  Developer, Node.js Developer, React Developer, Front-end
+                  Developer, Back-end Developer,
                 </Typography>
-              </Flex>
-            </Container>
-            <Flex gap="xs">
-              {HEADER_NAVIGATION.map((item) => (
-                <React.Fragment key={item.key}>
-                  {renderLink(item.key, item.name)}
-                </React.Fragment>
-              ))}
+              </Marquee>
+            </Flex>
+            <Flex className="pr-4" justify="center" align="center">
+              <motion.button
+                onClick={() => setOpenMenu(!openMenu)}
+                initial={{ rotate: 0 }}
+                animate={{ rotate: openMenu ? 90 : 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              >
+                <Menu className="text-invert-highest cursor-pointer transition-all duration-200 hover:scale-110" />
+              </motion.button>
             </Flex>
           </Flex>
         </Container>

@@ -7,7 +7,7 @@ import { Work } from './Work';
 import { Contact } from './Contact';
 import { About } from './About';
 import { Testimonials } from './Testimonials';
-import { Services } from './Services';
+import { TechStack } from './TechStack';
 import { SubHero } from './SubHero';
 
 export const Homepage = forwardRef<HTMLDivElement, LayoutProps>(
@@ -17,9 +17,9 @@ export const Homepage = forwardRef<HTMLDivElement, LayoutProps>(
         <Hero />
         <SubHero />
         <About />
-        <Services />
+        <TechStack />
         <Work />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Contact theme="light" className="z-20" />
       </>
     );
