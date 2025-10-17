@@ -6,6 +6,7 @@ import { LayoutProps, SOCIAL_MEDIA_LINKS } from '@/types';
 import { Section, Container, Flex, Grid } from '@/components/layout';
 import { Typography } from '@/components/elements';
 import { HEADER_NAVIGATION } from '@/types';
+import { cn } from '@/utils';
 
 export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -17,7 +18,7 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
         variant={'parallax'}
         comp="footer"
         theme={theme}
-        className={`top-20 z-10 !pb-0 ${className}`}
+        className={cn('top-20 !pb-12', className)}
         yspace="8xl"
         ref={footerRef}
         parallaxDirection="top"
@@ -107,7 +108,7 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
                   fontFamily="oldschool-grotesk-compressed"
                   weight="bold"
                   letterSpacing="tightest"
-                  size="20xl"
+                  size="24xl"
                   contrast="medium"
                   className="-ml-3"
                 >

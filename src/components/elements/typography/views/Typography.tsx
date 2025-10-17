@@ -1,9 +1,22 @@
 'use client';
 
-import { forwardRef, HTMLAttributes, useMemo } from 'react';
+import {
+  forwardRef,
+  HTMLAttributes,
+  useMemo,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { useTypography, UseTypographyProps } from '../utils/Typography.Util';
-import { AnimatePresence, EasingDefinition, motion } from 'framer-motion';
+import {
+  AnimatePresence,
+  EasingDefinition,
+  motion,
+  useAnimation,
+} from 'framer-motion';
 import { Flex } from '@/components/layout';
+import { defaultConfig } from 'tailwind-variants';
 
 export interface TypographyProps
   extends UseTypographyProps,
@@ -13,6 +26,15 @@ export interface TypographyProps
     duration?: number;
     delay?: number;
     ease?: EasingDefinition;
+    hover?:
+      | boolean
+      | {
+          text: string;
+          duration?: number;
+          delay?: number;
+          ease?: EasingDefinition;
+          stagger?: number;
+        };
   };
 }
 
@@ -49,50 +71,119 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
 
     const ctx = useMemo(() => context, [context]);
 
-    if (animation?.type === 'split-words') {
-      if (!children) return null;
-      if (typeof children !== 'string') {
-        throw new Error(
-          'Typography: Animation "split-words" only works with string children.'
-        );
+    const [isHovered, setIsHovered] = useState(false);
+    const initialControls = useAnimation();
+    const [hasAnimatedInitial, setHasAnimatedInitial] = useState(false);
+
+    const hasHoverTextAnimation =
+      animation?.type &&
+      typeof animation.hover === 'object' &&
+      animation.hover.text;
+    const hoverText = hasHoverTextAnimation
+      ? (animation.hover as { text: string }).text
+      : '';
+
+    useEffect(() => {
+      if (!isHovered && !hasAnimatedInitial && animation?.type) {
+        initialControls
+          .start('visible')
+          .then(() => setHasAnimatedInitial(true));
       }
+    }, [initialControls, hasAnimatedInitial, animation?.type, isHovered]);
 
-      const words = children.split(' ');
-      const duration = animation.duration ?? 0.4;
-      const delay = animation.delay ?? 0.1;
-      const ease = animation.ease;
+    const getVariants = useCallback(
+      (
+        baseDelay: number,
+        baseDuration: number,
+        baseEase?: EasingDefinition,
+        stagger: number = 0.05
+      ) => ({
+        visible: (customIndex: number) => ({
+          y: 0,
+          transition: {
+            delay: baseDelay + customIndex * stagger,
+            duration: baseDuration,
+            ...(baseEase ? { ease: baseEase } : {}),
+          },
+        }),
+        initial: {
+          y: '100%',
+        },
+        exit: (customIndex: number) => ({
+          y: '-100%',
+          transition: {
+            delay: baseDelay + customIndex * stagger,
+            duration: baseDuration,
+            ...(baseEase ? { ease: baseEase } : {}),
+          },
+        }),
+      }),
+      []
+    );
 
-      return (
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+    const currentText = useMemo(
+      () => (isHovered && hasHoverTextAnimation ? hoverText : children),
+      [isHovered, hasHoverTextAnimation, hoverText, children]
+    );
+
+    const currentAnimationProps = useMemo(
+      () => (isHovered && hasHoverTextAnimation ? animation.hover : animation),
+      [isHovered, hasHoverTextAnimation, animation]
+    );
+
+    const { baseDuration, baseDelay, baseEase, baseStagger } = useMemo(
+      () => ({
+        baseDuration:
+          typeof currentAnimationProps === 'object'
+            ? (currentAnimationProps.duration ?? 0.4)
+            : 0.4,
+        baseDelay:
+          typeof currentAnimationProps === 'object'
+            ? (currentAnimationProps.delay ?? 0.1)
+            : 0.1,
+        baseEase:
+          typeof currentAnimationProps === 'object'
+            ? currentAnimationProps.ease
+            : undefined,
+        baseStagger:
+          (currentAnimationProps as { stagger?: number })?.stagger ??
+          (animation?.type === 'split-words' ? 0.1 : 0.04),
+      }),
+      [currentAnimationProps, animation?.type]
+    );
+
+    const textVariants = useMemo(
+      () => getVariants(baseDelay, baseDuration, baseEase, baseStagger),
+      [getVariants, baseDelay, baseDuration, baseEase, baseStagger]
+    );
+
+    const renderAnimatedText = useCallback(
+      (textToAnimate: string, isHovering: boolean) => {
+        if (!textToAnimate || typeof textToAnimate !== 'string') return null;
+
+        const items =
+          animation?.type === 'split-words'
+            ? textToAnimate.split(' ')
+            : Array.from(textToAnimate);
+
+        return (
+          <Flex
+            className="inline-block h-fit overflow-hidden"
+            height="full"
+            width="full"
+            align="center"
+            gap="none"
           >
-            <Flex
-              className="inline-block h-fit overflow-hidden"
-              height="full"
-              width="full"
-              align="center"
-              gap="none"
-            >
-              {words.map((word, i) => (
+            <AnimatePresence mode="wait">
+              {items.map((item, i) => (
                 <motion.span
+                  key={isHovering ? `hover-${i}` : `initial-${i}`}
                   className="my-0 inline-block py-0"
                   custom={i}
-                  initial={{ y: '100%' }}
+                  initial="initial"
                   animate="visible"
-                  variants={{
-                    visible: (customIndex: number) => ({
-                      y: 0,
-                      transition: {
-                        delay: (animation.delay ?? delay) + customIndex * delay,
-                        duration: duration,
-                        ...(ease ? { ease } : {}),
-                      },
-                    }),
-                  }}
-                  key={children + i}
+                  exit="exit"
+                  variants={textVariants}
                 >
                   <defaultConfig.Component
                     data-comp="typography"
@@ -101,76 +192,45 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
                     ref={ctx.typographyRef}
                     {...props}
                   >
-                    {word}
-                    {i !== words.length - 1 ? '\u00A0' : ''}
+                    {animation?.type === 'split-chars' && item === ' '
+                      ? '\u00A0'
+                      : item}
+                    {animation?.type === 'split-words' && i !== items.length - 1
+                      ? '\u00A0'
+                      : ''}
                   </defaultConfig.Component>
                 </motion.span>
               ))}
-            </Flex>
-          </motion.div>
-        </AnimatePresence>
-      );
-    }
+            </AnimatePresence>
+          </Flex>
+        );
+      },
+      [animation?.type, className, ctx, props, textVariants]
+    );
 
-    if (animation?.type === 'split-chars') {
-      if (!children) return null;
+    if (animation?.type) {
       if (typeof children !== 'string') {
         throw new Error(
-          'Typography: Animation "split-chars" only works with string children.'
+          'Typography: Animation with split-words/chars only works with string children.'
         );
       }
 
-      const chars = Array.from(children);
-      const duration = animation.duration ?? 0.2;
-      const delay = animation.delay ?? 0.04;
-      const ease = animation.ease;
-
       return (
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <Flex
-              className="inline-block h-fit overflow-hidden"
-              height="full"
-              width="full"
-              align="center"
-              gap="none"
-            >
-              {chars.map((char, i) => (
-                <motion.span
-                  className="my-0 inline-block py-0"
-                  custom={i}
-                  initial={{ y: '100%' }}
-                  animate="visible"
-                  variants={{
-                    visible: (customIndex: number) => ({
-                      y: 0,
-                      transition: {
-                        delay: (animation.delay ?? delay) + customIndex * delay,
-                        duration: duration,
-                        ...(ease ? { ease } : {}),
-                      },
-                    }),
-                  }}
-                  key={children + i}
-                >
-                  <defaultConfig.Component
-                    data-comp="typography"
-                    data-variant={ctx.variant}
-                    className={`${className} ${ctx.typographyStyle()}`}
-                    ref={ctx.typographyRef}
-                    {...props}
-                  >
-                    {char === ' ' ? '\u00A0' : char}
-                  </defaultConfig.Component>
-                </motion.span>
-              ))}
-            </Flex>
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          className="inline-block h-fit overflow-hidden"
+          onHoverStart={
+            hasHoverTextAnimation ? () => setIsHovered(true) : undefined
+          }
+          onHoverEnd={
+            hasHoverTextAnimation ? () => setIsHovered(false) : undefined
+          }
+          animate={
+            !isHovered && !hasHoverTextAnimation ? initialControls : undefined
+          }
+          initial={!isHovered && !hasHoverTextAnimation ? 'initial' : undefined}
+        >
+          {renderAnimatedText(currentText as string, isHovered)}
+        </motion.div>
       );
     }
 

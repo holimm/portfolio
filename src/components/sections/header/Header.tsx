@@ -1,6 +1,12 @@
 'use client';
 
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { LayoutProps } from '@/types';
 import { HEADER_NAVIGATION } from '@/types';
@@ -18,56 +24,68 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
     // Methods
     const linkLabelRef = useRef<any>(null);
 
-    const renderLink = (key: string, label: string) => (
-      <Container
-        className="group relative cursor-pointer"
-        onClick={() => setCurrentPath(key)}
-      >
-        <Flex height="full" width="full" align="center" justify="center">
-          <AnimatePresence>
-            {currentSection === key && (
-              <motion.div
-                layoutId="activeNavBg"
-                className={cn(
-                  'bg-contrast-highest/40 absolute inset-x-0 rounded-sm shadow-sm backdrop-blur-md'
-                )}
-                style={{ height: '2.5rem' }}
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 500,
-                  damping: 30,
-                }}
-              />
-            )}
-          </AnimatePresence>
-          <Flex
-            className={cn(
-              'relative rounded-full px-3 py-2 transition-all duration-200 ease-in-out',
-              { 'z-10': currentPath === key }
-            )}
-            justify="center"
-            align="center"
+    const renderLink = useCallback(
+      (key: string, label: string) => {
+        return (
+          <Container
+            className="group relative cursor-pointer"
+            onClick={() => setCurrentPath(key)}
           >
-            <Typography
-              ref={linkLabelRef}
-              size="sm"
-              color="invert"
-              weight="semibold"
-              animation={{
-                type: 'split-words',
-                duration: 0.4,
-                delay: 0.05,
-                ease: 'easeInOut',
-              }}
-            >
-              {label}
-            </Typography>
-          </Flex>
-        </Flex>
-      </Container>
+            <Flex height="full" width="full" align="center" justify="center">
+              <AnimatePresence>
+                {currentSection === key && (
+                  <motion.div
+                    layoutId="activeNavBg"
+                    className={cn(
+                      'bg-contrast-highest/40 absolute inset-x-0 rounded-sm shadow-sm backdrop-blur-md'
+                    )}
+                    style={{ height: '2.5rem' }}
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 500,
+                      damping: 30,
+                    }}
+                  />
+                )}
+              </AnimatePresence>
+              <Flex
+                className={cn(
+                  'relative rounded-full px-3 py-2 transition-all duration-200 ease-in-out',
+                  { 'z-10': currentPath === key }
+                )}
+                justify="center"
+                align="center"
+              >
+                <Typography
+                  ref={linkLabelRef}
+                  size="sm"
+                  color="invert"
+                  weight="semibold"
+                  animation={{
+                    type: 'split-words',
+                    duration: 0.2,
+                    delay: 0.05,
+                    ease: 'easeOut',
+                    hover: {
+                      text: label,
+                      duration: 0.2,
+                      delay: 0.05,
+                      ease: 'linear',
+                      stagger: 0.05,
+                    },
+                  }}
+                >
+                  {label}
+                </Typography>
+              </Flex>
+            </Flex>
+          </Container>
+        );
+      },
+      [currentPath, currentSection, linkLabelRef]
     );
 
     // Effects
@@ -128,15 +146,23 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
             <Container xspace="xs" width="fit">
               <Flex variant="col" gap="none">
                 <Typography
+                  className="select-none"
                   size="xl"
                   color="invert"
                   weight="semibold"
                   fontFamily="oldschool-grotesk-condensed"
                   animation={{
                     type: 'split-chars',
-                    duration: 0.3,
+                    duration: 0.2,
                     delay: 0.05,
                     ease: 'easeInOut',
+                    hover: {
+                      text: 'HO LIM',
+                      duration: 0.2,
+                      delay: 0.05,
+                      ease: 'easeInOut',
+                      stagger: 0.05,
+                    },
                   }}
                 >
                   HO LIM

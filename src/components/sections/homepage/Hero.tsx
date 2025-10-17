@@ -5,13 +5,14 @@ import { Button, Typography } from '@/components/elements';
 import { Section, Container, Flex } from '@/components/layout';
 import { LayoutProps } from '@/types';
 import { ArrowRight, Clock, MapPin } from 'lucide-react';
+import { motion } from 'framer-motion';
 import HeroImage from '@/assets/images/hero-image.webp';
 
 export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     const heroRef = useRef<HTMLDivElement>(null);
 
-    const [currentTime, setCurrentTime] = useState('');
+    const [currentTime, setCurrentTime] = useState(' ');
 
     useEffect(() => {
       const updateTime = () => {
@@ -62,67 +63,95 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
         <Container height="full" width="2xl">
           {/* UTC+7 Clock */}
           <div className="animate-fadeInUp animation-delay-900 absolute right-0 bottom-10 text-right">
-            <Flex justify="start" align="center" gap="sm">
-              <Clock size={16} className="text-contrast-higher font-bold" />
+            <Flex variant="col" gap="xs">
+              <Flex justify="start" align="center" gap="sm">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, rotate: 360 }}
+                  transition={{
+                    opacity: { duration: 1 },
+                  }}
+                >
+                  <Clock size={16} className="text-contrast-higher font-bold" />
+                </motion.div>
+                <Typography
+                  ashtml="h1"
+                  size="xl"
+                  weight="semibold"
+                  contrast="higher"
+                  align="center"
+                  animation={{
+                    type: 'split-words',
+                    delay: 0.1,
+                    duration: 0.2,
+                  }}
+                >
+                  UTC+7
+                </Typography>
+              </Flex>
               <Typography
                 ashtml="h1"
-                size="xl"
-                weight="semibold"
-                contrast="higher"
+                size="lg"
+                contrast="high"
                 align="center"
+                letterSpacing="widest"
                 animation={{
-                  type: 'split-words',
+                  type: 'split-chars',
                   delay: 0.1,
                   duration: 0.2,
                 }}
               >
-                UTC+7
+                {currentTime}
               </Typography>
             </Flex>
-            <Typography
-              ashtml="h1"
-              size="lg"
-              contrast="high"
-              align="center"
-              letterSpacing="widest"
-            >
-              {currentTime}
-            </Typography>
           </div>
 
           {/* UTC+7 Clock */}
           <div className="animate-fadeInUp animation-delay-900 absolute bottom-10 left-0 text-left">
-            <Flex justify="start" align="center" gap="sm">
-              <MapPin size={16} className="text-contrast-higher font-bold" />
+            <Flex variant="col" gap="xs">
+              <Flex justify="start" align="center" gap="sm">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, rotate: 360 }}
+                  transition={{
+                    opacity: { duration: 1 },
+                  }}
+                >
+                  <MapPin
+                    size={16}
+                    className="text-contrast-higher font-bold"
+                  />
+                </motion.div>
+                <Typography
+                  ashtml="h1"
+                  size="xl"
+                  weight="semibold"
+                  contrast="higher"
+                  align="center"
+                  animation={{
+                    type: 'split-words',
+                    delay: 0.1,
+                    duration: 0.2,
+                  }}
+                >
+                  Vietnam
+                </Typography>
+              </Flex>
               <Typography
                 ashtml="h1"
-                size="xl"
-                weight="semibold"
-                contrast="higher"
+                size="lg"
+                contrast="high"
                 align="center"
+                letterSpacing="widest"
                 animation={{
-                  type: 'split-words',
+                  type: 'split-chars',
                   delay: 0.1,
                   duration: 0.2,
                 }}
               >
-                Vietnam
+                Ho Chi Minh City
               </Typography>
             </Flex>
-            <Typography
-              ashtml="h1"
-              size="lg"
-              contrast="high"
-              align="center"
-              letterSpacing="widest"
-              animation={{
-                type: 'split-words',
-                delay: 0.1,
-                duration: 0.2,
-              }}
-            >
-              Ho Chi Minh City
-            </Typography>
           </div>
 
           {/* Hero Content */}
