@@ -117,6 +117,26 @@
   --text-19xl--line-height: 1; /* 1em, fits tightly */
   --text-20xl: 32rem; /* 512px */
   --text-20xl--line-height: 1; /* 1em, fits tightly */
+  --text-21xl: 36rem; /* 576px */
+  --text-21xl--line-height: 1; /* 1em, fits tightly */
+  --text-22xl: 40rem; /* 640px */
+  --text-22xl--line-height: 1; /* 1em, fits tightly */
+  --text-23xl: 44rem; /* 704px */
+  --text-23xl--line-height: 1; /* 1em, fits tightly */
+  --text-24xl: 48rem; /* 768px */
+  --text-24xl--line-height: 1; /* 1em, fits tightly */
+  --text-25xl: 52rem; /* 832px */
+  --text-25xl--line-height: 1; /* 1em, fits tightly */
+  --text-26xl: 56rem; /* 896px */
+  --text-26xl--line-height: 1; /* 1em, fits tightly */
+  --text-27xl: 60rem; /* 960px */
+  --text-27xl--line-height: 1; /* 1em, fits tightly */
+  --text-28xl: 64rem; /* 1024px */
+  --text-28xl--line-height: 1; /* 1em, fits tightly */
+  --text-29xl: 68rem; /* 1088px */
+  --text-29xl--line-height: 1; /* 1em, fits tightly */
+  --text-30xl: 72rem; /* 1152px */
+  --text-30xl--line-height: 1; /* 1em, fits tightly */
 
   /* COLORS */
   /* Primary */
