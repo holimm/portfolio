@@ -44,13 +44,14 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
                       'bg-contrast-highest/40 absolute inset-x-0 rounded-sm shadow-sm backdrop-blur-md'
                     )}
                     style={{ height: '2.5rem' }}
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    initial={{ opacity: 0, scale: 0.98, y: 5 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                    exit={{ opacity: 0, scale: 0.98, y: -5 }}
                     transition={{
                       type: 'spring',
-                      stiffness: 500,
-                      damping: 30,
+                      stiffness: 700,
+                      damping: 35,
+                      mass: 0.5,
                     }}
                   />
                 )}
@@ -178,7 +179,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
         </AnimatePresence>
         <Container
           id="header"
-          className="relative max-w-[600px] overflow-hidden bg-gray-900 shadow-sm"
+          className="bg-contrast-highest/80 relative max-w-[600px] overflow-hidden shadow-sm backdrop-blur-md"
           height="full"
           width="full"
           yspace="sm"
@@ -197,14 +198,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
               >
                 HO LIM
               </Typography>
-              <Marquee
-                speed={20}
-                direction="left"
-                gradientColor="#101828"
-                gradientWidth={20}
-                gradient
-                autoFill
-              >
+              <Marquee speed={20} direction="left" autoFill>
                 <Typography
                   className="uppercase"
                   fontFamily="oldschool-grotesk-compact"

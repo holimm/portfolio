@@ -13,7 +13,7 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
       <Section
         id={props.id}
         variant={'default'}
-        comp="contact-section"
+        comp="contact"
         theme={theme}
         className={`h-screen ${className}`}
         yspace="10xl"

@@ -3,7 +3,7 @@
 import React, { forwardRef } from 'react';
 import { LayoutProps } from '@/types';
 import { Hero } from './Hero';
-import { Work } from './Work';
+import { Projects } from './Projects';
 import { Contact } from './Contact';
 import { About } from './About';
 import { Testimonials } from './Testimonials';
@@ -18,7 +18,7 @@ export const Homepage = forwardRef<HTMLDivElement, LayoutProps>(
         <SubHero />
         <About />
         <TechStack />
-        <Work />
+        <Projects />
         {/* <Testimonials /> */}
         <Contact theme="light" className="z-20" />
       </>

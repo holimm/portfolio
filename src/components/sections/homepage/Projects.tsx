@@ -7,9 +7,9 @@ import { Section, Container, Grid, Flex } from '@/components/layout';
 import Marquee from 'react-fast-marquee';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 
-export const Work = forwardRef<HTMLDivElement, LayoutProps>(
+export const Projects = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     const selectedProjects = useMemo(() => SELECTED_PROJECTS, []);
     const { scrollY } = useScroll();
@@ -18,7 +18,7 @@ export const Work = forwardRef<HTMLDivElement, LayoutProps>(
       <Section
         id={props.id}
         variant={'default'}
-        comp="work-section"
+        comp="projects"
         theme={'dark'}
         className={`z-20 ${className}`}
         yspace="10xl"
@@ -57,17 +57,17 @@ export const Work = forwardRef<HTMLDivElement, LayoutProps>(
             <Grid width="full" gap="xl">
               {selectedProjects.map((project, index) => (
                 <Grid.Item key={`project-${index}`} span={6}>
-                  <Link
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Container
+                    className={`group bg-invert-highest relative cursor-pointer overflow-hidden transition-all duration-700`}
+                    width="full"
+                    xspace="md"
+                    yspace="md"
+                    rounded="md"
                   >
-                    <Container
-                      className={`group bg-invert-highest relative cursor-pointer overflow-hidden transition-all duration-700`}
-                      width="full"
-                      xspace="md"
-                      yspace="md"
-                      rounded="md"
+                    <Link
+                      href={project.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <Container
                         className="group relative aspect-square overflow-hidden bg-gradient-to-br from-gray-900 to-black"
@@ -83,9 +83,15 @@ export const Work = forwardRef<HTMLDivElement, LayoutProps>(
                           priority
                         />
                       </Container>
-                      <Container xspace="none" yspace="xl">
-                        <Flex variant="col" gap="sm">
-                          <Flex justify="between" align="center">
+                    </Link>
+                    <Container xspace="none" yspace="xl">
+                      <Flex variant="col" gap="sm">
+                        <Flex justify="between" align="center">
+                          <Link
+                            href={project.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             <Typography
                               className="py-1"
                               ashtml="h5"
@@ -94,53 +100,53 @@ export const Work = forwardRef<HTMLDivElement, LayoutProps>(
                             >
                               {project.title}
                             </Typography>
-                            {project.liveSite && (
-                              <Link
-                                href={project.liveSite}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Container
-                                  className="!bg-contrast-highest hover:!bg-contrast-high duration-400"
-                                  yspace="2xs"
-                                  xspace="sm"
-                                  rounded="full"
-                                >
-                                  <Flex align="center" gap="sm">
-                                    <Typography
-                                      ashtml="h5"
-                                      size="md"
-                                      color="invert"
-                                      weight="medium"
-                                    >
-                                      Live Site
-                                    </Typography>
-                                    <div className="bg-success shadow-success h-3 w-3 animate-pulse rounded-full shadow-[0_0_10px_#22c55e]" />
-                                  </Flex>
-                                </Container>
-                              </Link>
-                            )}
-                          </Flex>
-                          <Marquee
-                            speed={20}
-                            direction="left"
-                            gradientColor="#1a1a1a"
-                            autoFill
-                          >
-                            <Typography
-                              className="uppercase"
-                              fontFamily="oldschool-grotesk-compact"
-                              weight="medium"
-                              letterSpacing="wider"
-                              size="md"
+                          </Link>
+                          {project.liveSite && (
+                            <Link
+                              href={project.liveSite}
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
-                              {project.category}
-                            </Typography>
-                          </Marquee>
+                              <Container
+                                className="!bg-contrast-highest hover:!bg-contrast-high duration-400"
+                                yspace="2xs"
+                                xspace="sm"
+                                rounded="full"
+                              >
+                                <Flex align="center" gap="sm">
+                                  <Typography
+                                    ashtml="h5"
+                                    size="md"
+                                    color="invert"
+                                    weight="medium"
+                                  >
+                                    Live Site
+                                  </Typography>
+                                  <div className="bg-success shadow-success h-3 w-3 animate-pulse rounded-full shadow-[0_0_10px_#22c55e]" />
+                                </Flex>
+                              </Container>
+                            </Link>
+                          )}
                         </Flex>
-                      </Container>
+                        <Marquee
+                          speed={20}
+                          direction="left"
+                          gradientColor="#1a1a1a"
+                          autoFill
+                        >
+                          <Typography
+                            className="uppercase"
+                            fontFamily="oldschool-grotesk-compact"
+                            weight="medium"
+                            letterSpacing="wider"
+                            size="md"
+                          >
+                            {project.category}
+                          </Typography>
+                        </Marquee>
+                      </Flex>
                     </Container>
-                  </Link>
+                  </Container>
                 </Grid.Item>
               ))}
             </Grid>
@@ -151,4 +157,4 @@ export const Work = forwardRef<HTMLDivElement, LayoutProps>(
   }
 );
 
-Work.displayName = 'Work';
+Projects.displayName = 'Projects';

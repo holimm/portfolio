@@ -4,6 +4,7 @@ import { Container, Flex } from '@/components/layout';
 import React, { forwardRef, HTMLAttributes, useEffect, useRef } from 'react';
 import { useScrollZoom, UseScrollZoomProps } from '../utils/ScrollZoom.Util';
 import { cn } from '@/utils';
+import Image from 'next/image';
 
 export interface ScrollZoomProps
   extends UseScrollZoomProps,
@@ -72,11 +73,11 @@ export const ScrollZoom = forwardRef<HTMLDivElement, ScrollZoomProps>(
                 boxShadow: '0 30px 60px rgba(0,0,0,0.45)',
               }}
             >
-              <img
+              <Image
                 src={context.src}
                 alt={context.alt}
                 className="block h-full w-full object-cover grayscale-90"
-                style={{ objectPosition: 'center -15rem' }}
+                fill
               />
             </div>
           </Flex>

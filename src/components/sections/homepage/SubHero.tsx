@@ -6,7 +6,7 @@ import { Section, Container, Flex } from '@/components/layout';
 import { LayoutProps } from '@/types';
 import { ScrollZoom } from '@/components/interactions';
 import { Typography } from '@/components/elements';
-import SubHeroImage from '@/assets/images/sub-hero-image.jpeg';
+import HeroImage from '@/assets/images/hero-image.webp';
 import Marquee from 'react-fast-marquee';
 
 export const SubHero = forwardRef<HTMLDivElement, LayoutProps>(
@@ -66,7 +66,7 @@ export const SubHero = forwardRef<HTMLDivElement, LayoutProps>(
           >
             <ScrollZoom
               className="rounded-2xl"
-              src={SubHeroImage.src}
+              src={HeroImage.src}
               initialSize="80vmin"
             >
               <Flex variant="col" justify="between" gap="none">
