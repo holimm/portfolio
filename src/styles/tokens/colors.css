@@ -442,13 +442,13 @@
   --color-contrast-lowest: var(--color-white-alpha-200);
 
   /* Contrast */
-  --color-invert-higher: var(--color-black-alpha-900);
+  --color-invert-highest: var(--color-black-alpha-900);
   --color-invert-higher: var(--color-black-alpha-800);
   --color-invert-high: var(--color-black-alpha-700);
   --color-invert-medium: var(--color-black-alpha-500);
   --color-invert-low: var(--color-black-alpha-400);
   --color-invert-lower: var(--color-black-alpha-300);
-  --color-invert-lower: var(--color-black-alpha-200);
+  --color-invert-lowest: var(--color-black-alpha-200);
 
   /* Background */
   --color-background-darkest: var(--color-white);

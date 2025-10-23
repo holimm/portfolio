@@ -12,8 +12,16 @@ import Marquee from 'react-fast-marquee';
 export const SubHero = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     const renderMarquee = useCallback(
-      (text: string, direction: 'left' | 'right' = 'right') => (
+      (
+        text: string,
+        direction: 'left' | 'right' = 'right',
+        position: 'first' | 'last' | 'middle' = 'middle'
+      ) => (
         <Marquee
+          className={cn('overflow-hidden', {
+            'rounded-t-xl': position === 'first',
+            'rounded-b-xl': position === 'last',
+          })}
           speed={50}
           direction={direction}
           gradientColor="rgba(0, 0, 0, 0.819)"
@@ -49,14 +57,24 @@ export const SubHero = forwardRef<HTMLDivElement, LayoutProps>(
           ref={ref}
           {...props}
         >
-          <Container height="full" width="full" yspace="none" xspace="none">
-            <ScrollZoom src={SubHeroImage.src} initialSize="80vmin">
+          <Container
+            height="full"
+            width="full"
+            yspace="none"
+            xspace="none"
+            rounded="2xl"
+          >
+            <ScrollZoom
+              className="rounded-2xl"
+              src={SubHeroImage.src}
+              initialSize="80vmin"
+            >
               <Flex variant="col" justify="between" gap="none">
-                {renderMarquee('WEB DESIGN')}
+                {renderMarquee('WEB DESIGN', 'right', 'first')}
                 {renderMarquee('FRONT END', 'left')}
-                {renderMarquee('BACK END')}
+                {renderMarquee('BACK END', 'right')}
                 {renderMarquee('UI/UX DESIGN', 'left')}
-                {renderMarquee('ANIMATION')}
+                {renderMarquee('ANIMATION', 'right', 'last')}
               </Flex>
             </ScrollZoom>
           </Container>

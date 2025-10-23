@@ -1,12 +1,12 @@
 'use client';
 
 import React, { forwardRef, useRef } from 'react';
-import Link from 'next/link';
 import { LayoutProps, SOCIAL_MEDIA_LINKS } from '@/types';
 import { Section, Container, Flex, Grid } from '@/components/layout';
 import { Typography } from '@/components/elements';
 import { HEADER_NAVIGATION } from '@/types';
 import { cn } from '@/utils';
+import Link from 'next/link';
 
 export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -18,8 +18,8 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
         variant={'parallax'}
         comp="footer"
         theme={theme}
-        className={cn('top-20 !pb-12', className)}
-        yspace="8xl"
+        className={cn('h-fit min-h-screen !pt-52', className)}
+        yspace="7xl"
         ref={footerRef}
         parallaxDirection="top"
         {...props}
@@ -44,22 +44,24 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
 
                       <Flex>
                         {SOCIAL_MEDIA_LINKS.map((item) => (
-                          <Container
-                            key={item.key}
-                            className="border-invert-highest/50 hover:bg-background-dark group cursor-pointer border"
-                            width="fit"
-                            xspace="lg"
-                            yspace="md"
-                            rounded="full"
-                          >
-                            <Typography
-                              className="group-hover:text-black"
-                              contrast="medium"
-                              weight="semibold"
+                          <Link key={item.key} href={item.href} target="_blank">
+                            <Container
+                              key={item.key}
+                              className="!border-contrast-highest hover:bg-background-dark group cursor-pointer border"
+                              width="fit"
+                              xspace="lg"
+                              yspace="md"
+                              rounded="md"
                             >
-                              {item.name}
-                            </Typography>
-                          </Container>
+                              <Typography
+                                className="group-hover:text-black"
+                                contrast="medium"
+                                weight="semibold"
+                              >
+                                {item.name}
+                              </Typography>
+                            </Container>
+                          </Link>
                         ))}
                       </Flex>
                     </Flex>
@@ -110,7 +112,7 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
                   letterSpacing="tightest"
                   size="24xl"
                   contrast="medium"
-                  className="-ml-3"
+                  className="-ml-4"
                 >
                   HO LIM
                 </Typography>

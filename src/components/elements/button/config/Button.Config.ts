@@ -61,13 +61,6 @@ const buttonVariants = tv({
       lowest: { root: '' },
     },
     rounded: radiusConfigs,
-    size: {
-      xs: { root: 'text-xs' },
-      sm: { root: 'text-sm' },
-      md: { root: 'text-base' },
-      lg: { root: 'text-xl' },
-      xl: { root: 'text-2xl' },
-    },
     width: {
       fit: {
         root: 'w-fit',
