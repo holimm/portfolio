@@ -16,8 +16,8 @@ import ResumeGeneratorImg from '@/assets/images/resume-generator.webp';
 
 export const HEADER_NAVIGATION = [
   { key: 'about', name: 'About' },
-  { key: 'works', name: 'Works' },
-  { key: 'expertise', name: 'Expertise' },
+  { key: 'tech-stack', name: 'Tech Stack' },
+  { key: 'projects', name: 'Projects' },
   { key: 'contact', name: 'Contact' },
 ];
 

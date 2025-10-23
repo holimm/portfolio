@@ -4,8 +4,7 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { Button, Typography } from '@/components/elements';
 import { Section, Container, Flex, Grid } from '@/components/layout';
 import { LayoutProps } from '@/types';
-import { ArrowDown, ArrowRight, Clock, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowDown } from 'lucide-react';
 import HeroImage from '@/assets/images/hero-image.webp';
 
 export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
@@ -53,7 +52,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
         {...props}
       >
         {/* Hero background image */}
-        <div
+        {/* <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0 opacity-20"
           style={{
@@ -62,7 +61,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-        />
+        /> */}
         <Container height="full" width="full" xspace="xl">
           <Flex
             height="full"

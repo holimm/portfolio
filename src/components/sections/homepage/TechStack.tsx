@@ -16,7 +16,7 @@ export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
       <Section
         id={props.id}
         variant={'default'}
-        comp="services-section"
+        comp="tech-stack"
         theme={'default'}
         className={`min-h-screen ${className}`}
         yspace="10xl"
