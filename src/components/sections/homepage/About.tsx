@@ -1,7 +1,7 @@
 'use client';
 
 import React, { forwardRef } from 'react';
-import { Typography } from '@/components/elements';
+import { Button, Typography } from '@/components/elements';
 import { Section, Container, Flex, Grid } from '@/components/layout';
 import { LayoutProps } from '@/types';
 import { HorizontalScroll } from '@/components/interactions';
@@ -9,6 +9,8 @@ import SubHeroIntroImage from '@/assets/images/sub-hero-intro.jpg';
 import CoffeeShop from '@/assets/images/coffee-shop.jpg';
 import Forest from '@/assets/images/forest.jpg';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Download, Share } from 'lucide-react';
 
 const sections = [
   {
@@ -90,6 +92,40 @@ const sections = [
                       thoughtful design and animation.
                     </Typography>
                   </Flex>
+                  <Link
+                    className="cursor-pointer"
+                    href="/file/NguyenLimThaiHo_CV.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button
+                      className="hover:bg-contrast-high cursor-pointer transition-all duration-200"
+                      variant="default"
+                      color="primary"
+                      contrast="highest"
+                      padding="lg"
+                      rounded="md"
+                    >
+                      <Flex justify="center" align="center">
+                        <Typography
+                          className="select-none"
+                          ashtml="h1"
+                          size="lg"
+                          align="center"
+                          color="invert"
+                          weight="medium"
+                          animation={{
+                            type: 'split-words',
+                            delay: 0.1,
+                            duration: 0.4,
+                          }}
+                        >
+                          My Resume
+                        </Typography>
+                        <Share className="text-invert-highest" />
+                      </Flex>
+                    </Button>
+                  </Link>
                 </Flex>
               </Container>
             </Grid.Item>
