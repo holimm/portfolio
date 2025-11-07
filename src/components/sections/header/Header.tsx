@@ -8,13 +8,12 @@ import React, {
   useState,
 } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { LayoutProps } from '@/types';
-import { HEADER_NAVIGATION } from '@/types';
+import Marquee from 'react-fast-marquee';
+import { Menu } from 'lucide-react';
+import { LayoutProps, HEADER_NAVIGATION } from '@/types';
 import { Section, Container, Flex } from '@/components/layout';
 import { Typography } from '@/components/elements';
 import { cn } from '@/utils';
-import Marquee from 'react-fast-marquee';
-import { Menu } from 'lucide-react';
 
 export const Header = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -23,6 +22,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
     const [currentSection, setCurrentSection] = useState<string>('');
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const headerRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     // Methods
     const linkLabelRef = useRef<any>(null);
@@ -93,6 +93,22 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
       [currentPath, currentSection, linkLabelRef]
     );
 
+    const handleClickOutside = useCallback(
+      (event: MouseEvent) => {
+        const menuEl = menuRef.current;
+        const headerEl = headerRef.current;
+        if (
+          menuEl &&
+          !menuEl.contains(event.target as Node) &&
+          headerEl &&
+          !headerEl.contains(event.target as Node)
+        ) {
+          setOpenMenu(false);
+        }
+      },
+      [menuRef, headerRef]
+    );
+
     // Effects
     useEffect(() => {
       const handleScroll = () => {
@@ -125,6 +141,15 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
       };
     }, []);
 
+    useEffect(() => {
+      if (!openMenu) return;
+
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [openMenu]);
+
     return (
       <Section
         id={props.id}
@@ -147,6 +172,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
               initial={{ height: 0 }}
               animate={{ height: 'fit-content' }}
               exit={{ height: 0 }}
+              ref={menuRef}
             >
               <Container
                 className="!pb-8"

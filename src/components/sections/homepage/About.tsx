@@ -2,137 +2,180 @@
 
 import React, { forwardRef } from 'react';
 import { Typography } from '@/components/elements';
-import { Section, Container, Flex } from '@/components/layout';
+import { Section, Container, Flex, Grid } from '@/components/layout';
 import { LayoutProps } from '@/types';
 import { HorizontalScroll } from '@/components/interactions';
+import SubHeroIntroImage from '@/assets/images/sub-hero-intro.jpg';
+import CoffeeShop from '@/assets/images/coffee-shop.jpg';
+import Forest from '@/assets/images/forest.jpg';
+import Image from 'next/image';
 
 const sections = [
   {
-    key: 'intro_engineer',
+    key: 'intro',
     content: (
-      <Container
-        height="screen"
-        width="screen"
-        xspace="6xl"
-        yspace="4xl"
-        className="relative bg-gray-50 transition-colors"
+      <Section
+        variant={'default'}
+        comp="About - Intro"
+        theme={'default'}
+        className={`min-h-screen min-w-screen select-none`}
+        yspace="none"
+        xspace="none"
+        rounded="none"
       >
-        {/* Decorative Element: The Continuous Path (Subtle) */}
-        <div
-          className="absolute top-1/2 left-0 h-1 w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-          style={{
-            clipPath: "path('M0,10 Q25,0 50,10 T100,10')",
-            transform: 'scale(8, 1)',
-            opacity: 0.1, // Subtle start
-          }}
-        />
-        <Flex
-          height="full"
-          width="full"
-          variant="col"
-          justify="center"
-          align="start"
-          gap="3xl"
-        >
-          <Typography
-            ashtml="span"
-            size="md"
-            weight="semibold"
-            contrast="medium"
-            className="animate-fadeInUp tracking-widest text-cyan-500/70 uppercase"
-          >
-            [ I. THE ARCHITECT ]
-          </Typography>
-
-          <Typography
-            ashtml="h1"
-            size="6xl"
-            weight="extrabold"
-            align="left"
-            className="animate-fadeInUp max-w-5xl leading-tight"
-          >
-            I build systems that **scale**. Clean code and robust architecture
-            are my non-negotiables.
-          </Typography>
-          <Typography
-            size="lg"
-            weight="light"
-            align="left"
-            className="animate-fadeInUp max-w-3xl text-gray-600 dark:text-gray-300"
-          >
-            Full-Stack expertise allows me to manage the complexity of
-            end-to-end delivery—from the first schema to the final deployment.
-          </Typography>
-        </Flex>
-      </Container>
+        <Container height="full" width="3xl" yspace="4xl" xspace="4xl">
+          <Grid height="full" gap="6xl">
+            {/* Image */}
+            <Grid.Item height="screen" span={6}>
+              <Container height="full" width="3xl" yspace="4xl" xspace="4xl">
+                <Flex
+                  height="full"
+                  width="full"
+                  justify="center"
+                  align="center"
+                >
+                  <div className="group relative aspect-square w-full overflow-hidden rounded-md bg-gray-400">
+                    <Image
+                      src={SubHeroIntroImage}
+                      alt="About me"
+                      className="h-full w-full rounded-md object-cover grayscale transition-all duration-1000 ease-in-out group-hover:scale-105 group-hover:grayscale-0"
+                      fill
+                    />
+                  </div>
+                </Flex>
+              </Container>
+            </Grid.Item>
+            {/* Content */}
+            <Grid.Item height="full" span={6}>
+              <Container height="full" width="full" yspace="4xl" xspace="4xl">
+                <Flex
+                  height="full"
+                  width="full"
+                  variant="col"
+                  justify="center"
+                  align="start"
+                  gap="2xl"
+                >
+                  <Typography
+                    ashtml="span"
+                    size="md"
+                    weight="normal"
+                    contrast="medium"
+                  >
+                    [ About me ]
+                  </Typography>
+                  <Flex variant="col" gap="lg">
+                    <Typography
+                      className="leading-8"
+                      ashtml="h1"
+                      size="2xl"
+                      weight="medium"
+                      align="left"
+                      letterSpacing="wider"
+                    >
+                      Hi, I’m Nguyen Lim Thai Ho — a web developer based in Ho
+                      Chi Minh City, Vietnam. I graduated from Saigon University
+                      and have over a year of experience in website development.
+                    </Typography>
+                    <Typography
+                      className="leading-8"
+                      ashtml="h1"
+                      size="2xl"
+                      weight="medium"
+                      align="left"
+                      letterSpacing="wider"
+                    >
+                      I’m passionate about creating modern, high-performance
+                      websites and bringing interfaces to life through
+                      thoughtful design and animation.
+                    </Typography>
+                  </Flex>
+                </Flex>
+              </Container>
+            </Grid.Item>
+          </Grid>
+        </Container>
+      </Section>
     ),
   },
   {
-    key: 'image_blueprint',
+    key: 'journey',
     content: (
-      <Container
-        height="screen"
-        width="screen"
-        className="relative bg-gray-50 transition-colors"
+      <Section
+        variant={'default'}
+        comp="About - Journey"
+        theme={'default'}
+        className={`min-h-screen min-w-screen select-none`}
+        rounded="2xl"
       >
-        {/* Decorative Element: The Continuous Path (Slightly More Visible) */}
-        <div
-          className="absolute top-1/2 left-0 h-1 w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-          style={{
-            clipPath: "path('M0,10 Q25,0 50,10 T100,10')",
-            transform: 'scale(8, 1)',
-            opacity: 0.3, // Building up visibility
-          }}
-        />
-        <Flex
-          height="full"
-          width="full"
-          variant="row"
-          justify="center"
-          align="center"
-          gap="8xl"
-          xspace="6xl"
-        >
-          {/* Image with a more artistic, blueprint-like styling */}
-          <img
-            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHBvcnRyYWl0fGVufDB8MnwwfHx8MA%3D%3D"
-            alt="About Me Portrait"
-            className="animate-fadeInUp h-[50vh] w-[40vh] border-4 border-cyan-400/50 object-cover shadow-xl brightness-110 grayscale"
-          />
-          <Flex
-            variant="col"
-            justify="center"
-            align="start"
-            className="max-w-xl"
-          >
-            <Typography
-              ashtml="span"
-              size="md"
-              weight="semibold"
-              contrast="medium"
-              className="animate-fadeInUp mb-4 tracking-widest text-cyan-500/70 uppercase"
-            >
-              [ II. THE VISUALIZER ]
-            </Typography>
-            <Typography
-              ashtml="h2"
-              size="4xl"
-              weight="light"
-              className="animate-fadeInUp leading-snug tracking-tight"
-            >
-              I write code that understands **aesthetics**.
-            </Typography>
-            <Typography
-              size="lg"
-              weight="light"
-              className="animate-fadeInUp mt-4 max-w-lg text-gray-500 italic dark:text-gray-400"
-            >
-              Every component is a chance for pixel-perfect craftsmanship. I
-              translate design into functional, responsive reality.
-            </Typography>
-          </Flex>
-        </Flex>
-      </Container>
+        <Container height="screen" width="3xl">
+          <Container height="full" width="full" yspace="4xl" xspace="4xl">
+            <Grid height="screen" gap="6xl">
+              {/* Left Image */}
+              <Grid.Item height="full" span={3}>
+                <Flex height="full" width="full" justify="center" align="start">
+                  <div className="group relative flex aspect-[9/16] w-full items-center justify-center overflow-hidden rounded-md bg-gray-400 shadow">
+                    <Image
+                      src={CoffeeShop}
+                      alt="About me"
+                      className="h-full w-full object-cover grayscale transition-all duration-1000 ease-in-out group-hover:scale-105 group-hover:grayscale-0"
+                      fill
+                    />
+                  </div>
+                </Flex>
+              </Grid.Item>
+              <Grid.Item height="full" span={6}>
+                <Flex
+                  height="full"
+                  width="full"
+                  variant="col"
+                  justify="center"
+                  align="center"
+                  gap="2xl"
+                >
+                  <Typography
+                    ashtml="span"
+                    size="md"
+                    weight="normal"
+                    contrast="medium"
+                    align="center"
+                  >
+                    [ Another thing ]
+                  </Typography>
+
+                  <Container>
+                    <Typography
+                      className="leading-8"
+                      ashtml="h1"
+                      size="2xl"
+                      weight="medium"
+                      align="center"
+                      letterSpacing="wider"
+                    >
+                      Outside of work, I love exploring new places, trying
+                      different coffees, and spending time at the piano — it’s
+                      my favorite way to relax and find inspiration.
+                    </Typography>
+                  </Container>
+                </Flex>
+              </Grid.Item>
+              {/* Right Image */}
+              <Grid.Item height="full" span={3}>
+                <Flex height="full" width="full" justify="center" align="end">
+                  <div className="group relative flex aspect-[9/16] w-full items-end justify-center overflow-hidden rounded-md bg-gray-400 shadow">
+                    <Image
+                      src={Forest}
+                      alt="About me"
+                      className="h-full w-full object-cover grayscale transition-all duration-1000 ease-in-out group-hover:scale-105 group-hover:grayscale-0"
+                      fill
+                    />
+                  </div>
+                </Flex>
+              </Grid.Item>
+            </Grid>
+          </Container>
+        </Container>
+      </Section>
     ),
   },
 ];
@@ -141,6 +184,7 @@ export const About = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     return (
       <Section
+        id="about"
         variant={'default'}
         comp="about"
         theme={theme}
