@@ -86,7 +86,13 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
             align="center"
           >
             <Grid>
-              <Grid.Item span={3}>
+              <Grid.Item
+                span={[
+                  { span: 12 },
+                  { breakpoint: 'md', span: 6 },
+                  { breakpoint: 'lg', span: 3 },
+                ]}
+              >
                 <Flex variant="col" gap="xs">
                   <Typography
                     className="select-none lg:text-xl 2xl:text-2xl"
@@ -125,7 +131,13 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                   </Typography>
                 </Flex>
               </Grid.Item>
-              <Grid.Item span={3}>
+              <Grid.Item
+                span={[
+                  { span: 12 },
+                  { breakpoint: 'md', span: 6 },
+                  { breakpoint: 'lg', span: 3 },
+                ]}
+              >
                 <Flex variant="col" gap="xs">
                   <Typography
                     className="select-none lg:text-xl 2xl:text-2xl"
@@ -164,7 +176,13 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                   </Typography>
                 </Flex>
               </Grid.Item>
-              <Grid.Item span={3}>
+              <Grid.Item
+                span={[
+                  { span: 12 },
+                  { breakpoint: 'md', span: 6 },
+                  { breakpoint: 'lg', span: 3 },
+                ]}
+              >
                 <Flex variant="col" gap="xs">
                   <Flex align="center">
                     <Typography
@@ -209,14 +227,20 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                   </Typography>
                 </Flex>
               </Grid.Item>
-              <Grid.Item span={3}>
-                <Flex justify="end" align="start">
+              <Grid.Item
+                span={[
+                  { span: 12 },
+                  { breakpoint: 'md', span: 6 },
+                  { breakpoint: 'lg', span: 3 },
+                ]}
+              >
+                <Flex className="lg:justify-end" justify="start" align="start">
                   <Button
-                    className="hover:bg-contrast-high cursor-pointer transition-all duration-200"
+                    className="hover:bg-contrast-high cursor-pointer p-5 transition-all duration-200"
                     variant="default"
                     color="primary"
                     contrast="highest"
-                    padding="lg"
+                    padding="md"
                     rounded="md"
                     onClick={() => handleScrollToSection('contact')}
                   >
@@ -265,9 +289,9 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                 Hello there! I&apos;m
               </Typography>
               <Typography
-                className="4xl:text-14xl 3xl:text-13xl 2xl:text-12xl lg:text-10xl select-none"
+                className="4xl:text-14xl 3xl:text-13xl 2xl:text-12xl lg:text-12xl md:text-10xl select-none"
                 ashtml="h1"
-                size="14xl"
+                size="8xl"
                 weight="bold"
                 align="center"
                 animation={{

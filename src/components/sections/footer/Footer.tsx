@@ -36,8 +36,15 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
         <Container className="h-full">
           <Flex variant="col" gap="xl">
             <Container>
-              <Grid dimension="8">
-                <Grid.Item className="!h-full" span={4}>
+              <Grid className="lg:gap-0" dimension="8" gap="4xl">
+                <Grid.Item
+                  className="!h-full"
+                  span={[
+                    { span: 8 },
+                    { breakpoint: 'md', span: 8 },
+                    { breakpoint: 'lg', span: 4 },
+                  ]}
+                >
                   <Container height="full" className="pr-10">
                     <Flex height="full" variant="col" justify="between">
                       <Typography
@@ -77,7 +84,13 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
                   </Container>
                 </Grid.Item>
 
-                <Grid.Item span={2}>
+                <Grid.Item
+                  span={[
+                    { span: 8 },
+                    { breakpoint: 'md', span: 4 },
+                    { breakpoint: 'lg', span: 2 },
+                  ]}
+                >
                   <Flex variant="col" gap="md">
                     <Typography weight="bold">Visit</Typography>
                     {HEADER_NAVIGATION.map((item) => (
@@ -96,7 +109,13 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
                     ))}
                   </Flex>
                 </Grid.Item>
-                <Grid.Item span={2}>
+                <Grid.Item
+                  span={[
+                    { span: 8 },
+                    { breakpoint: 'md', span: 4 },
+                    { breakpoint: 'lg', span: 2 },
+                  ]}
+                >
                   <Flex variant="col" gap="md">
                     <Typography weight="bold">Social</Typography>
                     {SOCIAL_MEDIA_LINKS.map((item) => (
@@ -124,9 +143,9 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
                   fontFamily="oldschool-grotesk-compressed"
                   weight="bold"
                   letterSpacing="tightest"
-                  size="24xl"
+                  size="13xl"
                   contrast="medium"
-                  className="-ml-4"
+                  className="xl:text-24xl lg:text-20xl md:text-18xl sm:text-16xl xs:text-14xl lg:-ml-4"
                 >
                   HO LIM
                 </Typography>

@@ -12,7 +12,7 @@ import Marquee from 'react-fast-marquee';
 import { Menu } from 'lucide-react';
 import { LayoutProps, HEADER_NAVIGATION } from '@/types';
 import { Section, Container, Flex } from '@/components/layout';
-import { Button, Typography } from '@/components/elements';
+import { Typography } from '@/components/elements';
 import { cn } from '@/utils';
 
 export const Header = forwardRef<HTMLDivElement, LayoutProps>(
@@ -79,12 +79,12 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
                     animation={{
                       type: 'split-words',
                       duration: 0.2,
-                      delay: 0.05,
+                      delay: 0.2,
                       ease: 'easeOut',
                       hover: {
                         text: label,
                         duration: 0.2,
-                        delay: 0.05,
+                        delay: 0.2,
                         ease: 'linear',
                         stagger: 0.05,
                       },
@@ -172,7 +172,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
         comp="header"
         theme={theme}
         className={cn(
-          '!fixed bottom-12 left-0 z-50 h-24 w-full !bg-[unset]',
+          '!fixed bottom-8 left-1/2 z-50 h-24 w-[95%] -translate-x-1/2 !bg-[unset] lg:bottom-12 lg:w-full',
           className
         )}
         xspace="none"

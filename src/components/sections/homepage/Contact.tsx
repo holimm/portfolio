@@ -45,23 +45,10 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
             {/* Heading */}
             <Flex variant="col" width="full" justify="center" align="center">
               <Typography
-                className="select-none"
-                size="10xl"
+                className="xl:!text-10xl select-none sm:!text-6xl md:!text-8xl lg:!text-9xl"
+                size="6xl"
                 weight="bold"
                 align="center"
-                animation={{
-                  type: 'split-words',
-                  duration: 0.2,
-                  delay: 0.05,
-                  ease: 'easeInOut',
-                  hover: {
-                    text: "LET'S WORK TOGETHER",
-                    duration: 0.2,
-                    delay: 0.05,
-                    ease: 'easeInOut',
-                    stagger: 0.05,
-                  },
-                }}
               >
                 LET&apos;S WORK TOGETHER
               </Typography>
@@ -71,19 +58,6 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                 weight="medium"
                 contrast="medium"
                 align="center"
-                animation={{
-                  type: 'split-words',
-                  duration: 0.2,
-                  delay: 0.05,
-                  ease: 'easeInOut',
-                  hover: {
-                    text: " Ready to bring your creative vision to life? Let's start a conversation.",
-                    duration: 0.2,
-                    delay: 0.05,
-                    ease: 'easeInOut',
-                    stagger: 0.05,
-                  },
-                }}
               >
                 Ready to bring your creative vision to life? Let&apos;s start a
                 conversation.
@@ -91,28 +65,39 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
             </Flex>
 
             {/* Contact Info */}
-            <Grid>
+            <Grid gap="none">
               {/* Contact Information */}
               <Grid.Item span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}>
                 <Flex variant="col" gap="xl">
                   <Flex justify="start" align="center" gap="md">
                     <Mail size={24} />
                     <Flex variant="col" justify="start" align="start" gap="3xs">
-                      <h3 className="mb-1 font-bold">Email</h3>
-                      <p className="opacity-70">kahn12345678@gmail.com</p>
+                      <Typography ashtml="h3" weight="bold">
+                        Email
+                      </Typography>
+                      <Typography contrast="medium">
+                        kahn12345678@gmail.com
+                      </Typography>
                     </Flex>
                   </Flex>
                   <Flex justify="start" align="center" gap="md">
                     <MapPin size={24} />
                     <Flex variant="col" justify="start" align="start" gap="3xs">
-                      <h3 className="font-bold">Location</h3>
-                      <p className="opacity-70">Ho Chi Minh City, Vietnam</p>
+                      <Typography ashtml="h3" weight="bold">
+                        Location
+                      </Typography>
+                      <Typography contrast="medium">
+                        Ho Chi Minh City, Vietnam
+                      </Typography>
                     </Flex>
                   </Flex>
                 </Flex>
               </Grid.Item>
               {/* Form Content */}
-              <Grid.Item span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}>
+              <Grid.Item
+                className="mt-10 lg:mt-0"
+                span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}
+              >
                 <Form {...form}>
                   <form method="post" onSubmit={form.handleSubmit(onSubmit)}>
                     <Flex variant="col" gap="lg">
@@ -236,7 +221,7 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                         <Flex align="center" justify="start">
                           <Button
                             type="submit"
-                            className="hover:bg-contrast-high cursor-pointer transition-all duration-200"
+                            className="hover:bg-contrast-high w-full cursor-pointer transition-all duration-200 lg:w-fit"
                             variant="default"
                             color="primary"
                             contrast="highest"
