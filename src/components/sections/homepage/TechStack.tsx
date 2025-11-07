@@ -14,7 +14,7 @@ export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
 
     return (
       <Section
-        id={props.id}
+        id="tech-stack"
         variant={'default'}
         comp="tech-stack"
         theme={'default'}

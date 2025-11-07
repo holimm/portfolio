@@ -12,17 +12,19 @@ import Marquee from 'react-fast-marquee';
 import { Menu } from 'lucide-react';
 import { LayoutProps, HEADER_NAVIGATION } from '@/types';
 import { Section, Container, Flex } from '@/components/layout';
-import { Typography } from '@/components/elements';
+import { Button, Typography } from '@/components/elements';
 import { cn } from '@/utils';
 
 export const Header = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
-    // States & refs
+    // Refs
+    const headerRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    // States
     const [currentPath, setCurrentPath] = useState(HEADER_NAVIGATION[0].key);
     const [currentSection, setCurrentSection] = useState<string>('');
     const [openMenu, setOpenMenu] = useState<boolean>(false);
-    const headerRef = useRef<HTMLDivElement>(null);
-    const menuRef = useRef<HTMLDivElement>(null);
 
     // Methods
     const linkLabelRef = useRef<any>(null);
@@ -64,27 +66,33 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
                 justify="center"
                 align="center"
               >
-                <Typography
-                  ref={linkLabelRef}
-                  size="lg"
-                  color="invert"
-                  weight="semibold"
-                  animation={{
-                    type: 'split-words',
-                    duration: 0.2,
-                    delay: 0.05,
-                    ease: 'easeOut',
-                    hover: {
-                      text: label,
+                <button
+                  type="button"
+                  onClick={() => handleScrollToSection(key)}
+                  className="cursor-pointer"
+                >
+                  <Typography
+                    ref={linkLabelRef}
+                    size="lg"
+                    color="invert"
+                    weight="semibold"
+                    animation={{
+                      type: 'split-words',
                       duration: 0.2,
                       delay: 0.05,
-                      ease: 'linear',
-                      stagger: 0.05,
-                    },
-                  }}
-                >
-                  {label}
-                </Typography>
+                      ease: 'easeOut',
+                      hover: {
+                        text: label,
+                        duration: 0.2,
+                        delay: 0.05,
+                        ease: 'linear',
+                        stagger: 0.05,
+                      },
+                    }}
+                  >
+                    {label}
+                  </Typography>
+                </button>
               </Flex>
             </Flex>
           </Container>
@@ -108,6 +116,13 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
       },
       [menuRef, headerRef]
     );
+
+    const handleScrollToSection = useCallback((sectionId: string) => {
+      const section = document.querySelector(`[data-section="${sectionId}"]`);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, []);
 
     // Effects
     useEffect(() => {
@@ -165,7 +180,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
         ref={ref}
         {...props}
       >
-        <AnimatePresence>
+        <AnimatePresence mode="sync">
           {openMenu && (
             <motion.div
               className="bg-contrast-highest/80 absolute bottom-20 h-60 w-full max-w-[600px] overflow-hidden rounded-t-lg backdrop-blur-md"
