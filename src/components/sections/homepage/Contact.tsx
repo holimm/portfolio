@@ -4,12 +4,20 @@ import React, { forwardRef, useRef } from 'react';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form, Input, Typography } from '@/components/elements';
+import {
+  Button,
+  Form,
+  Input,
+  Textarea,
+  Typography,
+} from '@/components/elements';
 import { Section, Container, Grid, Flex } from '@/components/layout';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { LayoutProps } from '@/types';
-import { cn } from '@/utils';
+import { cn, sendEmail } from '@/utils';
 import { ContactSchema } from '@/schema';
+import { toast } from 'sonner';
+import { debounce } from 'lodash';
 
 export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -24,9 +32,20 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
     });
 
     // Methods
-    const onSubmit = (data: z.infer<typeof ContactSchema>) => {
-      console.log('Contact Form Data:', data);
-    };
+    const onSubmit = debounce(async (data: z.infer<typeof ContactSchema>) => {
+      const result = await sendEmail({
+        fullname: data.fullname,
+        email: data.email,
+        message: data.message,
+      });
+      if (result.success) {
+        toast.success(result.message || 'Message sent successfully!');
+      } else {
+        toast.error(
+          result.message || 'Failed to send message. Please try again later.'
+        );
+      }
+    }, 1000);
 
     const contactRef = useRef<HTMLDivElement>(null);
     return (
@@ -198,7 +217,7 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                                   </Typography>
                                 </Form.Label>
                                 <Form.Control>
-                                  <Input
+                                  <Textarea
                                     type="text"
                                     placeholder="Message"
                                     className={cn(
@@ -208,6 +227,7 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                                           error,
                                       }
                                     )}
+                                    rows={6}
                                     {...field}
                                   />
                                 </Form.Control>
