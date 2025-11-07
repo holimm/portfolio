@@ -29,25 +29,12 @@ export const Projects = forwardRef<HTMLDivElement, LayoutProps>(
         <Container className="gap-4xl" height="full" width="3xl">
           <Flex variant="col" gap="8xl">
             {/* Heading */}
-            <Flex width="full" justify="center" align="center">
+            <Flex width="full" justify="center" align="center" wrap="wrap">
               <Typography
-                className="select-none"
-                size="10xl"
+                className="xl:!text-10xl select-none sm:!text-6xl md:!text-8xl lg:!text-9xl"
+                size="6xl"
                 weight="bold"
                 align="center"
-                animation={{
-                  type: 'split-words',
-                  duration: 0.2,
-                  delay: 0.05,
-                  ease: 'easeInOut',
-                  hover: {
-                    text: 'SELECTED PROJECTS',
-                    duration: 0.2,
-                    delay: 0.05,
-                    ease: 'easeInOut',
-                    stagger: 0.05,
-                  },
-                }}
               >
                 SELECTED PROJECTS
               </Typography>
@@ -56,7 +43,14 @@ export const Projects = forwardRef<HTMLDivElement, LayoutProps>(
             {/* Work Grid */}
             <Grid width="full" gap="xl">
               {selectedProjects.map((project, index) => (
-                <Grid.Item key={`project-${index}`} span={6}>
+                <Grid.Item
+                  key={`project-${index}`}
+                  span={[
+                    { span: 12 },
+                    { breakpoint: 'md', span: 12 },
+                    { breakpoint: 'lg', span: 6 },
+                  ]}
+                >
                   <Container
                     className={`group bg-invert-highest relative cursor-pointer overflow-hidden transition-all duration-700`}
                     width="full"

@@ -1,16 +1,16 @@
 'use client';
 
 import React, { forwardRef } from 'react';
-import { Button, Typography } from '@/components/elements';
-import { Section, Container, Flex, Grid } from '@/components/layout';
-import { LayoutProps } from '@/types';
-import { HorizontalScroll } from '@/components/interactions';
-import SubHeroIntroImage from '@/assets/images/sub-hero-intro.jpg';
-import CoffeeShop from '@/assets/images/coffee-shop.jpg';
-import Forest from '@/assets/images/forest.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Download, Share } from 'lucide-react';
+import { Button, Typography } from '@/components/elements';
+import { Section, Container, Flex, Grid } from '@/components/layout';
+import { HorizontalScroll } from '@/components/interactions';
+import { LayoutProps } from '@/types';
+import SubHeroIntroImage from '@/assets/images/sub-hero-intro.webp';
+import CoffeeShop from '@/assets/images/coffee-shop.webp';
+import Forest from '@/assets/images/forest.webp';
+import { Share } from 'lucide-react';
 
 const sections = [
   {
@@ -25,11 +25,27 @@ const sections = [
         xspace="none"
         rounded="none"
       >
-        <Container height="full" width="3xl" yspace="4xl" xspace="4xl">
-          <Grid height="full" gap="6xl">
+        <Container
+          className="lg:p-10"
+          height="full"
+          width="3xl"
+          yspace="md"
+          xspace="md"
+        >
+          <Grid className="lg:gap-16" height="full" gap="xl">
             {/* Image */}
-            <Grid.Item height="screen" span={6}>
-              <Container height="full" width="3xl" yspace="4xl" xspace="4xl">
+            <Grid.Item
+              className="lg:h-screen"
+              height="fit"
+              span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}
+            >
+              <Container
+                className="lg:p-10"
+                height="full"
+                width="3xl"
+                yspace="md"
+                xspace="md"
+              >
                 <Flex
                   height="full"
                   width="full"
@@ -48,8 +64,17 @@ const sections = [
               </Container>
             </Grid.Item>
             {/* Content */}
-            <Grid.Item height="full" span={6}>
-              <Container height="full" width="full" yspace="4xl" xspace="4xl">
+            <Grid.Item
+              height="full"
+              span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}
+            >
+              <Container
+                className="lg:p-10"
+                height="full"
+                width="3xl"
+                yspace="md"
+                xspace="md"
+              >
                 <Flex
                   height="full"
                   width="full"
@@ -68,9 +93,9 @@ const sections = [
                   </Typography>
                   <Flex variant="col" gap="lg">
                     <Typography
-                      className="leading-8"
+                      className="leading-8 lg:text-2xl"
                       ashtml="h1"
-                      size="2xl"
+                      size="xl"
                       weight="medium"
                       align="left"
                       letterSpacing="wider"
@@ -80,9 +105,9 @@ const sections = [
                       and have over a year of experience in website development.
                     </Typography>
                     <Typography
-                      className="leading-8"
+                      className="leading-8 lg:text-2xl"
                       ashtml="h1"
-                      size="2xl"
+                      size="xl"
                       weight="medium"
                       align="left"
                       letterSpacing="wider"
@@ -145,12 +170,21 @@ const sections = [
         rounded="2xl"
       >
         <Container height="screen" width="3xl">
-          <Container height="full" width="full" yspace="4xl" xspace="4xl">
-            <Grid height="screen" gap="6xl">
+          <Container
+            className="lg:p-10"
+            height="full"
+            width="3xl"
+            yspace="md"
+            xspace="md"
+          >
+            <Grid className="lg:gap-16" height="full" gap="xl">
               {/* Left Image */}
-              <Grid.Item height="full" span={3}>
+              <Grid.Item
+                height="full"
+                span={[{ span: 12 }, { breakpoint: 'lg', span: 3 }]}
+              >
                 <Flex height="full" width="full" justify="center" align="start">
-                  <div className="group relative flex aspect-[9/16] w-full items-center justify-center overflow-hidden rounded-md bg-gray-400 shadow">
+                  <div className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-md bg-gray-400 shadow lg:aspect-[9/16]">
                     <Image
                       src={CoffeeShop}
                       alt="About me"
@@ -160,7 +194,10 @@ const sections = [
                   </div>
                 </Flex>
               </Grid.Item>
-              <Grid.Item height="full" span={6}>
+              <Grid.Item
+                height="full"
+                span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}
+              >
                 <Flex
                   height="full"
                   width="full"
@@ -196,9 +233,12 @@ const sections = [
                 </Flex>
               </Grid.Item>
               {/* Right Image */}
-              <Grid.Item height="full" span={3}>
+              <Grid.Item
+                height="full"
+                span={[{ span: 12 }, { breakpoint: 'lg', span: 3 }]}
+              >
                 <Flex height="full" width="full" justify="center" align="end">
-                  <div className="group relative flex aspect-[9/16] w-full items-end justify-center overflow-hidden rounded-md bg-gray-400 shadow">
+                  <div className="group relative flex aspect-video w-full items-end justify-center overflow-hidden rounded-md bg-gray-400 shadow lg:aspect-[9/16]">
                     <Image
                       src={Forest}
                       alt="About me"

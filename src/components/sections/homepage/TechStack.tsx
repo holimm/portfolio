@@ -1,10 +1,10 @@
 'use client';
 
 import React, { forwardRef, useMemo, useRef } from 'react';
+import Link from 'next/link';
 import { Typography } from '@/components/elements';
 import { Section, Container, Grid, Flex } from '@/components/layout';
 import { LayoutProps, TECH_STACK } from '@/types';
-import Link from 'next/link';
 
 export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -29,22 +29,10 @@ export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
             {/* Heading */}
             <Flex width="full" justify="center" align="center">
               <Typography
-                className="select-none"
-                size="10xl"
+                className="xl:!text-10xl select-none sm:!text-6xl md:!text-8xl lg:!text-9xl"
+                size="6xl"
                 weight="bold"
-                animation={{
-                  type: 'split-words',
-                  duration: 0.2,
-                  delay: 0.05,
-                  ease: 'easeInOut',
-                  hover: {
-                    text: 'MODERN STACK',
-                    duration: 0.2,
-                    delay: 0.05,
-                    ease: 'easeInOut',
-                    stagger: 0.05,
-                  },
-                }}
+                align="center"
               >
                 MODERN STACK
               </Typography>
@@ -53,7 +41,15 @@ export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
             {/* Services Grid */}
             <Grid gap="none">
               {techStack.slice(0, 3).map((tech, i) => (
-                <Grid.Item key={`video-${i}`} span={4}>
+                <Grid.Item
+                  key={`video-${i}`}
+                  span={[
+                    { span: 12 },
+                    { breakpoint: 'sm', span: i === 2 ? 12 : 6 },
+                    { breakpoint: 'md', span: i === 2 ? 12 : 6 },
+                    { breakpoint: 'lg', span: 4 },
+                  ]}
+                >
                   <Link
                     href={tech.href}
                     target="_blank"
@@ -74,7 +70,15 @@ export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
                 </Grid.Item>
               ))}
               {techStack.slice(3, 9).map((tech, i) => (
-                <Grid.Item key={`square-${i}`} span={2}>
+                <Grid.Item
+                  key={`square-${i}`}
+                  span={[
+                    { span: 12 },
+                    { breakpoint: 'sm', span: 4 },
+                    { breakpoint: 'md', span: 4 },
+                    { breakpoint: 'lg', span: 2 },
+                  ]}
+                >
                   <Link
                     href={tech.href}
                     target="_blank"
