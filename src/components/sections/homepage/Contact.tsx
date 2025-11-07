@@ -127,18 +127,16 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                             render={({ field, fieldState: { error } }) => (
                               <Form.Item>
                                 <Form.Label>
-                                  <Flex variant="col" gap="2xs">
-                                    <Typography ashtml="span">
-                                      Full Name{' '}
-                                      <Typography
-                                        ashtml="span"
-                                        color="error"
-                                        contrast="medium"
-                                      >
-                                        *
-                                      </Typography>
+                                  <Typography ashtml="span">
+                                    Full Name{' '}
+                                    <Typography
+                                      ashtml="span"
+                                      color="error"
+                                      contrast="medium"
+                                    >
+                                      *
                                     </Typography>
-                                  </Flex>
+                                  </Typography>
                                 </Form.Label>
                                 <Form.Control>
                                   <Input
@@ -166,18 +164,16 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                             render={({ field, fieldState: { error } }) => (
                               <Form.Item>
                                 <Form.Label>
-                                  <Flex variant="col" gap="2xs">
-                                    <Typography ashtml="span">
-                                      Email{' '}
-                                      <Typography
-                                        ashtml="span"
-                                        color="error"
-                                        contrast="medium"
-                                      >
-                                        *
-                                      </Typography>
+                                  <Typography ashtml="span">
+                                    Email{' '}
+                                    <Typography
+                                      ashtml="span"
+                                      color="error"
+                                      contrast="medium"
+                                    >
+                                      *
                                     </Typography>
-                                  </Flex>
+                                  </Typography>
                                 </Form.Label>
                                 <Form.Control>
                                   <Input
@@ -205,18 +201,16 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                             render={({ field, fieldState: { error } }) => (
                               <Form.Item>
                                 <Form.Label>
-                                  <Flex variant="col" gap="2xs">
-                                    <Typography ashtml="span">
-                                      Message{' '}
-                                      <Typography
-                                        ashtml="span"
-                                        color="error"
-                                        contrast="medium"
-                                      >
-                                        *
-                                      </Typography>
+                                  <Typography ashtml="span">
+                                    Message{' '}
+                                    <Typography
+                                      ashtml="span"
+                                      color="error"
+                                      contrast="medium"
+                                    >
+                                      *
                                     </Typography>
-                                  </Flex>
+                                  </Typography>
                                 </Form.Label>
                                 <Form.Control>
                                   <Input
