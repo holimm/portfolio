@@ -44,3 +44,53 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = 'Input';
+
+export interface TextareaProps
+  extends UseInputProps,
+    Omit<HTMLAttributes<HTMLTextAreaElement>, keyof UseInputProps> {
+  state?: Status;
+  placeholder?: string;
+  cols?: number;
+  rows?: number;
+}
+
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  (
+    {
+      className,
+      children,
+      title,
+      state,
+      placeholder,
+      size,
+      cols,
+      rows,
+      ...props
+    },
+    ref
+  ) => {
+    const { ...context } = useInput({
+      size,
+      ...props,
+    });
+
+    const ctx = useMemo(() => context, [context]);
+    const Component = 'textarea';
+
+    return (
+      <Component
+        placeholder={placeholder}
+        ref={ref}
+        data-comp="textarea"
+        data-variant={ctx.variant}
+        disabled={state === Status.Disable}
+        className={`${className} ${ctx.inputStyle()}`}
+        cols={cols}
+        rows={rows}
+        {...props}
+      />
+    );
+  }
+);
+
+Textarea.displayName = 'Textarea';

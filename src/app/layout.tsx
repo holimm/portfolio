@@ -4,6 +4,7 @@ import { Header } from '@/components/sections/header';
 import { LenisProvider } from '@/components/providers';
 import '../styles/globals.css';
 import { Footer } from '@/components/sections';
+import { Toaster } from 'sonner';
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = generatePageMetadata();
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-oldschool-grotesk-normal">
+        <Toaster position="bottom-right" richColors />
         <LenisProvider>
           <Header />
           {children}
