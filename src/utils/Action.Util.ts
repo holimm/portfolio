@@ -17,6 +17,7 @@ export async function sendEmail({
 }): Promise<{ success: boolean; message?: string }> {
   const ip = (await headers()).get('x-forwarded-for') || 'unknown';
   const limit = rateLimit(ip);
+  const myEmail = process.env.MY_EMAIL || 'kahn12345678@gmail.com';
 
   if (!limit.success) {
     return {
@@ -28,7 +29,7 @@ export async function sendEmail({
   try {
     await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: email,
+      to: myEmail,
       subject: `New message from ${fullname}`,
       html: `
         <div style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 32px;">

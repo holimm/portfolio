@@ -1,6 +1,6 @@
 'use client';
 
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useRef, useState } from 'react';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,6 +8,7 @@ import {
   Button,
   Form,
   Input,
+  Loading,
   Textarea,
   Typography,
 } from '@/components/elements';
@@ -21,6 +22,8 @@ import { debounce } from 'lodash';
 
 export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
+    const [loading, setLoading] = useState(false);
+
     // Form configs
     const form = useForm<z.infer<typeof ContactSchema>>({
       defaultValues: {
@@ -33,17 +36,23 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
 
     // Methods
     const onSubmit = debounce(async (data: z.infer<typeof ContactSchema>) => {
+      setLoading(true);
       const result = await sendEmail({
         fullname: data.fullname,
         email: data.email,
         message: data.message,
       });
       if (result.success) {
+        setLoading(false);
         toast.success(result.message || 'Message sent successfully!');
+        form.reset();
+        return;
       } else {
+        setLoading(false);
         toast.error(
           result.message || 'Failed to send message. Please try again later.'
         );
+        return;
       }
     }, 1000);
 
@@ -84,6 +93,7 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
             </Flex>
 
             {/* Contact Info */}
+
             <Grid gap="none">
               {/* Contact Information */}
               <Grid.Item span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}>
@@ -117,153 +127,155 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
                 className="mt-10 lg:mt-0"
                 span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}
               >
-                <Form {...form}>
-                  <form method="post" onSubmit={form.handleSubmit(onSubmit)}>
-                    <Flex variant="col" gap="lg">
-                      {/* Product Information */}
-                      <Flex variant="col" gap="xl">
-                        {/* Form Fields */}
-                        <Flex variant="col">
-                          {/* Full Name */}
-                          <Form.Field
-                            control={form.control}
-                            name="fullname"
-                            render={({ field, fieldState: { error } }) => (
-                              <Form.Item>
-                                <Form.Label>
-                                  <Typography ashtml="span">
-                                    Full Name{' '}
-                                    <Typography
-                                      ashtml="span"
-                                      color="error"
-                                      contrast="medium"
-                                    >
-                                      *
+                <Loading loading={loading} className="w-full">
+                  <Form {...form}>
+                    <form method="post" onSubmit={form.handleSubmit(onSubmit)}>
+                      <Flex variant="col" gap="lg">
+                        {/* Product Information */}
+                        <Flex variant="col" gap="xl">
+                          {/* Form Fields */}
+                          <Flex variant="col">
+                            {/* Full Name */}
+                            <Form.Field
+                              control={form.control}
+                              name="fullname"
+                              render={({ field, fieldState: { error } }) => (
+                                <Form.Item>
+                                  <Form.Label>
+                                    <Typography ashtml="span">
+                                      Full Name{' '}
+                                      <Typography
+                                        ashtml="span"
+                                        color="error"
+                                        contrast="medium"
+                                      >
+                                        *
+                                      </Typography>
                                     </Typography>
-                                  </Typography>
-                                </Form.Label>
-                                <Form.Control>
-                                  <Input
-                                    type="text"
-                                    placeholder="Full Name"
-                                    className={cn(
-                                      'w-full placeholder:text-black',
-                                      {
-                                        'border-error placeholder:text-error text-error':
-                                          error,
-                                      }
-                                    )}
-                                    {...field}
-                                  />
-                                </Form.Control>
-                                <Form.Message />
-                              </Form.Item>
-                            )}
-                          />
+                                  </Form.Label>
+                                  <Form.Control>
+                                    <Input
+                                      type="text"
+                                      placeholder="Full Name"
+                                      className={cn(
+                                        'w-full placeholder:text-black',
+                                        {
+                                          'border-error placeholder:text-error text-error':
+                                            error,
+                                        }
+                                      )}
+                                      {...field}
+                                    />
+                                  </Form.Control>
+                                  <Form.Message />
+                                </Form.Item>
+                              )}
+                            />
 
-                          {/* Email */}
-                          <Form.Field
-                            control={form.control}
-                            name="email"
-                            render={({ field, fieldState: { error } }) => (
-                              <Form.Item>
-                                <Form.Label>
-                                  <Typography ashtml="span">
-                                    Email{' '}
-                                    <Typography
-                                      ashtml="span"
-                                      color="error"
-                                      contrast="medium"
-                                    >
-                                      *
+                            {/* Email */}
+                            <Form.Field
+                              control={form.control}
+                              name="email"
+                              render={({ field, fieldState: { error } }) => (
+                                <Form.Item>
+                                  <Form.Label>
+                                    <Typography ashtml="span">
+                                      Email{' '}
+                                      <Typography
+                                        ashtml="span"
+                                        color="error"
+                                        contrast="medium"
+                                      >
+                                        *
+                                      </Typography>
                                     </Typography>
-                                  </Typography>
-                                </Form.Label>
-                                <Form.Control>
-                                  <Input
-                                    type="text"
-                                    placeholder="Email"
-                                    className={cn(
-                                      'w-full placeholder:text-black',
-                                      {
-                                        'border-error placeholder:text-error text-error':
-                                          error,
-                                      }
-                                    )}
-                                    {...field}
-                                  />
-                                </Form.Control>
-                                <Form.Message />
-                              </Form.Item>
-                            )}
-                          />
+                                  </Form.Label>
+                                  <Form.Control>
+                                    <Input
+                                      type="text"
+                                      placeholder="Email"
+                                      className={cn(
+                                        'w-full placeholder:text-black',
+                                        {
+                                          'border-error placeholder:text-error text-error':
+                                            error,
+                                        }
+                                      )}
+                                      {...field}
+                                    />
+                                  </Form.Control>
+                                  <Form.Message />
+                                </Form.Item>
+                              )}
+                            />
 
-                          {/* Message */}
-                          <Form.Field
-                            control={form.control}
-                            name="message"
-                            render={({ field, fieldState: { error } }) => (
-                              <Form.Item>
-                                <Form.Label>
-                                  <Typography ashtml="span">
-                                    Message{' '}
-                                    <Typography
-                                      ashtml="span"
-                                      color="error"
-                                      contrast="medium"
-                                    >
-                                      *
+                            {/* Message */}
+                            <Form.Field
+                              control={form.control}
+                              name="message"
+                              render={({ field, fieldState: { error } }) => (
+                                <Form.Item>
+                                  <Form.Label>
+                                    <Typography ashtml="span">
+                                      Message{' '}
+                                      <Typography
+                                        ashtml="span"
+                                        color="error"
+                                        contrast="medium"
+                                      >
+                                        *
+                                      </Typography>
                                     </Typography>
-                                  </Typography>
-                                </Form.Label>
-                                <Form.Control>
-                                  <Textarea
-                                    type="text"
-                                    placeholder="Message"
-                                    className={cn(
-                                      'w-full placeholder:text-black',
-                                      {
-                                        'border-error placeholder:text-error text-error':
-                                          error,
-                                      }
-                                    )}
-                                    rows={6}
-                                    {...field}
-                                  />
-                                </Form.Control>
-                                <Form.Message />
-                              </Form.Item>
-                            )}
-                          />
-                        </Flex>
+                                  </Form.Label>
+                                  <Form.Control>
+                                    <Textarea
+                                      type="text"
+                                      placeholder="Message"
+                                      className={cn(
+                                        'w-full placeholder:text-black',
+                                        {
+                                          'border-error placeholder:text-error text-error':
+                                            error,
+                                        }
+                                      )}
+                                      rows={6}
+                                      {...field}
+                                    />
+                                  </Form.Control>
+                                  <Form.Message />
+                                </Form.Item>
+                              )}
+                            />
+                          </Flex>
 
-                        {/* Action Buttons */}
-                        <Flex align="center" justify="start">
-                          <Button
-                            type="submit"
-                            className="hover:bg-contrast-high w-full cursor-pointer transition-all duration-200 lg:w-fit"
-                            variant="default"
-                            color="primary"
-                            contrast="highest"
-                            padding="md"
-                            rounded="md"
-                          >
-                            <Typography
-                              className="select-none"
-                              ashtml="span"
-                              size="md"
-                              align="center"
-                              color="invert"
-                              weight="medium"
+                          {/* Action Buttons */}
+                          <Flex align="center" justify="start">
+                            <Button
+                              type="submit"
+                              className="hover:bg-contrast-high w-full cursor-pointer transition-all duration-200 lg:w-fit"
+                              variant="default"
+                              color="primary"
+                              contrast="highest"
+                              padding="md"
+                              rounded="md"
                             >
-                              Submit
-                            </Typography>
-                          </Button>
+                              <Typography
+                                className="select-none"
+                                ashtml="span"
+                                size="md"
+                                align="center"
+                                color="invert"
+                                weight="medium"
+                              >
+                                {loading ? 'Sending...' : 'Send Message'}
+                              </Typography>
+                            </Button>
+                          </Flex>
                         </Flex>
                       </Flex>
-                    </Flex>
-                  </form>
-                </Form>
+                    </form>
+                  </Form>
+                </Loading>
               </Grid.Item>
             </Grid>
           </Flex>
