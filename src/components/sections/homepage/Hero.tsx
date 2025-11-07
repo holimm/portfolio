@@ -194,7 +194,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
               <Grid.Item span={3}>
                 <Flex justify="end" align="start">
                   <Button
-                    className="cursor-pointer transition-all duration-200 hover:scale-105"
+                    className="hover:bg-contrast-high cursor-pointer transition-all duration-200"
                     variant="default"
                     color="primary"
                     contrast="highest"

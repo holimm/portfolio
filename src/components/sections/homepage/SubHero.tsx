@@ -29,7 +29,7 @@ export const SubHero = forwardRef<HTMLDivElement, LayoutProps>(
           autoFill
         >
           <Typography
-            className="mx-20 my-0 !h-fit py-0 !text-[20vh]"
+            className="mx-16 my-0 !h-fit py-0 !text-[20vh]"
             size="15xl"
             fontFamily="oldschool-grotesk-compressed"
             weight="black"
@@ -67,7 +67,7 @@ export const SubHero = forwardRef<HTMLDivElement, LayoutProps>(
             <ScrollZoom
               className="rounded-2xl"
               src={HeroImage.src}
-              initialSize="80vmin"
+              initialSize="100vmin"
             >
               <Flex variant="col" justify="between" gap="none">
                 {renderMarquee('WEB DESIGN', 'right', 'first')}
