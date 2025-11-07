@@ -88,7 +88,7 @@ export const Testimonials = forwardRef<HTMLDivElement, LayoutProps>(
 
                 <div className="relative z-10">
                   <blockquote className="mb-6 text-lg leading-relaxed font-light">
-                    "{testimonial.quote}"
+                    &quot;{testimonial.quote}&quot;
                   </blockquote>
 
                   <div className="border-t border-gray-200 pt-6 transition-colors duration-500 group-hover:border-white/20">
