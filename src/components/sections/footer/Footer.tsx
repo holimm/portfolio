@@ -1,6 +1,6 @@
 'use client';
 
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useCallback, useRef } from 'react';
 import { LayoutProps, SOCIAL_MEDIA_LINKS } from '@/types';
 import { Section, Container, Flex, Grid } from '@/components/layout';
 import { Typography } from '@/components/elements';
@@ -10,7 +10,16 @@ import Link from 'next/link';
 
 export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
+    // Refs
     const footerRef = useRef<HTMLDivElement>(null);
+
+    // Methods
+    const handleScrollToSection = useCallback((sectionId: string) => {
+      const section = document.querySelector(`[data-section="${sectionId}"]`);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, []);
 
     return (
       <Section
@@ -72,29 +81,34 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
                   <Flex variant="col" gap="md">
                     <Typography weight="bold">Visit</Typography>
                     {HEADER_NAVIGATION.map((item) => (
-                      <Typography
+                      <button
                         key={item.key}
-                        className="hover:text-contrast-high cursor-pointer"
-                        size="4xl"
-                        contrast="medium"
+                        onClick={() => handleScrollToSection(item.key)}
                       >
-                        {item.name}
-                      </Typography>
+                        <Typography
+                          className="hover:text-contrast-high cursor-pointer"
+                          size="4xl"
+                          contrast="medium"
+                        >
+                          {item.name}
+                        </Typography>
+                      </button>
                     ))}
                   </Flex>
                 </Grid.Item>
                 <Grid.Item span={2}>
                   <Flex variant="col" gap="md">
-                    <Typography weight="bold">Visit</Typography>
-                    {HEADER_NAVIGATION.map((item) => (
-                      <Typography
-                        key={item.key}
-                        className="hover:text-contrast-high cursor-pointer"
-                        size="4xl"
-                        contrast="medium"
-                      >
-                        {item.name}
-                      </Typography>
+                    <Typography weight="bold">Social</Typography>
+                    {SOCIAL_MEDIA_LINKS.map((item) => (
+                      <Link key={item.key} href={item.href} target="_blank">
+                        <Typography
+                          className="hover:text-contrast-high cursor-pointer"
+                          size="4xl"
+                          contrast="medium"
+                        >
+                          {item.name}
+                        </Typography>
+                      </Link>
                     ))}
                   </Flex>
                 </Grid.Item>
@@ -104,7 +118,7 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
             <Container>
               <Flex variant="col" gap="none">
                 <Typography size="xl" contrast="medium">
-                  Designed & developed by
+                  © {new Date().getFullYear()} | Designed & developed by
                 </Typography>
                 <Typography
                   fontFamily="oldschool-grotesk-compressed"

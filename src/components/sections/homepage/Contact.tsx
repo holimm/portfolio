@@ -31,7 +31,7 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
     const contactRef = useRef<HTMLDivElement>(null);
     return (
       <Section
-        id={props.id}
+        id="contact"
         variant={'default'}
         comp="contact"
         theme={theme}

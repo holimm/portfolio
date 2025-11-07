@@ -1,6 +1,12 @@
 'use client';
 
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Button, Typography } from '@/components/elements';
 import { Section, Container, Flex, Grid } from '@/components/layout';
 import { LayoutProps } from '@/types';
@@ -11,7 +17,16 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     const heroRef = useRef<HTMLDivElement>(null);
 
+    // States
     const [currentTime, setCurrentTime] = useState(' ');
+
+    // Methods
+    const handleScrollToSection = useCallback((sectionId: string) => {
+      const section = document.querySelector(`[data-section="${sectionId}"]`);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, []);
 
     useEffect(() => {
       const updateDateTime = () => {
@@ -179,7 +194,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                       duration: 0.3,
                       ease: 'easeInOut',
                       hover: {
-                        text: 'October 2025',
+                        text: `${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}`,
                         duration: 0.3,
                         delay: 0.1,
                         ease: 'easeInOut',
@@ -187,7 +202,10 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                       },
                     }}
                   >
-                    October 2025
+                    {new Date().toLocaleString('en-US', {
+                      month: 'long',
+                      year: 'numeric',
+                    })}
                   </Typography>
                 </Flex>
               </Grid.Item>
@@ -200,6 +218,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                     contrast="highest"
                     padding="lg"
                     rounded="md"
+                    onClick={() => handleScrollToSection('contact')}
                   >
                     <Typography
                       className="select-none lg:text-xl 2xl:text-2xl"

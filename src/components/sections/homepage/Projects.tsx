@@ -16,7 +16,7 @@ export const Projects = forwardRef<HTMLDivElement, LayoutProps>(
 
     return (
       <Section
-        id={props.id}
+        id="projects"
         variant={'default'}
         comp="projects"
         theme={'dark'}
