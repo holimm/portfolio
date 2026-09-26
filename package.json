@@ -15,6 +15,7 @@
     "@icons-pack/react-simple-icons": "^13.8.0",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.3",
+    "@react-three/fiber": "^9.8.1",
     "@tailwindcss/postcss": "^4.1.11",
     "clsx": "^2.1.1",
     "gsap": "^3.15.0",
@@ -30,6 +31,7 @@
     "resend": "^6.4.2",
     "sonner": "^2.0.7",
     "tailwind-variants": "^1.0.0",
+    "three": "^0.186.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {
@@ -39,6 +41,7 @@
     "@types/node": "^24.0.10",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/three": "^0.186.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.30.1",
     "eslint-config-next": "15.3.5",

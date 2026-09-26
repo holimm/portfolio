@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import { Button, Typography } from '@/components/elements';
 import { Section, Container, Flex, Grid } from '@/components/layout';
+import { Globe } from '@/components/interactions';
 import { LayoutProps } from '@/types';
 import { ArrowDown } from 'lucide-react';
 import HeroImage from '@/assets/images/hero-image.webp';
@@ -78,7 +79,19 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
             backgroundPosition: 'center',
           }}
         /> */}
-        <Container height="full" width="full" xspace="xl">
+        {/* Interactive globe background */}
+        <div aria-hidden="true" className="absolute inset-0 z-0">
+          <Globe theme={theme} />
+          <div className="from-background/40 to-background/80 pointer-events-none absolute inset-0 bg-linear-to-b via-transparent" />
+          <div className="to-background/75 pointer-events-none absolute inset-0 bg-radial from-transparent from-30%" />
+        </div>
+        {/* Content lets pointer events through to the globe, except on interactive elements */}
+        <Container
+          className="pointer-events-none z-10"
+          height="full"
+          width="full"
+          xspace="xl"
+        >
           <Flex
             height="full"
             width="full"
@@ -86,7 +99,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
             justify="between"
             align="center"
           >
-            <Grid>
+            <Grid className="pointer-events-auto">
               <Grid.Item
                 span={[
                   { span: 12 },
@@ -268,7 +281,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
             {/* Hero Content */}
             <Flex variant="col" justify="center" align="center" gap="lg">
               <Typography
-                className="4xl:text-3xl 3xl:text-4xl select-none lg:text-xl 2xl:text-2xl"
+                className="4xl:text-3xl 3xl:text-4xl pointer-events-auto select-none lg:text-xl 2xl:text-2xl"
                 ashtml="h1"
                 size="lg"
                 weight="light"
@@ -290,7 +303,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                 Hello there! I&apos;m
               </Typography>
               <Typography
-                className="4xl:text-14xl 3xl:text-13xl 2xl:text-12xl lg:text-12xl md:text-10xl select-none"
+                className="4xl:text-14xl 3xl:text-13xl 2xl:text-12xl lg:text-12xl md:text-10xl pointer-events-auto select-none"
                 ashtml="h1"
                 size="8xl"
                 weight="bold"
