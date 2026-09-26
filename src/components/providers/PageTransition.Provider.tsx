@@ -1,23 +1,28 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { ReactNode, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { gsap, useGSAP } from '@/config';
 
 export const PageTransition = ({ children }: { children: ReactNode }) => {
+  const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'easeOut' }
+      );
+    },
+    { dependencies: [pathname] }
+  );
+
   return (
     <html lang="en">
       <body>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={typeof window !== 'undefined' ? window.location.pathname : ''}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
+        <div ref={containerRef}>{children}</div>
       </body>
     </html>
   );

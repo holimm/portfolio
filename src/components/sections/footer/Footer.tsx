@@ -6,6 +6,7 @@ import { Section, Container, Flex, Grid } from '@/components/layout';
 import { Typography } from '@/components/elements';
 import { HEADER_NAVIGATION } from '@/types';
 import { cn } from '@/utils';
+import { smoothScrollTo } from '@/config';
 import Link from 'next/link';
 
 export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
@@ -17,7 +18,7 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
     const handleScrollToSection = useCallback((sectionId: string) => {
       const section = document.querySelector(`[data-section="${sectionId}"]`);
       if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+        smoothScrollTo(section);
       }
     }, []);
 

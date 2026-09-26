@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useState, RefObject } from 'react';
+import { useCallback, useState, RefObject } from 'react';
+import { ScrollTrigger, useGSAP } from '@/config';
 
 export const useScrollParallax = (ref: RefObject<HTMLElement>) => {
   const [scrollY, setScrollY] = useState(0);
@@ -46,23 +47,19 @@ export const useScrollParallax = (ref: RefObject<HTMLElement>) => {
     setVisibilityPercentage(percentage);
   }, [ref]);
 
-  useEffect(() => {
-    let ticking = false;
-
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', throttledHandleScroll);
-  }, [handleScroll]);
+  // ScrollTrigger updates on every smoothed scroll frame, not just native scroll events
+  useGSAP(
+    () => {
+      handleScroll();
+      ScrollTrigger.create({
+        start: 0,
+        end: 'max',
+        onUpdate: handleScroll,
+        onRefresh: handleScroll,
+      });
+    },
+    { dependencies: [handleScroll], revertOnUpdate: true }
+  );
 
   return { scrollY, visibilityPercentage };
 };

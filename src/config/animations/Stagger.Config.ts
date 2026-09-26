@@ -1,16 +1,16 @@
-import { Variants } from "motion/react";
+import type { AnimationVariants } from '@/types';
+import { DEFAULT_TRANSITION } from './Gsap.Config';
 
-export const parentVariants: Variants = {
+export const parentVariants: AnimationVariants = {
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
+    ...DEFAULT_TRANSITION,
   },
   hidden: { opacity: 0 },
 };
 
-export const childVariants: Variants = {
+// Tween the children as one target list; `stagger` offsets each child like staggerChildren did
+export const childVariants: AnimationVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: { opacity: 1, y: 0, duration: 0.5, ease: 'easeOut', stagger: 0.2 },
 };

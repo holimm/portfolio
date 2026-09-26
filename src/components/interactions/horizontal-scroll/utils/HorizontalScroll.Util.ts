@@ -5,7 +5,7 @@ import {
   horizontalScrollVariants,
   type HorizontalScrollVariantProps,
 } from '../config/HorizontalScroll.Config';
-import { useScroll, useTransform } from 'motion/react';
+import { getPinType, gsap, useGSAP } from '@/config';
 
 // Context Provider
 const HorizontalScrollContext = createContext<
@@ -45,23 +45,37 @@ export const useHorizontalScroll = (props: UseHorizontalScrollProps) => {
   const sections = props.sections ?? [];
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: scrollContainerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const x = useTransform(scrollYProgress, (value) => {
-    if (typeof window === 'undefined') return 0;
-    return value * -window.innerWidth * (sections.length - 1);
-  });
+  // Pin the viewport while the container scrolls past, translating the track by one screen per section
+  useGSAP(
+    () => {
+      gsap.to(trackRef.current, {
+        x: () => -window.innerWidth * (sections.length - 1),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: scrollContainerRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          pin: pinRef.current,
+          pinSpacing: false,
+          pinType: getPinType(),
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+    },
+    { dependencies: [sections.length], revertOnUpdate: true }
+  );
 
   return {
     variant,
     horizontalScrollRef,
     horizontalScrollStyle,
-    xValue: x,
     scrollContainerRef,
+    pinRef,
+    trackRef,
     sections,
   };
 };

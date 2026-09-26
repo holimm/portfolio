@@ -7,24 +7,47 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import Marquee from 'react-fast-marquee';
 import { Menu } from 'lucide-react';
 import { LayoutProps, HEADER_NAVIGATION } from '@/types';
 import { Section, Container, Flex } from '@/components/layout';
 import { Typography } from '@/components/elements';
 import { cn } from '@/utils';
+import {
+  DEFAULT_TRANSITION,
+  Flip,
+  gsap,
+  ScrollTrigger,
+  smoothScrollTo,
+  spring,
+  springTo,
+  useGSAP,
+} from '@/config';
+import { useManagedAnimation, usePresence } from '@/hooks';
+import { SpringOptions } from '@/types';
+
+const NAV_BG_SPRING: SpringOptions = { stiffness: 700, damping: 35, mass: 0.5 };
+const MENU_BUTTON_SPRING: SpringOptions = { stiffness: 500, damping: 30 };
 
 export const Header = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     // Refs
     const headerRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
+    const navBgRef = useRef<HTMLDivElement>(null);
+    const navBgFlipStateRef = useRef<Flip.FlipState | null>(null);
+
+    // Animations
+    const navBgAnimation = useManagedAnimation();
+    const menuButtonAnimation = useManagedAnimation();
 
     // States
     const [currentPath, setCurrentPath] = useState(HEADER_NAVIGATION[0].key);
     const [currentSection, setCurrentSection] = useState<string>('');
     const [openMenu, setOpenMenu] = useState<boolean>(false);
+    // Nav item that currently renders the active background; trails currentSection during exits
+    const [activeNavKey, setActiveNavKey] = useState<string>('');
 
     // Methods
     const linkLabelRef = useRef<any>(null);
@@ -38,26 +61,16 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
             onClick={() => setCurrentPath(key)}
           >
             <Flex height="full" width="full" align="start" justify="end">
-              <AnimatePresence>
-                {currentSection === key && (
-                  <motion.div
-                    layoutId="activeNavBg"
-                    className={cn(
-                      'bg-contrast-highest/40 absolute inset-x-0 rounded-sm shadow-sm backdrop-blur-md'
-                    )}
-                    style={{ height: '2.5rem' }}
-                    initial={{ opacity: 0, scale: 0.98, y: 5 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.98, y: -5 }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 700,
-                      damping: 35,
-                      mass: 0.5,
-                    }}
-                  />
-                )}
-              </AnimatePresence>
+              {activeNavKey === key && (
+                <div
+                  ref={navBgRef}
+                  data-flip-id="activeNavBg"
+                  className={cn(
+                    'bg-contrast-highest/40 absolute inset-x-0 rounded-sm shadow-sm backdrop-blur-md'
+                  )}
+                  style={{ height: '2.5rem' }}
+                />
+              )}
               <Flex
                 className={cn(
                   'relative rounded-full px-3 py-2 transition-all duration-200 ease-in-out',
@@ -98,7 +111,7 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
           </Container>
         );
       },
-      [currentPath, currentSection, linkLabelRef]
+      [currentPath, activeNavKey, linkLabelRef]
     );
 
     const handleClickOutside = useCallback(
@@ -120,27 +133,24 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
     const handleScrollToSection = useCallback((sectionId: string) => {
       const section = document.querySelector(`[data-section="${sectionId}"]`);
       if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+        smoothScrollTo(section);
       }
     }, []);
 
     // Effects
-    useEffect(() => {
+    useGSAP(() => {
       const handleScroll = () => {
         const sections = Array.from(
           document.querySelectorAll<HTMLElement>('section[data-theme]')
         );
 
         let current: string = '';
-        const scrollPosition = window.scrollY + window.innerHeight / 2;
+        const viewportCenter = window.innerHeight / 2;
 
         for (const section of sections) {
           const rect = section.getBoundingClientRect();
-          const top = rect.top + window.scrollY;
-          const bottom = top + rect.height;
-          if (scrollPosition >= top && scrollPosition < bottom) {
+          if (viewportCenter >= rect.top && viewportCenter < rect.bottom) {
             current = section.getAttribute('data-section') || '';
-            setCurrentSection(current);
             break;
           }
         }
@@ -148,13 +158,105 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
         setCurrentSection(current);
       };
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
+      // ScrollTrigger updates on every smoothed scroll frame, not just native scroll events
+      ScrollTrigger.create({
+        start: 0,
+        end: 'max',
+        onUpdate: handleScroll,
+        onRefresh: handleScroll,
+      });
       handleScroll();
+    });
 
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, []);
+    // Move the active background to the current section's nav item, or fade it out
+    useGSAP(
+      () => {
+        const navBg = navBgRef.current;
+        const isNavSection = HEADER_NAVIGATION.some(
+          (item) => item.key === currentSection
+        );
+
+        if (isNavSection && currentSection === activeNavKey && navBg) {
+          // Returned to the same item before its exit finished
+          navBgAnimation.play(() =>
+            springTo(navBg, { opacity: 1, scale: 1, y: 0 }, NAV_BG_SPRING)
+          );
+        } else if (isNavSection) {
+          // The Flip transition starts once the new item renders; stop any exit meanwhile
+          navBgAnimation.kill();
+          if (navBg)
+            navBgFlipStateRef.current = Flip.getState(navBg, {
+              props: 'opacity',
+            });
+          setActiveNavKey(currentSection);
+        } else if (navBg) {
+          navBgAnimation.play(() =>
+            springTo(navBg, { opacity: 0, scale: 0.98, y: -5 }, NAV_BG_SPRING, {
+              onComplete: () => setActiveNavKey(''),
+            })
+          );
+        } else {
+          setActiveNavKey('');
+        }
+      },
+      { dependencies: [currentSection] }
+    );
+
+    const isMenuMounted = usePresence(openMenu, {
+      onEnter: (isInitial) => {
+        const items = gsap.utils.toArray('[data-menu-item]', menuRef.current);
+        if (isInitial) {
+          gsap.set(menuRef.current, { height: 0 });
+          gsap.set(items, { opacity: 0 });
+        }
+        return gsap
+          .timeline()
+          .to(menuRef.current, { height: 'auto', ...DEFAULT_TRANSITION }, 0)
+          .to(items, { opacity: 1, ...DEFAULT_TRANSITION }, 0);
+      },
+      onExit: () => {
+        const items = gsap.utils.toArray('[data-menu-item]', menuRef.current);
+        return gsap
+          .timeline()
+          .to(menuRef.current, { height: 0, ...DEFAULT_TRANSITION }, 0)
+          .to(items, { opacity: 0, ...DEFAULT_TRANSITION }, 0);
+      },
+    });
+
+    // Animate the active background in, sliding it from the previous item when there was one
+    useGSAP(
+      () => {
+        const navBg = navBgRef.current;
+        const flipState = navBgFlipStateRef.current;
+        navBgFlipStateRef.current = null;
+        if (!navBg) return;
+
+        navBgAnimation.play(() => {
+          if (flipState) {
+            return Flip.from(flipState, {
+              targets: navBg,
+              ...spring(NAV_BG_SPRING),
+            });
+          }
+          gsap.set(navBg, { opacity: 0, scale: 0.98, y: 5 });
+          return springTo(navBg, { opacity: 1, scale: 1, y: 0 }, NAV_BG_SPRING);
+        });
+      },
+      { dependencies: [activeNavKey, isMenuMounted] }
+    );
+
+    useGSAP(
+      () => {
+        menuButtonAnimation.play(() =>
+          springTo(
+            menuButtonRef.current,
+            { rotation: openMenu ? 90 : 0 },
+            MENU_BUTTON_SPRING
+          )
+        );
+      },
+      { dependencies: [openMenu] }
+    );
 
     useEffect(() => {
       if (!openMenu) return;
@@ -180,44 +282,34 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
         ref={ref}
         {...props}
       >
-        <AnimatePresence mode="sync">
-          {openMenu && (
-            <motion.div
-              className="bg-contrast-highest/80 absolute bottom-20 h-60 w-full max-w-[600px] overflow-hidden rounded-t-lg backdrop-blur-md"
-              initial={{ height: 0 }}
-              animate={{ height: 'fit-content' }}
-              exit={{ height: 0 }}
-              ref={menuRef}
+        {isMenuMounted && (
+          <div
+            className="bg-contrast-highest/80 absolute bottom-20 h-60 w-full max-w-[600px] overflow-hidden rounded-t-lg backdrop-blur-md"
+            ref={menuRef}
+          >
+            <Container
+              className="!pb-8"
+              height="full"
+              width="full"
+              yspace="lg"
+              xspace="md"
             >
-              <Container
-                className="!pb-8"
-                height="full"
+              <Flex
+                variant="col"
                 width="full"
-                yspace="lg"
-                xspace="md"
+                justify="start"
+                align="end"
+                gap="xs"
               >
-                <Flex
-                  variant="col"
-                  width="full"
-                  justify="start"
-                  align="end"
-                  gap="xs"
-                >
-                  {HEADER_NAVIGATION.map((item) => (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      key={item.key}
-                    >
-                      {renderLink(item.key, item.name)}
-                    </motion.div>
-                  ))}
-                </Flex>
-              </Container>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                {HEADER_NAVIGATION.map((item) => (
+                  <div data-menu-item key={item.key}>
+                    {renderLink(item.key, item.name)}
+                  </div>
+                ))}
+              </Flex>
+            </Container>
+          </div>
+        )}
         <Container
           id="header"
           className="bg-contrast-highest/80 relative max-w-[600px] overflow-hidden shadow-sm backdrop-blur-md"
@@ -255,14 +347,12 @@ export const Header = forwardRef<HTMLDivElement, LayoutProps>(
               </Marquee>
             </Flex>
             <Flex className="pr-4" justify="center" align="center">
-              <motion.button
+              <button
+                ref={menuButtonRef}
                 onClick={() => setOpenMenu(!openMenu)}
-                initial={{ rotate: 0 }}
-                animate={{ rotate: openMenu ? 90 : 0 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
               >
                 <Menu className="text-invert-highest cursor-pointer transition-all duration-200 hover:scale-110" />
-              </motion.button>
+              </button>
             </Flex>
           </Flex>
         </Container>
