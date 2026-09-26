@@ -127,6 +127,11 @@
   dependencies:
     tslib "^2.8.0"
 
+"@gsap/react@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@gsap/react/-/react-2.1.2.tgz#bfc055a41b402e8d1dc56839e9d077407027b0a0"
+  integrity sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==
+
 "@hookform/resolvers@^5.2.2":
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-5.2.2.tgz#5ac16cd89501ca31671e6e9f0f5c5d762a99aa12"
@@ -1727,15 +1732,6 @@ fraction.js@^4.3.7:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.7.tgz#06ca0085157e42fda7f9e726e79fefc4068840f7"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
 
-framer-motion@^12.23.0:
-  version "12.23.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.23.0.tgz#220d5ab0ca9b3e2d10d69a5aa5f6d7badcbf328e"
-  integrity sha512-xf6NxTGAyf7zR4r2KlnhFmsRfKIbjqeBupEDBAaEtVIBJX96sAon00kMlsKButSIRwPSHjbRrAPnYdJJ9kyhbA==
-  dependencies:
-    motion-dom "^12.22.0"
-    motion-utils "^12.19.0"
-    tslib "^2.4.0"
-
 french-badwords-list@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/french-badwords-list/-/french-badwords-list-1.0.7.tgz#8ed2442cb20fa2781c38b5a75c944f8e91a73c08"
@@ -1844,6 +1840,11 @@ graphemer@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
+
+gsap@^3.15.0:
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.15.0.tgz#7851baaffc77642f2db3b1749d3634f9b5a19d14"
+  integrity sha512-dMW4CWBTUK1AEEDeZc1g4xpPGIrSf9fJF960qbTZmN/QwZIWY5wgliS6JWl9/25fpTGJrMRtSjGtOmPnfjZB+A==
 
 has-bigints@^1.0.2:
   version "1.1.0"
@@ -2204,11 +2205,6 @@ language-tags@^1.0.9:
   dependencies:
     language-subtag-registry "^0.3.20"
 
-lenis@^1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/lenis/-/lenis-1.3.4.tgz#42435739bdd322f40123c1b75cdb90999810b323"
-  integrity sha512-WIGk8wiV2ABm/T7M+NC+tAV8fjzNJD1J4z11aZ3mTtx7WAZX/4QdCNhBO0g/TqXISA+/3hTbzrPC4FW1nhoNMQ==
-
 leo-profanity@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/leo-profanity/-/leo-profanity-1.8.0.tgz#2ce6522e27c093d02253cdb9755b74cc7ffccf90"
@@ -2382,26 +2378,6 @@ mkdirp@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.1.tgz#e44e4c5607fb279c168241713cc6e0fea9adcb50"
   integrity sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==
-
-motion-dom@^12.22.0:
-  version "12.22.0"
-  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.22.0.tgz#aeb06948fa306590ece081af5a73a79476ce85e2"
-  integrity sha512-ooH7+/BPw9gOsL9VtPhEJHE2m4ltnhMlcGMhEqA0YGNhKof7jdaszvsyThXI6LVIKshJUZ9/CP6HNqQhJfV7kw==
-  dependencies:
-    motion-utils "^12.19.0"
-
-motion-utils@^12.19.0:
-  version "12.19.0"
-  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.19.0.tgz#a7cc102f756e97093793cac7c218533d3b27f509"
-  integrity sha512-BuFTHINYmV07pdWs6lj6aI63vr2N4dg0vR+td0rtrdpWOhBzIkEklZyLcvKBoEtwSqx8Jg06vUB5RS0xDiUybw==
-
-motion@^12.23.0:
-  version "12.23.0"
-  resolved "https://registry.yarnpkg.com/motion/-/motion-12.23.0.tgz#3cfe08f7ff863d344b797c35d3597691d2111c52"
-  integrity sha512-PPNwblArRH9GRC4F3KtOTiIaYd+mtp324vYq3HIL+ueseoAVqPRK5TPFTAQBcIprfVd0NWo3DLzZSiyWaYFXXQ==
-  dependencies:
-    framer-motion "^12.23.0"
-    tslib "^2.4.0"
 
 ms@^2.1.1, ms@^2.1.3:
   version "2.1.3"

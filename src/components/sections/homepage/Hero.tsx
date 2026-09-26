@@ -12,6 +12,7 @@ import { Section, Container, Flex, Grid } from '@/components/layout';
 import { LayoutProps } from '@/types';
 import { ArrowDown } from 'lucide-react';
 import HeroImage from '@/assets/images/hero-image.webp';
+import { smoothScrollTo } from '@/config';
 
 export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -24,7 +25,7 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
     const handleScrollToSection = useCallback((sectionId: string) => {
       const section = document.querySelector(`[data-section="${sectionId}"]`);
       if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
+        smoothScrollTo(section);
       }
     }, []);
 

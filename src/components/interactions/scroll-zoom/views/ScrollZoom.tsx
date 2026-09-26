@@ -49,7 +49,10 @@ export const ScrollZoom = forwardRef<HTMLDivElement, ScrollZoomProps>(
         className={cn('relative z-10')}
         aria-label="scroll-zoom-section"
       >
-        <div className="sticky top-0 z-20 flex h-screen items-center justify-center overflow-hidden">
+        <div
+          ref={context.pinRef}
+          className="relative z-20 flex h-screen items-center justify-center overflow-hidden"
+        >
           <Container height="full" width="full" className="!absolute z-10">
             {children}
           </Container>

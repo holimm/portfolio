@@ -7,12 +7,10 @@ import { Section, Container, Grid, Flex } from '@/components/layout';
 import Marquee from 'react-fast-marquee';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useScroll } from 'framer-motion';
 
 export const Projects = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     const selectedProjects = useMemo(() => SELECTED_PROJECTS, []);
-    const { scrollY } = useScroll();
 
     return (
       <Section

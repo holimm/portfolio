@@ -1,6 +1,6 @@
 # 🌐 Portfolio
 
-A modern, high-performance personal portfolio built with **Next.js**, **TailwindCSS**, and **Motion** for smooth animations.  
+A modern, high-performance personal portfolio built with **Next.js**, **TailwindCSS**, and **GSAP** for smooth animations.  
 This project showcases my work, skills, and creative projects with a focus on speed, design consistency, and accessibility.
 
 ---
@@ -9,11 +9,11 @@ This project showcases my work, skills, and creative projects with a focus on sp
 
 - **Framework:** [Next.js 15](https://nextjs.org/)
 - **Styling:** [TailwindCSS 4](https://tailwindcss.com/)
-- **Animation:** [Motion](https://motion.dev/)
+- **Animation:** [GSAP](https://gsap.com/) (ScrollTrigger, Flip, CustomEase)
 - **Form Handling:** [React Hook Form](https://react-hook-form.com/)
 - **Validation:** [Zod](https://github.com/colinhacks/zod)
 - **Icons:** [Lucide React](https://lucide.dev/) & [React Simple Icons](https://react-simple-icons.vercel.app/)
-- **Scrolling:** [Lenis](https://lenis.darkroom.engineering/)
+- **Scrolling:** [GSAP ScrollSmoother](https://gsap.com/docs/v3/Plugins/ScrollSmoother/)
 - **Utilities:** Lodash, clsx, tailwind-variants
 
 ---
@@ -25,17 +25,17 @@ This project showcases my work, skills, and creative projects with a focus on sp
 ```json
 "dependencies": {
   "@formatjs/intl-localematcher": "^0.6.1",
+  "@gsap/react": "^2.1.2",
   "@hookform/resolvers": "^5.2.2",
   "@icons-pack/react-simple-icons": "^13.8.0",
   "@radix-ui/react-separator": "^1.1.8",
   "@radix-ui/react-slot": "^1.2.3",
   "@tailwindcss/postcss": "^4.1.11",
   "clsx": "^2.1.1",
-  "lenis": "^1.3.4",
+  "gsap": "^3.15.0",
   "leo-profanity": "^1.8.0",
   "lodash": "^4.17.21",
   "lucide-react": "^0.525.0",
-  "motion": "^12.23.0",
   "negotiator": "^1.0.0",
   "next": "15.3.5",
   "react": "^19.1.0",

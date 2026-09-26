@@ -1,9 +1,15 @@
 'use client';
 
-import React, { forwardRef, useMemo, type ReactNode } from 'react';
-import { motion, AnimatePresence, Easing } from 'motion/react';
-import { slideVariants } from '@/config';
-import { type SlideOptions } from '@/types';
+import React, {
+  forwardRef,
+  useCallback,
+  useMemo,
+  useRef,
+  type ReactNode,
+} from 'react';
+import { gsap, slideVariants } from '@/config';
+import { usePresence } from '@/hooks';
+import { type Easing, type SlideOptions } from '@/types';
 import { useDrawer } from '../utils/Drawer.Util';
 
 interface DrawerProps extends SlideOptions {
@@ -25,42 +31,67 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
 
     const ctx = useMemo(() => context, [context]);
 
+    const backdropRef = useRef<HTMLDivElement>(null);
+    const panelRef = useRef<HTMLDivElement | null>(null);
+
+    const { drawerRef } = ctx;
+    const setPanelRef = useCallback(
+      (node: HTMLDivElement | null) => {
+        panelRef.current = node;
+        if (typeof drawerRef === 'function') {
+          drawerRef(node);
+        } else if (drawerRef) {
+          drawerRef.current = node;
+        }
+      },
+      [drawerRef]
+    );
+
+    const variants = slideVariants({
+      x: ctx.x,
+      y: ctx.y,
+      duration: ctx.duration,
+      ease: ctx.ease,
+    });
+    const backdropTransition = { duration: 0.2, ease: 'easeOut' };
+
+    const isMounted = usePresence(ctx.open, {
+      onEnter: (isInitial) => {
+        if (isInitial) {
+          gsap.set(backdropRef.current, { opacity: 0 });
+          gsap.set(panelRef.current, variants.hidden);
+        }
+        return gsap
+          .timeline()
+          .to(backdropRef.current, { opacity: 1, ...backdropTransition }, 0)
+          .to(panelRef.current, variants.visible, 0);
+      },
+      onExit: () =>
+        gsap
+          .timeline()
+          .to(backdropRef.current, { opacity: 0, ...backdropTransition }, 0)
+          .to(panelRef.current, variants.exit ?? variants.hidden, 0),
+    });
+
+    if (!isMounted) return null;
+
     return (
-      <AnimatePresence>
-        {ctx.open && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              className={
-                ctx.backdropClassName || 'fixed inset-0 z-40 bg-black/50'
-              }
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={ctx.onClose}
-            />
-            {/* Drawer */}
-            <motion.div
-              ref={ctx.drawerRef}
-              className="fixed top-0 right-0 z-50 h-full w-fit bg-white shadow-lg"
-              variants={slideVariants({
-                x: ctx.x,
-                y: ctx.y,
-                duration: ctx.duration,
-                ease: ctx.ease,
-              })}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: ctx.duration }}
-              style={ctx.getDrawerStyle(ctx.direction)}
-            >
-              <div className={className}>{children}</div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <>
+        {/* Backdrop */}
+        <div
+          ref={backdropRef}
+          className={ctx.backdropClassName || 'fixed inset-0 z-40 bg-black/50'}
+          onClick={ctx.onClose}
+        />
+        {/* Drawer */}
+        <div
+          ref={setPanelRef}
+          className="fixed top-0 right-0 z-50 h-full w-fit bg-white shadow-lg"
+          style={ctx.getDrawerStyle(ctx.direction)}
+        >
+          <div className={className}>{children}</div>
+        </div>
+      </>
     );
   }
 );

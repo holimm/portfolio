@@ -1,5 +1,5 @@
 import Filter from 'leo-profanity';
-import { ALLOWED_WORDS } from '@/config';
+import { ALLOWED_WORDS } from '@/config/constants';
 
 export const isProfane = (text: string): boolean => {
   if (!text || typeof text !== 'string') return false;
