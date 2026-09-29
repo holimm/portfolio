@@ -2,15 +2,18 @@
 
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
-import type * as THREE from 'three';
+import * as THREE from 'three';
 import { GLOBE_CONFIG, type GlobeMarker } from '../../config/Globe.Config';
 import { latLonToVector3 } from '../../utils/Geo.Util';
 import { GlobeLines } from './GlobeLines';
 
+const pinWorldPosition = new THREE.Vector3();
+
 interface GlobeMarkerPinProps {
   marker: GlobeMarker;
   color: string;
-  onSelect: (marker: GlobeMarker) => void;
+  /** Without a handler the pin is purely decorative. */
+  onSelect?: (marker: GlobeMarker) => void;
 }
 
 export function GlobeMarkerPin({
@@ -38,10 +41,15 @@ export function GlobeMarkerPin({
 
   useEffect(() => () => void (domElement.style.cursor = ''), [domElement]);
 
-  // Keep the dot and its hit area the same on-screen size when the camera backs off on narrow viewports
+  // Keep the dot and its hit area the same on-screen size as the camera backs off or flies in
   useFrame(({ camera }) => {
-    pinRef.current?.scale.setScalar(
-      camera.position.length() / GLOBE_CONFIG.camera.distance
+    const pin = pinRef.current;
+    if (!pin) return;
+
+    pin.getWorldPosition(pinWorldPosition);
+    pin.scale.setScalar(
+      camera.position.distanceTo(pinWorldPosition) /
+        GLOBE_CONFIG.marker.referenceDistance
     );
   });
 
@@ -49,22 +57,24 @@ export function GlobeMarkerPin({
     <group>
       <group ref={pinRef} position={surface}>
         {/* Invisible, larger hit area so the small dot is easy to click */}
-        <mesh
-          onClick={(e) => {
-            e.stopPropagation();
-            onSelect(marker);
-          }}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            domElement.style.cursor = 'pointer';
-          }}
-          onPointerOut={() => {
-            domElement.style.cursor = '';
-          }}
-        >
-          <sphereGeometry args={[GLOBE_CONFIG.marker.hitRadius, 12, 12]} />
-          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
-        </mesh>
+        {onSelect && (
+          <mesh
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(marker);
+            }}
+            onPointerOver={(e) => {
+              e.stopPropagation();
+              domElement.style.cursor = 'pointer';
+            }}
+            onPointerOut={() => {
+              domElement.style.cursor = '';
+            }}
+          >
+            <sphereGeometry args={[GLOBE_CONFIG.marker.hitRadius, 12, 12]} />
+            <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+          </mesh>
+        )}
 
         <mesh>
           <sphereGeometry args={[GLOBE_CONFIG.marker.dotRadius, 12, 12]} />

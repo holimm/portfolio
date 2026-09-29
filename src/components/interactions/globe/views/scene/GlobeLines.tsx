@@ -6,7 +6,7 @@ import { GLOBE_CONFIG, type GlobeLineStyle } from '../../config/Globe.Config';
 import {
   buildGraticulePositions,
   buildRingPositions,
-  loadCountryRings,
+  loadCountries,
 } from '../../utils/Geo.Util';
 
 interface GlobeLinesProps {
@@ -65,24 +65,55 @@ export function GlobeGraticule({ style }: { style: GlobeLineStyle }) {
   return <GlobeLines positions={positions} style={style} />;
 }
 
-export function CountryOutlines({ style }: { style: GlobeLineStyle }) {
-  const [positions, setPositions] = useState<Float32Array | null>(null);
+interface CountryOutlinesProps {
+  style: GlobeLineStyle;
+  /** Country (by code) drawn again on top in its own style. */
+  highlight?: { code: string; style: GlobeLineStyle };
+}
+
+export function CountryOutlines({ style, highlight }: CountryOutlinesProps) {
+  const highlightCode = highlight?.code;
+  const [positions, setPositions] = useState<{
+    all: Float32Array;
+    highlight: Float32Array | null;
+  } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
 
-    void loadCountryRings().then((rings) => {
-      if (cancelled || rings.length === 0) return;
+    void loadCountries().then((countries) => {
+      if (cancelled || countries.length === 0) return;
       // Slightly above the surface to avoid z-fighting with the graticule
-      setPositions(buildRingPositions(rings, GLOBE_CONFIG.radius + 0.002));
+      const radius = GLOBE_CONFIG.radius + 0.002;
+      const highlighted = countries.find(
+        (country) => country.code === highlightCode
+      );
+
+      setPositions({
+        all: buildRingPositions(
+          countries.flatMap((country) => country.rings),
+          radius
+        ),
+        // A touch higher again so the highlight always draws over the shared border
+        highlight: highlighted
+          ? buildRingPositions(highlighted.rings, radius + 0.002)
+          : null,
+      });
     });
 
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [highlightCode]);
 
   if (!positions) return null;
 
-  return <GlobeLines positions={positions} style={style} />;
+  return (
+    <>
+      <GlobeLines positions={positions.all} style={style} />
+      {highlight && positions.highlight && (
+        <GlobeLines positions={positions.highlight} style={highlight.style} />
+      )}
+    </>
+  );
 }

@@ -4,21 +4,67 @@ import React, { forwardRef, useRef, useState } from 'react';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Form,
-  Input,
-  Loading,
-  Textarea,
-  Typography,
-} from '@/components/elements';
-import { Section, Container, Grid, Flex } from '@/components/layout';
-import { Mail, MapPin, Phone } from 'lucide-react';
-import { LayoutProps } from '@/types';
+import { Form, Loading } from '@/components/elements';
+import { Section } from '@/components/layout';
+import { LayoutProps, SOCIAL_MEDIA_LINKS } from '@/types';
 import { cn, sendEmail } from '@/utils';
 import { ContactSchema } from '@/schema';
 import { toast } from 'sonner';
 import { debounce } from 'lodash';
+import {
+  ArrowPill,
+  Availability,
+  CONTAINER,
+  LocalTime,
+  META_LABEL,
+  SECTION_SPACING,
+  SectionHeader,
+  useScrollReveal,
+} from '../common';
+
+const EMAIL = 'kahn12345678@gmail.com';
+
+const INLINE_LINK =
+  'hover:text-contrast-medium underline decoration-contrast-lower underline-offset-4 transition-colors duration-300';
+
+const CONTACT_DETAILS = [
+  {
+    label: 'Email',
+    value: (
+      <a href={`mailto:${EMAIL}`} className={INLINE_LINK}>
+        {EMAIL}
+      </a>
+    ),
+    wide: true,
+  },
+  { label: 'Location', value: 'Ho Chi Minh City, Viet Nam' },
+  { label: 'Local time', value: <LocalTime /> },
+  {
+    label: 'Elsewhere',
+    value: (
+      <span className="flex flex-wrap gap-x-4 gap-y-1">
+        {SOCIAL_MEDIA_LINKS.filter((link) => link.key !== 'email').map(
+          (link) => (
+            <a
+              key={link.key}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={INLINE_LINK}
+            >
+              {link.name}
+            </a>
+          )
+        )}
+      </span>
+    ),
+    wide: true,
+  },
+];
+
+// Underlined fields in the page's hairline language; `aria-invalid` comes from `Form.Control`
+const FIELD =
+  'border-contrast-lower text-contrast-highest placeholder:text-contrast-lower focus:border-contrast-highest aria-[invalid=true]:border-error w-full rounded-none border-0 border-b bg-transparent px-0 py-3 text-lg outline-none transition-colors duration-300 md:text-xl';
 
 export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
@@ -56,230 +102,137 @@ export const Contact = forwardRef<HTMLDivElement, LayoutProps>(
       }
     }, 1000);
 
-    const contactRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    useScrollReveal(sectionRef);
+
     return (
       <Section
         id="contact"
         variant={'default'}
         comp="contact"
         theme={theme}
-        className={`min-h-screen ${className}`}
-        yspace="10xl"
-        ref={contactRef}
+        layout="block"
+        className={cn('min-h-screen', className)}
+        yspace="none"
+        xspace="none"
+        ref={sectionRef}
         {...props}
       >
-        <Container height="full" width="2xl">
-          <Flex variant="col" gap="8xl">
-            {/* Heading */}
-            <Flex variant="col" width="full" justify="center" align="center">
-              <Typography
-                className="xl:!text-10xl select-none sm:!text-6xl md:!text-8xl lg:!text-9xl"
-                size="6xl"
-                weight="bold"
-                align="center"
-              >
-                LET&apos;S WORK TOGETHER
-              </Typography>
-              <Typography
-                className="select-none"
-                size="2xl"
-                weight="medium"
-                contrast="medium"
-                align="center"
-              >
-                Ready to bring your creative vision to life? Let&apos;s start a
-                conversation.
-              </Typography>
-            </Flex>
+        <div className={cn(CONTAINER, SECTION_SPACING, 'flex flex-col gap-16')}>
+          <SectionHeader
+            index="04"
+            label="Contact"
+            aside={<Availability />}
+            title="Ready to bring your idea to life? Let’s start a conversation."
+          />
 
-            {/* Contact Info */}
+          <div className="grid gap-16 md:grid-cols-3 md:gap-x-6">
+            <dl className="grid grid-cols-2 content-start gap-x-6 gap-y-5 md:grid-cols-1">
+              {CONTACT_DETAILS.map((item) => (
+                <div
+                  key={item.label}
+                  data-reveal-fade
+                  className={cn(
+                    'border-contrast-lowest flex flex-col gap-1.5 border-t pt-3',
+                    item.wide && 'col-span-2 md:col-span-1'
+                  )}
+                >
+                  <dt className={META_LABEL}>{item.label}</dt>
+                  <dd className="text-contrast-highest text-sm md:text-base">
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
 
-            <Grid gap="none">
-              {/* Contact Information */}
-              <Grid.Item span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}>
-                <Flex variant="col" gap="xl">
-                  <Flex justify="start" align="center" gap="md">
-                    <Mail size={24} />
-                    <Flex variant="col" justify="start" align="start" gap="3xs">
-                      <Typography ashtml="h3" weight="bold">
-                        Email
-                      </Typography>
-                      <Typography contrast="medium">
-                        kahn12345678@gmail.com
-                      </Typography>
-                    </Flex>
-                  </Flex>
-                  <Flex justify="start" align="center" gap="md">
-                    <MapPin size={24} />
-                    <Flex variant="col" justify="start" align="start" gap="3xs">
-                      <Typography ashtml="h3" weight="bold">
-                        Location
-                      </Typography>
-                      <Typography contrast="medium">
-                        Ho Chi Minh City, Vietnam
-                      </Typography>
-                    </Flex>
-                  </Flex>
-                </Flex>
-              </Grid.Item>
-              {/* Form Content */}
-              <Grid.Item
-                className="mt-10 lg:mt-0"
-                span={[{ span: 12 }, { breakpoint: 'lg', span: 6 }]}
-              >
-                <Loading loading={loading} className="w-full">
-                  <Form {...form}>
-                    <form method="post" onSubmit={form.handleSubmit(onSubmit)}>
-                      <Flex variant="col" gap="lg">
-                        {/* Product Information */}
-                        <Flex variant="col" gap="xl">
-                          {/* Form Fields */}
-                          <Flex variant="col">
-                            {/* Full Name */}
-                            <Form.Field
-                              control={form.control}
-                              name="fullname"
-                              render={({ field, fieldState: { error } }) => (
-                                <Form.Item>
-                                  <Form.Label>
-                                    <Typography ashtml="span">
-                                      Full Name{' '}
-                                      <Typography
-                                        ashtml="span"
-                                        color="error"
-                                        contrast="medium"
-                                      >
-                                        *
-                                      </Typography>
-                                    </Typography>
-                                  </Form.Label>
-                                  <Form.Control>
-                                    <Input
-                                      type="text"
-                                      placeholder="Full Name"
-                                      className={cn(
-                                        'w-full placeholder:text-black',
-                                        {
-                                          'border-error placeholder:text-error text-error':
-                                            error,
-                                        }
-                                      )}
-                                      {...field}
-                                    />
-                                  </Form.Control>
-                                  <Form.Message />
-                                </Form.Item>
-                              )}
+            <Loading loading={loading} className="w-full md:col-span-2">
+              <Form {...form}>
+                <form
+                  method="post"
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="flex flex-col gap-10"
+                >
+                  <div className="grid gap-10 md:grid-cols-2 md:gap-x-6">
+                    <Form.Field
+                      control={form.control}
+                      name="fullname"
+                      render={({ field }) => (
+                        <Form.Item data-reveal-fade className="gap-1">
+                          <Form.Label className={META_LABEL}>
+                            Full name *
+                          </Form.Label>
+                          <Form.Control>
+                            <input
+                              type="text"
+                              autoComplete="name"
+                              placeholder="Your name"
+                              className={FIELD}
+                              {...field}
                             />
+                          </Form.Control>
+                          <Form.Message />
+                        </Form.Item>
+                      )}
+                    />
 
-                            {/* Email */}
-                            <Form.Field
-                              control={form.control}
-                              name="email"
-                              render={({ field, fieldState: { error } }) => (
-                                <Form.Item>
-                                  <Form.Label>
-                                    <Typography ashtml="span">
-                                      Email{' '}
-                                      <Typography
-                                        ashtml="span"
-                                        color="error"
-                                        contrast="medium"
-                                      >
-                                        *
-                                      </Typography>
-                                    </Typography>
-                                  </Form.Label>
-                                  <Form.Control>
-                                    <Input
-                                      type="text"
-                                      placeholder="Email"
-                                      className={cn(
-                                        'w-full placeholder:text-black',
-                                        {
-                                          'border-error placeholder:text-error text-error':
-                                            error,
-                                        }
-                                      )}
-                                      {...field}
-                                    />
-                                  </Form.Control>
-                                  <Form.Message />
-                                </Form.Item>
-                              )}
+                    <Form.Field
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <Form.Item data-reveal-fade className="gap-1">
+                          <Form.Label className={META_LABEL}>
+                            Email *
+                          </Form.Label>
+                          <Form.Control>
+                            <input
+                              type="email"
+                              autoComplete="email"
+                              placeholder="you@example.com"
+                              className={FIELD}
+                              {...field}
                             />
+                          </Form.Control>
+                          <Form.Message />
+                        </Form.Item>
+                      )}
+                    />
+                  </div>
 
-                            {/* Message */}
-                            <Form.Field
-                              control={form.control}
-                              name="message"
-                              render={({ field, fieldState: { error } }) => (
-                                <Form.Item>
-                                  <Form.Label>
-                                    <Typography ashtml="span">
-                                      Message{' '}
-                                      <Typography
-                                        ashtml="span"
-                                        color="error"
-                                        contrast="medium"
-                                      >
-                                        *
-                                      </Typography>
-                                    </Typography>
-                                  </Form.Label>
-                                  <Form.Control>
-                                    <Textarea
-                                      type="text"
-                                      placeholder="Message"
-                                      className={cn(
-                                        'w-full placeholder:text-black',
-                                        {
-                                          'border-error placeholder:text-error text-error':
-                                            error,
-                                        }
-                                      )}
-                                      rows={6}
-                                      {...field}
-                                    />
-                                  </Form.Control>
-                                  <Form.Message />
-                                </Form.Item>
-                              )}
-                            />
-                          </Flex>
+                  <Form.Field
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <Form.Item data-reveal-fade className="gap-1">
+                        <Form.Label className={META_LABEL}>
+                          Message *
+                        </Form.Label>
+                        <Form.Control>
+                          <textarea
+                            rows={5}
+                            placeholder="Tell me about your project"
+                            className={cn(FIELD, 'resize-none')}
+                            {...field}
+                          />
+                        </Form.Control>
+                        <Form.Message />
+                      </Form.Item>
+                    )}
+                  />
 
-                          {/* Action Buttons */}
-                          <Flex align="center" justify="start">
-                            <Button
-                              type="submit"
-                              className="hover:bg-contrast-high w-full cursor-pointer transition-all duration-200 lg:w-fit"
-                              variant="default"
-                              color="primary"
-                              contrast="highest"
-                              padding="md"
-                              rounded="md"
-                            >
-                              <Typography
-                                className="select-none"
-                                ashtml="span"
-                                size="md"
-                                align="center"
-                                color="invert"
-                                weight="medium"
-                              >
-                                {loading ? 'Sending...' : 'Send Message'}
-                              </Typography>
-                            </Button>
-                          </Flex>
-                        </Flex>
-                      </Flex>
-                    </form>
-                  </Form>
-                </Loading>
-              </Grid.Item>
-            </Grid>
-          </Flex>
-        </Container>
+                  <div
+                    data-reveal-fade
+                    className="text-contrast-medium flex flex-wrap items-center justify-between gap-6 text-sm md:text-base"
+                  >
+                    <span>Fields marked * are required.</span>
+                    <ArrowPill type="submit" disabled={loading}>
+                      {loading ? 'Sending…' : 'Send message'}
+                    </ArrowPill>
+                  </div>
+                </form>
+              </Form>
+            </Loading>
+          </div>
+        </div>
       </Section>
     );
   }

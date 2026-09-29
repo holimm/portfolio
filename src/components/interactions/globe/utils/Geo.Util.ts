@@ -10,7 +10,16 @@ interface GeoGeometry {
 }
 
 interface GeoFeatureCollection {
-  features?: { geometry: GeoGeometry | null }[];
+  features?: {
+    geometry: GeoGeometry | null;
+    properties?: { ADM0_A3?: string } | null;
+  }[];
+}
+
+export interface GeoCountry {
+  /** ISO 3166-1 alpha-3 style code, e.g. `VNM`. */
+  code: string;
+  rings: GeoRing[];
 }
 
 export function latLonToVector3(
@@ -40,6 +49,46 @@ export function getViewQuaternion(
     surfaceNormal,
     direction.clone().normalize()
   );
+}
+
+const X_AXIS = new THREE.Vector3(1, 0, 0);
+const Y_AXIS = new THREE.Vector3(0, 1, 0);
+const Z_AXIS = new THREE.Vector3(0, 0, 1);
+const tiltQuat = new THREE.Quaternion();
+const spinQuat = new THREE.Quaternion();
+
+/**
+ * Rotation that turns a coordinate toward the camera (+Z) with north up, then rolls it around
+ * the view axis. Unlike `getViewQuaternion`, interpolating lat/lon gives a path across the
+ * surface instead of the shortest arc.
+ */
+export function getFacingQuaternion(
+  lat: number,
+  lon: number,
+  roll = 0,
+  target = new THREE.Quaternion()
+): THREE.Quaternion {
+  const { degToRad } = THREE.MathUtils;
+  tiltQuat.setFromAxisAngle(X_AXIS, degToRad(lat));
+  spinQuat.setFromAxisAngle(Y_AXIS, -degToRad(lon + 90));
+  return target
+    .setFromAxisAngle(Z_AXIS, roll)
+    .multiply(tiltQuat)
+    .multiply(spinQuat);
+}
+
+/** Camera distance at which the whole globe fits the viewport, never closer than `minDistance`. */
+export function getOverviewDistance(
+  fov: number,
+  aspect: number,
+  minDistance: number,
+  fitMargin: number,
+  radius: number = GLOBE_CONFIG.radius
+): number {
+  const halfFov = THREE.MathUtils.degToRad(fov / 2);
+  const halfHorizontalFov = Math.atan(Math.tan(halfFov) * aspect);
+  const fitDistance = (radius * fitMargin) / Math.sin(halfHorizontalFov);
+  return Math.max(minDistance, fitDistance);
 }
 
 /** Flattens [a, b, c, ...] point lists into line-segment pairs: [a, b, b, c, ...]. */
@@ -94,27 +143,34 @@ export function buildGraticulePositions(
   return new Float32Array(positions);
 }
 
-let countryRingsPromise: Promise<GeoRing[]> | null = null;
+let countriesPromise: Promise<GeoCountry[]> | null = null;
 
 /** Fetches country outlines once per session; later calls reuse the same request. */
-export function loadCountryRings(): Promise<GeoRing[]> {
-  countryRingsPromise ??= fetch(GLOBE_CONFIG.countriesUrl)
+export function loadCountries(): Promise<GeoCountry[]> {
+  countriesPromise ??= fetch(GLOBE_CONFIG.countriesUrl)
     .then((res) => {
       if (!res.ok) throw new Error(`Failed to load countries: ${res.status}`);
       return res.json() as Promise<GeoFeatureCollection>;
     })
     .then((collection) =>
       (collection.features ?? []).flatMap((feature) =>
-        feature.geometry ? extractGeoRings(feature.geometry) : []
+        feature.geometry
+          ? [
+              {
+                code: feature.properties?.ADM0_A3 ?? '',
+                rings: extractGeoRings(feature.geometry),
+              },
+            ]
+          : []
       )
     )
     .catch(() => {
       // Allow a retry on the next mount instead of caching the failure.
-      countryRingsPromise = null;
+      countriesPromise = null;
       return [];
     });
 
-  return countryRingsPromise;
+  return countriesPromise;
 }
 
 export function buildRingPositions(

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLOBE_CONFIG } from '../../config/Globe.Config';
+import { getOverviewDistance } from '../../utils/Geo.Util';
 
 interface GlobeControlsProps {
   autoRotate: boolean;
@@ -71,13 +72,10 @@ export function GlobeControls({
   useEffect(() => {
     if (!controls || !(camera instanceof THREE.PerspectiveCamera)) return;
 
-    const { radius, camera: cameraConfig } = GLOBE_CONFIG;
-    const halfFov = THREE.MathUtils.degToRad(camera.fov / 2);
-    const halfHorizontalFov = Math.atan(Math.tan(halfFov) * (width / height));
-    const fitDistance =
-      (radius * cameraConfig.fitMargin) / Math.sin(halfHorizontalFov);
-
-    camera.position.setLength(Math.max(cameraConfig.distance, fitDistance));
+    const { distance, fitMargin } = GLOBE_CONFIG.camera;
+    camera.position.setLength(
+      getOverviewDistance(camera.fov, width / height, distance, fitMargin)
+    );
     controls.update();
   }, [controls, camera, width, height]);
 

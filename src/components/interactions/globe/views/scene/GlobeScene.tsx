@@ -17,8 +17,8 @@ import {
 } from '../../config/Globe.Config';
 import { getViewQuaternion, latLonToVector3 } from '../../utils/Geo.Util';
 import { GlobeControls } from './GlobeControls';
-import { CountryOutlines, GlobeGraticule, GlobeWireframe } from './GlobeLines';
-import { GlobeMarkerPin } from './GlobeMarkerPin';
+import { GlobeModel } from './GlobeModel';
+import { GlobeStars } from './GlobeStars';
 
 export interface GlobeSceneProps {
   markers: GlobeMarker[];
@@ -166,20 +166,15 @@ export function GlobeScene({
 
   return (
     <>
-      <group ref={globeRef}>
-        <GlobeWireframe style={palette.wireframe} />
-        <GlobeGraticule style={palette.graticule} />
-        <CountryOutlines style={palette.countries} />
+      {/* The camera orbits, so the sky turns with it */}
+      <GlobeStars style={palette.stars} twinkle={!reducedMotion} />
 
-        {markers.map((marker) => (
-          <GlobeMarkerPin
-            key={marker.id}
-            marker={marker}
-            color={palette.marker}
-            onSelect={focusOnMarker}
-          />
-        ))}
-      </group>
+      <GlobeModel
+        ref={globeRef}
+        markers={markers}
+        palette={palette}
+        onSelectMarker={focusOnMarker}
+      />
 
       <GlobeControls
         autoRotate={autoRotate && !reducedMotion}
