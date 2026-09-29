@@ -1,16 +1,25 @@
 'use client';
 
-import React, { forwardRef, useMemo, useRef } from 'react';
-import Link from 'next/link';
-import { Typography } from '@/components/elements';
-import { Section, Container, Grid, Flex } from '@/components/layout';
+import React, { forwardRef, useRef } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { Section } from '@/components/layout';
 import { LayoutProps, TECH_STACK } from '@/types';
+import { cn } from '@/utils';
+import {
+  CONTAINER,
+  SECTION_SPACING,
+  SectionHeader,
+  formatIndex,
+  useScrollReveal,
+  useStackedExit,
+} from '../common';
 
 export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
-    const servicesRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
 
-    const techStack = useMemo(() => TECH_STACK, []);
+    useScrollReveal(sectionRef);
+    useStackedExit(sectionRef);
 
     return (
       <Section
@@ -18,89 +27,68 @@ export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
         variant={'default'}
         comp="tech-stack"
         theme={'default'}
-        className={`min-h-screen ${className}`}
-        yspace="10xl"
-        ref={servicesRef}
-        rounded="2xl"
+        layout="block"
+        className={cn('min-h-screen', className)}
+        yspace="none"
+        xspace="none"
+        ref={sectionRef}
         {...props}
       >
-        <Container height="full" width="3xl">
-          <Flex variant="col" gap="8xl">
-            {/* Heading */}
-            <Flex width="full" justify="center" align="center">
-              <Typography
-                className="xl:!text-10xl select-none sm:!text-6xl md:!text-8xl lg:!text-9xl"
-                size="6xl"
-                weight="bold"
-                align="center"
-              >
-                MODERN STACK
-              </Typography>
-            </Flex>
+        <div
+          data-exit-content
+          className={cn(CONTAINER, SECTION_SPACING, 'flex flex-col gap-16')}
+        >
+          <SectionHeader
+            index="02"
+            label="Stack"
+            aside={`${TECH_STACK.length} tools`}
+            title="The tools I reach for to ship fast, polished interfaces."
+          />
 
-            {/* Services Grid */}
-            <Grid gap="none">
-              {techStack.slice(0, 3).map((tech, i) => (
-                <Grid.Item
-                  key={`video-${i}`}
-                  span={[
-                    { span: 12 },
-                    { breakpoint: 'sm', span: i === 2 ? 12 : 6 },
-                    { breakpoint: 'md', span: i === 2 ? 12 : 6 },
-                    { breakpoint: 'lg', span: 4 },
-                  ]}
+          {/* Hairline grid: every cell draws its right and bottom edge */}
+          <ul className="border-contrast-lowest grid grid-cols-2 border-t border-l md:grid-cols-3">
+            {TECH_STACK.map((tech, index) => (
+              <li
+                key={tech.name}
+                data-reveal-fade
+                className="border-contrast-lowest border-r border-b last:col-span-2 md:last:col-span-1"
+              >
+                <a
+                  href={tech.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group hover:bg-contrast-highest hover:text-invert-highest text-contrast-highest flex h-full min-h-40 flex-col justify-between gap-6 p-4 transition-colors duration-500 md:min-h-56 md:p-6 2xl:min-h-64"
                 >
-                  <Link
-                    href={tech.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Container className="border-contrast-lower aspect-video border">
-                      <div className="group hover:bg-contrast-higher flex h-full w-full items-center justify-center transition-all duration-200 ease-in-out">
-                        {
-                          <tech.icon
-                            size={100}
-                            aria-label={tech.name}
-                            className="text-contrast-higher group-hover:text-invert-highest transition-all duration-200 ease-in-out group-hover:scale-110"
-                          />
-                        }
-                      </div>
-                    </Container>
-                  </Link>
-                </Grid.Item>
-              ))}
-              {techStack.slice(3, 9).map((tech, i) => (
-                <Grid.Item
-                  key={`square-${i}`}
-                  span={[
-                    { span: 12 },
-                    { breakpoint: 'sm', span: 4 },
-                    { breakpoint: 'md', span: 4 },
-                    { breakpoint: 'lg', span: 2 },
-                  ]}
-                >
-                  <Link
-                    href={tech.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Container className="border-contrast-lower aspect-square border">
-                      <div className="group hover:bg-contrast-higher flex h-full w-full flex-col items-center justify-center transition-all duration-200 ease-in-out">
-                        {
-                          <tech.icon
-                            size={100}
-                            aria-label={tech.name}
-                            className="text-contrast-higher group-hover:text-invert-highest transition-all duration-200 ease-in-out group-hover:scale-110"
-                          />
-                        }
-                      </div>
-                    </Container>
-                  </Link>
-                </Grid.Item>
-              ))}
-            </Grid>
-          </Flex>
-        </Container>
+                  <span className="text-contrast-medium group-hover:text-invert-medium flex items-start justify-between text-sm transition-colors duration-500 md:text-base">
+                    <span className="tabular-nums">{formatIndex(index)}</span>
+                    <ArrowUpRight className="size-4 -translate-x-1 translate-y-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 md:size-5" />
+                  </span>
+
+                  <tech.icon
+                    aria-hidden="true"
+                    className="size-8 transition-transform duration-500 group-hover:scale-110 md:size-11"
+                  />
+
+                  <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <span className="text-xl leading-none font-medium tracking-[-0.03em] md:text-3xl">
+                      {tech.name}
+                    </span>
+                    <span className="text-contrast-medium group-hover:text-invert-medium text-xs tracking-wider uppercase transition-colors duration-500">
+                      {tech.role}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Deepens as the dark work section scrolls over */}
+        <div
+          aria-hidden="true"
+          data-exit-shade
+          className="pointer-events-none invisible absolute inset-0 bg-black opacity-0"
+        />
       </Section>
     );
   }

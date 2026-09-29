@@ -23,6 +23,9 @@ export const DEFAULT_TRANSITION: gsap.TweenVars = {
 export const getPinType = () =>
   ScrollTrigger.isTouch === 1 ? 'fixed' : 'transform';
 
+// ScrollSmoother already smooths desktop scrolling; native touch scrolling gets a short catch-up
+export const getScrub = () => (ScrollTrigger.isTouch === 1 ? 0.6 : true);
+
 interface SpringCurve {
   duration: number;
   ease: gsap.EaseFunction;

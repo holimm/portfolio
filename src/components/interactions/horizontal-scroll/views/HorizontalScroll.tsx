@@ -30,7 +30,7 @@ export const HorizontalScroll = forwardRef<
       <div
         ref={context.scrollContainerRef}
         style={{
-          height: `${context.sections.length * 100}vh`,
+          height: context.containerHeight,
           position: 'relative',
         }}
         className={cn(className, context.horizontalScrollStyle?.())}

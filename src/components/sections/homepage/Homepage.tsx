@@ -8,19 +8,18 @@ import { Contact } from './Contact';
 import { About } from './About';
 import { Testimonials } from './Testimonials';
 import { TechStack } from './TechStack';
-import { SubHero } from './SubHero';
 
 export const Homepage = forwardRef<HTMLDivElement, LayoutProps>(
   ({ className, children, theme, ...props }, ref) => {
     return (
       <>
         <Hero />
-        <SubHero />
-        <About />
-        <TechStack />
-        <Projects />
+        {/* Each section stacks above the one before so it can scroll over it */}
+        <About className="z-10" />
+        <TechStack className="z-20" />
+        <Projects className="z-30" />
         {/* <Testimonials /> */}
-        <Contact theme="light" className="z-20" />
+        <Contact theme="light" className="z-40" />
       </>
     );
   }
