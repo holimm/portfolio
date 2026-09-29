@@ -1,5 +1,4 @@
-import { Easing } from 'motion';
-import { SlideOptions } from '@/types';
+import { Easing, SlideOptions } from '@/types';
 
 interface DrawerProps extends SlideOptions {
   open: boolean;

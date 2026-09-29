@@ -14,6 +14,13 @@ import MineInUsImg from '@/assets/images/mine-in-us.webp';
 import MySimpleRadioImg from '@/assets/images/my-simple-radio.webp';
 import ResumeGeneratorImg from '@/assets/images/resume-generator.webp';
 
+/** Fixed header links; `section` matches the target's `data-section` and `id`. */
+export const PRIMARY_NAVIGATION = [
+  { key: 'about', name: 'About', section: 'about' },
+  { key: 'work', name: 'Work', section: 'projects' },
+  { key: 'contact', name: 'Contact', section: 'contact' },
+];
+
 export const HEADER_NAVIGATION = [
   { key: 'about', name: 'About' },
   { key: 'tech-stack', name: 'Tech Stack' },
@@ -42,46 +49,55 @@ export const SOCIAL_MEDIA_LINKS = [
 export const TECH_STACK = [
   {
     name: 'React',
+    role: 'UI library',
     icon: SiReact,
     href: 'https://reactjs.org',
   },
   {
     name: 'Next.js',
+    role: 'Framework',
     icon: SiNextdotjs,
     href: 'https://nextjs.org',
   },
   {
     name: 'TypeScript',
+    role: 'Language',
     icon: SiTypescript,
     href: 'https://www.typescriptlang.org',
   },
   {
     name: 'Node.js',
+    role: 'Runtime',
     icon: SiNodedotjs,
     href: 'https://nodejs.org',
   },
   {
     name: 'Tailwind CSS',
+    role: 'Styling',
     icon: SiTailwindcss,
     href: 'https://tailwindcss.com',
   },
   {
     name: 'Framer Motion',
+    role: 'Motion',
     icon: SiFramer,
     href: 'https://www.framer.com/motion',
   },
   {
     name: 'Vercel',
+    role: 'Hosting',
     icon: SiVercel,
     href: 'https://vercel.com',
   },
   {
     name: 'Shopify',
+    role: 'Commerce',
     icon: SiShopify,
     href: 'https://www.shopify.com',
   },
   {
     name: 'Redux',
+    role: 'State',
     icon: SiRedux,
     href: 'https://redux.js.org',
   },

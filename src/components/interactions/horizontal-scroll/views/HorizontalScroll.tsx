@@ -7,7 +7,6 @@ import {
   UseHorizontalScrollProps,
 } from '../utils/HorizontalScroll.Util';
 import { cn } from '@/utils';
-import { motion } from 'framer-motion';
 
 export interface HorizontalScrollSection {
   key: string | number;
@@ -31,7 +30,7 @@ export const HorizontalScroll = forwardRef<
       <div
         ref={context.scrollContainerRef}
         style={{
-          height: `${context.sections.length * 100}vh`,
+          height: context.containerHeight,
           position: 'relative',
         }}
         className={cn(className, context.horizontalScrollStyle?.())}
@@ -42,8 +41,9 @@ export const HorizontalScroll = forwardRef<
         {...props}
       >
         <div
+          ref={context.pinRef}
           style={{
-            position: 'sticky',
+            position: 'relative',
             top: 0,
             left: 0,
             width: '100vw',
@@ -51,12 +51,12 @@ export const HorizontalScroll = forwardRef<
             overflow: 'hidden',
           }}
         >
-          <motion.div
+          <div
+            ref={context.trackRef}
             style={{
               display: 'flex',
               width: `${context.sections.length * 100}vw`,
               height: '100%',
-              x: context.xValue,
               position: 'absolute',
               top: 0,
               left: 0,
@@ -77,7 +77,7 @@ export const HorizontalScroll = forwardRef<
                 {section.content}
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
         {children}
       </div>

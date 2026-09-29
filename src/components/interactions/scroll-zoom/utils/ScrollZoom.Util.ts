@@ -1,17 +1,11 @@
 'use client';
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { createContext, useCallback, useContext, useMemo, useRef } from 'react';
 import {
   scrollZoomVariants,
   type ScrollZoomVariantProps,
 } from '../config/ScrollZoom.Config';
+import { getPinType, ScrollTrigger, useGSAP } from '@/config';
 
 // Context Provider
 const ScrollZoomContext = createContext<UseScrollZoomReturn | undefined>(
@@ -58,8 +52,8 @@ export const useScrollZoom = (props: UseScrollZoomProps) => {
     [variant]
   );
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const pinRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const ticking = useRef(false);
   const finalScale = useRef(1);
 
   // easeOutCubic for a designer feel
@@ -84,18 +78,13 @@ export const useScrollZoom = (props: UseScrollZoomProps) => {
     finalScale.current = isFinite(scale) && scale > 0 ? scale : 1;
   }, []);
 
-  const onScroll = useCallback(() => {
-    const section = sectionRef.current;
-    const wrapper = wrapperRef.current;
-    if (!section || !wrapper) return;
-    if (ticking.current) return;
-    ticking.current = true;
-    window.requestAnimationFrame(() => {
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const total = Math.max(section.offsetHeight - window.innerHeight, 1);
-      const raw = Math.min(Math.max(-rect.top / total, 0), 1);
-      const eased = easeOutCubic(raw);
+  const render = useCallback(
+    (progress: number) => {
+      const section = sectionRef.current;
+      const wrapper = wrapperRef.current;
+      if (!section || !wrapper) return;
+
+      const eased = easeOutCubic(progress);
 
       const s = 1 + (finalScale.current - 1) * eased;
       wrapper.style.transform = `scale(${s}) translateZ(0)`;
@@ -106,45 +95,58 @@ export const useScrollZoom = (props: UseScrollZoomProps) => {
       if (overlay) {
         overlay.style.opacity = String(Math.min(eased * 0.45, 0.45));
       }
+    },
+    [easeOutCubic]
+  );
 
-      ticking.current = false;
-    });
-  }, [easeOutCubic]);
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      const wrapper = wrapperRef.current;
+      if (!section || !wrapper) return;
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const wrapper = wrapperRef.current;
-    if (!section || !wrapper) return;
+      computeFinalScale();
 
-    computeFinalScale();
-
-    const img = wrapper.querySelector('img') as HTMLImageElement | null;
-    if (img && !img.complete) {
-      img.onload = computeFinalScale;
-      img.onerror = computeFinalScale;
-    }
-
-    window.addEventListener('resize', computeFinalScale);
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Initial scroll effect
-    onScroll();
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', computeFinalScale);
-      if (img) {
-        img.onload = null;
-        img.onerror = null;
+      const img = wrapper.querySelector('img') as HTMLImageElement | null;
+      if (img && !img.complete) {
+        img.onload = computeFinalScale;
+        img.onerror = computeFinalScale;
       }
-    };
-  }, [computeFinalScale, onScroll, initialSize, zoomVh]);
+
+      window.addEventListener('resize', computeFinalScale);
+
+      // Pin the viewport-sized stage (replaces position: sticky) and zoom with the scroll progress
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: pinRef.current,
+        pinSpacing: false,
+        pinType: getPinType(),
+        onUpdate: (self) => render(self.progress),
+        onRefresh: (self) => render(self.progress),
+      });
+
+      return () => {
+        window.removeEventListener('resize', computeFinalScale);
+        if (img) {
+          img.onload = null;
+          img.onerror = null;
+        }
+      };
+    },
+    {
+      dependencies: [computeFinalScale, render, initialSize, zoomVh],
+      revertOnUpdate: true,
+    }
+  );
 
   return {
     variant,
     scrollZoomRef,
     scrollZoomStyle,
     sectionRef,
+    pinRef,
     wrapperRef,
     initialSize: initialSize || '60vmin',
     sectionHeight,

@@ -3,20 +3,18 @@
 import {
   forwardRef,
   HTMLAttributes,
+  PointerEvent,
   useMemo,
+  useRef,
   useState,
-  useEffect,
   useCallback,
 } from 'react';
 import { useTypography, UseTypographyProps } from '../utils/Typography.Util';
-import {
-  AnimatePresence,
-  EasingDefinition,
-  motion,
-  useAnimation,
-} from 'framer-motion';
 import { Flex } from '@/components/layout';
 import { defaultConfig } from 'tailwind-variants';
+import { gsap, useGSAP } from '@/config';
+import { useManagedAnimation } from '@/hooks';
+import { Easing } from '@/types';
 
 export interface TypographyProps
   extends UseTypographyProps,
@@ -25,14 +23,14 @@ export interface TypographyProps
     type: 'split-words' | 'split-chars';
     duration?: number;
     delay?: number;
-    ease?: EasingDefinition;
+    ease?: Easing;
     hover?:
       | boolean
       | {
           text: string;
           duration?: number;
           delay?: number;
-          ease?: EasingDefinition;
+          ease?: Easing;
           stagger?: number;
         };
   };
@@ -71,9 +69,11 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
 
     const ctx = useMemo(() => context, [context]);
 
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { play } = useManagedAnimation();
+    // Which text is rendered; switches only after the previous text has exited
     const [isHovered, setIsHovered] = useState(false);
-    const initialControls = useAnimation();
-    const [hasAnimatedInitial, setHasAnimatedInitial] = useState(false);
+    const isHoveredRef = useRef(false);
 
     const hasHoverTextAnimation =
       animation?.type &&
@@ -82,44 +82,6 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
     const hoverText = hasHoverTextAnimation
       ? (animation.hover as { text: string }).text
       : '';
-
-    useEffect(() => {
-      if (!isHovered && !hasAnimatedInitial && animation?.type) {
-        initialControls
-          .start('visible')
-          .then(() => setHasAnimatedInitial(true));
-      }
-    }, [initialControls, hasAnimatedInitial, animation?.type, isHovered]);
-
-    const getVariants = useCallback(
-      (
-        baseDelay: number,
-        baseDuration: number,
-        baseEase?: EasingDefinition,
-        stagger: number = 0.05
-      ) => ({
-        visible: (customIndex: number) => ({
-          y: 0,
-          transition: {
-            delay: baseDelay + customIndex * stagger,
-            duration: baseDuration,
-            ...(baseEase ? { ease: baseEase } : {}),
-          },
-        }),
-        initial: {
-          y: '100%',
-        },
-        exit: (customIndex: number) => ({
-          y: '-100%',
-          transition: {
-            delay: baseDelay + customIndex * stagger,
-            duration: baseDuration,
-            ...(baseEase ? { ease: baseEase } : {}),
-          },
-        }),
-      }),
-      []
-    );
 
     const currentText = useMemo(
       () => (isHovered && hasHoverTextAnimation ? hoverText : children),
@@ -152,9 +114,62 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
       [currentAnimationProps, animation?.type]
     );
 
-    const textVariants = useMemo(
-      () => getVariants(baseDelay, baseDuration, baseEase, baseStagger),
-      [getVariants, baseDelay, baseDuration, baseEase, baseStagger]
+    const tweenVars = useMemo<gsap.TweenVars>(
+      () => ({
+        delay: baseDelay,
+        duration: baseDuration,
+        ease: baseEase ?? 'easeOut',
+        stagger: baseStagger,
+      }),
+      [baseDelay, baseDuration, baseEase, baseStagger]
+    );
+
+    const getItems = useCallback(
+      () =>
+        gsap.utils.toArray<HTMLElement>(
+          '[data-split-item]',
+          containerRef.current
+        ),
+      []
+    );
+
+    // Slide the rendered words/chars in on mount and after every text swap
+    useGSAP(
+      () => {
+        if (!animation?.type) return;
+        play(() =>
+          gsap.fromTo(
+            getItems(),
+            { y: 0, yPercent: 100 },
+            { yPercent: 0, ...tweenVars }
+          )
+        );
+      },
+      { dependencies: [isHovered, animation?.type] }
+    );
+
+    const handleHoverChange = useCallback(
+      (event: PointerEvent, hovering: boolean) => {
+        if (event.pointerType === 'touch') return;
+
+        // Hover reverted before the swap happened: bring the current text back
+        if (hovering === isHoveredRef.current) {
+          play(() => gsap.to(getItems(), { yPercent: 0, ...tweenVars }));
+          return;
+        }
+
+        play(() =>
+          gsap.to(getItems(), {
+            yPercent: -100,
+            ...tweenVars,
+            onComplete: () => {
+              isHoveredRef.current = hovering;
+              setIsHovered(hovering);
+            },
+          })
+        );
+      },
+      [play, getItems, tweenVars]
     );
 
     const renderAnimatedText = useCallback(
@@ -174,38 +189,34 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
             align="center"
             gap="none"
           >
-            <AnimatePresence mode="wait">
-              {items.map((item, i) => (
-                <motion.span
-                  key={isHovering ? `hover-${i}` : `initial-${i}`}
-                  className="my-0 inline-block py-0"
-                  custom={i}
-                  initial="initial"
-                  animate="visible"
-                  exit="exit"
-                  variants={textVariants}
+            {items.map((item, i) => (
+              <span
+                key={isHovering ? `hover-${i}` : `initial-${i}`}
+                className="my-0 inline-block py-0"
+                // Hidden initial state is server-rendered to avoid a flash before hydration
+                style={{ transform: 'translateY(100%)' }}
+                data-split-item
+              >
+                <defaultConfig.Component
+                  data-comp="typography"
+                  data-variant={ctx.variant}
+                  className={`${className} ${ctx.typographyStyle()}`}
+                  ref={ctx.typographyRef}
+                  {...props}
                 >
-                  <defaultConfig.Component
-                    data-comp="typography"
-                    data-variant={ctx.variant}
-                    className={`${className} ${ctx.typographyStyle()}`}
-                    ref={ctx.typographyRef}
-                    {...props}
-                  >
-                    {animation?.type === 'split-chars' && item === ' '
-                      ? '\u00A0'
-                      : item}
-                    {animation?.type === 'split-words' && i !== items.length - 1
-                      ? '\u00A0'
-                      : ''}
-                  </defaultConfig.Component>
-                </motion.span>
-              ))}
-            </AnimatePresence>
+                  {animation?.type === 'split-chars' && item === ' '
+                    ? '\u00A0'
+                    : item}
+                  {animation?.type === 'split-words' && i !== items.length - 1
+                    ? '\u00A0'
+                    : ''}
+                </defaultConfig.Component>
+              </span>
+            ))}
           </Flex>
         );
       },
-      [animation?.type, className, ctx, props, textVariants]
+      [animation?.type, className, ctx, props]
     );
 
     if (animation?.type) {
@@ -216,21 +227,22 @@ export const Typography = forwardRef<HTMLDivElement, TypographyProps>(
       }
 
       return (
-        <motion.div
+        <div
+          ref={containerRef}
           className="inline-block h-fit overflow-hidden"
-          onHoverStart={
-            hasHoverTextAnimation ? () => setIsHovered(true) : undefined
+          onPointerEnter={
+            hasHoverTextAnimation
+              ? (event) => handleHoverChange(event, true)
+              : undefined
           }
-          onHoverEnd={
-            hasHoverTextAnimation ? () => setIsHovered(false) : undefined
+          onPointerLeave={
+            hasHoverTextAnimation
+              ? (event) => handleHoverChange(event, false)
+              : undefined
           }
-          animate={
-            !isHovered && !hasHoverTextAnimation ? initialControls : undefined
-          }
-          initial={!isHovered && !hasHoverTextAnimation ? 'initial' : undefined}
         >
           {renderAnimatedText(currentText as string, isHovered)}
-        </motion.div>
+        </div>
       );
     }
 

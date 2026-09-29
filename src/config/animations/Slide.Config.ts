@@ -1,23 +1,24 @@
-import { SlideOptions } from '@/types';
-import { Variants } from 'framer-motion';
+import type { AnimationVariants, SlideOptions } from '@/types';
 
 export const slideVariants = ({
   x = 0,
   y = 0,
   duration = 0.5,
   ease = 'easeInOut',
-}: SlideOptions = {}): Variants => {
+}: SlideOptions = {}): AnimationVariants => {
   return {
     hidden: { x, y },
     visible: {
       x: 0,
       y: 0,
-      transition: { ease, duration },
+      ease,
+      duration,
     },
     exit: {
       x,
       y,
-      transition: { ease, duration },
+      ease,
+      duration,
     },
   };
 };
