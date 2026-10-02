@@ -3,12 +3,14 @@
 import { useCallback, useState, RefObject } from 'react';
 import { ScrollTrigger, useGSAP } from '@/config';
 
-export const useScrollParallax = (ref: RefObject<HTMLElement>) => {
+export const useScrollParallax = (
+  ref: RefObject<HTMLElement | null> | null
+) => {
   const [scrollY, setScrollY] = useState(0);
   const [visibilityPercentage, setVisibilityPercentage] = useState(0);
 
   const handleScroll = useCallback(() => {
-    const element = ref && ref.current ? ref.current : null;
+    const element = ref?.current;
     if (!element) return;
 
     const rect = element.getBoundingClientRect();
@@ -24,8 +26,8 @@ export const useScrollParallax = (ref: RefObject<HTMLElement>) => {
     const extendedBottom = windowHeight + elementHeight;
 
     if (elementBottom < extendedTop || elementTop > extendedBottom) {
-      setVisibilityPercentage(0);
-      setScrollY(0);
+      setVisibilityPercentage((current) => (current === 0 ? current : 0));
+      setScrollY((current) => (current === 0 ? current : 0));
       return;
     }
 
@@ -43,22 +45,41 @@ export const useScrollParallax = (ref: RefObject<HTMLElement>) => {
     const relativeScroll =
       percentage >= 100 ? 0 : viewportCenter - elementCenter;
 
-    setScrollY(relativeScroll);
-    setVisibilityPercentage(percentage);
+    setScrollY((current) =>
+      current === relativeScroll ? current : relativeScroll
+    );
+    setVisibilityPercentage((current) =>
+      current === percentage ? current : percentage
+    );
   }, [ref]);
 
-  // ScrollTrigger updates on every smoothed scroll frame, not just native scroll events
+  // Only the footer parallax needs this, and only while it is near the viewport. A page-long
+  // listener was reading layout on every frame and stalling the pinned hero and horizontal track.
   useGSAP(
     () => {
-      handleScroll();
+      const element = ref?.current;
+      if (!element) return;
+
+      const reset = () => {
+        setVisibilityPercentage((current) => (current === 0 ? current : 0));
+        setScrollY((current) => (current === 0 ? current : 0));
+      };
+
       ScrollTrigger.create({
-        start: 0,
-        end: 'max',
+        trigger: element,
+        // One section-height before it arrives, until two section-heights after its top has left.
+        // Outside this, scroll frames do not read layout.
+        start: 'top-=100% bottom',
+        end: 'top+=200% top',
+        onEnter: handleScroll,
+        onEnterBack: handleScroll,
         onUpdate: handleScroll,
         onRefresh: handleScroll,
+        onLeave: reset,
+        onLeaveBack: reset,
       });
     },
-    { dependencies: [handleScroll], revertOnUpdate: true }
+    { dependencies: [handleScroll, ref], revertOnUpdate: true }
   );
 
   return { scrollY, visibilityPercentage };

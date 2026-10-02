@@ -187,7 +187,7 @@ export const PageLoader = () => {
           <Line>
             <span
               data-loader-counter
-              className="font-oldschool-grotesk-compressed block text-[length:min(30vw,34vh)] leading-[0.8] font-bold tracking-tight tabular-nums"
+              className="font-oldschool-grotesk-compressed block pt-[0.08em] text-[length:min(30vw,34vh)] leading-[0.8] font-bold tracking-tight tabular-nums"
             >
               000
             </span>

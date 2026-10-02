@@ -53,24 +53,18 @@ export const useSection = (props: UseSectionProps) => {
     [layout, variant, yspace, xspace, rounded, parallaxDirection]
   );
 
-  // Parallax effect for sections
-  const { scrollY, visibilityPercentage } = useScrollParallax(
-    sectionRef as React.RefObject<HTMLElement>
-  );
+  // Measuring every section on scroll forced layout while the hero and horizontal track
+  // were moving. Only the parallax variant reads its box.
+  const parallaxRef =
+    variant === 'parallax' &&
+    sectionRef &&
+    typeof sectionRef === 'object' &&
+    'current' in sectionRef
+      ? sectionRef
+      : null;
+  const { scrollY, visibilityPercentage } = useScrollParallax(parallaxRef);
 
   const parallaxOffset = useMemo(() => scrollY * 0.5, [scrollY]);
-
-  const currentPosition = useMemo(() => {
-    if (
-      sectionRef &&
-      typeof sectionRef === 'object' &&
-      'current' in sectionRef &&
-      sectionRef.current
-    ) {
-      return sectionRef.current.getBoundingClientRect().top;
-    }
-    return 0;
-  }, [sectionRef, scrollY]);
 
   return {
     layout,
@@ -79,7 +73,6 @@ export const useSection = (props: UseSectionProps) => {
     sectionStyle,
     parallaxOffset,
     parallaxDirection,
-    currentPosition,
     visibilityPercentage,
   };
 };
