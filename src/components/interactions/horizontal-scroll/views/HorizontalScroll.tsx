@@ -46,7 +46,7 @@ export const HorizontalScroll = forwardRef<
             position: 'relative',
             top: 0,
             left: 0,
-            width: '100vw',
+            width: '100%',
             height: '100vh',
             overflow: 'hidden',
           }}
@@ -55,7 +55,7 @@ export const HorizontalScroll = forwardRef<
             ref={context.trackRef}
             style={{
               display: 'flex',
-              width: `${context.sections.length * 100}vw`,
+              width: `${context.sections.length * 100}%`,
               height: '100%',
               position: 'absolute',
               top: 0,
@@ -66,7 +66,7 @@ export const HorizontalScroll = forwardRef<
               <div
                 key={section.key}
                 style={{
-                  width: '100vw',
+                  width: `${100 / Math.max(context.sections.length, 1)}%`,
                   height: '100%',
                   flex: 'none',
                   display: 'flex',
