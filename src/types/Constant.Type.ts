@@ -11,7 +11,7 @@ import {
 } from '@icons-pack/react-simple-icons';
 import MillierStoreImg from '@/assets/images/millier-store.webp';
 import MineInUsImg from '@/assets/images/mine-in-us.webp';
-import MySimpleRadioImg from '@/assets/images/my-simple-radio.webp';
+import SimpleRadioImg from '@/assets/images/simple-radio.webp';
 import ResumeGeneratorImg from '@/assets/images/resume-generator.webp';
 
 /** Fixed header links; `section` matches the target's `data-section` and `id`. */
@@ -108,22 +108,22 @@ export const SELECTED_PROJECTS = [
     title: 'Millier Store',
     category:
       'ReactJS, NextJS, TypeScript, Ant Design, TailwindCSS, Redux, Framer Motion, Axios, Lodash, Google OAuth, ',
-    href: 'https://github.com/holimm/millierstore',
+    href: 'https://github.com/holimm/millier-store',
     image: MillierStoreImg,
-    liveSite: 'https://millierstore.vercel.app/',
+    liveSite: 'https://millier.vercel.app/',
+  },
+  {
+    title: 'Simple Radio',
+    category: 'ReactJS, TypeScript, YouTube API, TailwindCSS, Framer Motion, ',
+    href: 'https://github.com/holimm/simple-radio',
+    image: SimpleRadioImg,
+    liveSite: 'https://simple-radio.vercel.app/',
   },
   {
     title: 'Mine In Us',
     category: 'HTML, CSS, JavaScript, jQuery, PHP, ',
     href: 'https://github.com/holimm/MineInUs',
     image: MineInUsImg,
-  },
-  {
-    title: 'My Simple Radio',
-    category: 'ReactJS, TypeScript, YouTube API, TailwindCSS, Framer Motion, ',
-    href: 'https://github.com/holimm/MySimpleRadio',
-    image: MySimpleRadioImg,
-    liveSite: 'https://holimm.github.io/MySimpleRadio/',
   },
   {
     title: 'Resume Generator',
