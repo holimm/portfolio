@@ -129,7 +129,7 @@ Before getting started, ensure you have the following installed:
 
 **Nguyen Lim Thai Ho**  
 Creative Developer • Frontend Engineer  
-[Portfolio](https://holim-portfolio.vercel.app/) · [LinkedIn](https://www.linkedin.com/in/nguyen-lim-thai-ho/) · [GitHub](https://github.com/holimm)
+[Portfolio](https://www.holim.dev/) · [LinkedIn](https://www.linkedin.com/in/nguyen-lim-thai-ho/) · [GitHub](https://github.com/holimm)
 
 ---
 

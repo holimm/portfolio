@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { chain, type CustomMiddleware } from '@/utils';
+import { chain, type CustomMiddleware } from '@/utils/MiddlewareChain.Util';
 
 /** Any route other than the landing page goes back to `/`. Files (resume, media) stay. */
 const withHomeRedirect =

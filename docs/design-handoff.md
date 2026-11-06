@@ -4,7 +4,7 @@ A handoff for anyone (human or AI) continuing work on Ho Lim's portfolio. It cap
 direction the owner wants, the design system that implements it, how the motion works, the
 decisions behind it, and the gotchas already paid for. Read it before changing the landing page.
 
-- **Live:** https://holim-portfolio.vercel.app/
+- **Live:** https://www.holim.dev/
 - **Repo:** `holimm/portfolio` — work on `develop`, PR into `main` (Vercel deploys `main`)
 - **Stack:** Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · GSAP 3
   (ScrollTrigger + ScrollSmoother via `@gsap/react`) · React Three Fiber / three.js (globe)

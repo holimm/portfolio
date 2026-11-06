@@ -454,10 +454,10 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
                             item.desktopOnly ? 'hidden md:flex' : 'flex'
                           )}
                         >
-                          <dt className="text-contrast-medium text-xs tracking-wider uppercase">
+                          <dt className="text-contrast-medium text-xs tracking-wider uppercase md:text-sm 2xl:text-[0.9375rem]">
                             {item.label}
                           </dt>
-                          <dd className="text-contrast-highest text-sm md:text-base">
+                          <dd className="text-contrast-highest text-sm md:text-lg 2xl:text-xl">
                             {item.value}
                           </dd>
                         </div>
@@ -466,16 +466,16 @@ export const Hero = forwardRef<HTMLDivElement, LayoutProps>(
 
                     <div
                       data-reveal-fade
-                      className="text-contrast-medium grid grid-cols-2 items-center gap-6 text-sm md:grid-cols-3 md:text-base"
+                      className="text-contrast-medium grid grid-cols-2 items-center gap-6 text-sm md:grid-cols-3 md:text-lg 2xl:text-xl"
                     >
                       <span>/ {new Date().getFullYear()} /</span>
                       <span className="hidden items-center gap-2 md:flex">
                         Scroll down
-                        <ArrowDown className="size-4" />
+                        <ArrowDown className="size-4 md:size-5" />
                       </span>
                       <ArrowPill
                         onClick={() => handleScrollToSection('contact')}
-                        className="justify-self-end"
+                        className="justify-self-end whitespace-nowrap md:py-2 md:pl-5 md:text-base 2xl:text-lg"
                       >
                         Get in touch
                       </ArrowPill>

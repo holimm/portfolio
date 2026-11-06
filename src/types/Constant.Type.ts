@@ -1,14 +1,14 @@
 import {
-  SiFramer,
+  SiNestjs,
   SiNextdotjs,
   SiNodedotjs,
+  SiPostgresql,
   SiReact,
-  SiRedux,
   SiShopify,
   SiTailwindcss,
   SiTypescript,
-  SiVercel,
 } from '@icons-pack/react-simple-icons';
+import { ExpressWordmark } from '@/assets/icons/TechWordmarks';
 import MillierStoreImg from '@/assets/images/millier-store.webp';
 import MineInUsImg from '@/assets/images/mine-in-us.webp';
 import SimpleRadioImg from '@/assets/images/simple-radio.webp';
@@ -72,34 +72,35 @@ export const TECH_STACK = [
     href: 'https://nodejs.org',
   },
   {
+    name: 'NestJS',
+    role: 'Backend',
+    icon: SiNestjs,
+    href: 'https://nestjs.com',
+  },
+  {
+    name: 'Express',
+    role: 'Server',
+    icon: ExpressWordmark,
+    iconClassName: 'h-5 w-auto self-start md:h-7',
+    href: 'https://expressjs.com',
+  },
+  {
+    name: 'Postgres',
+    role: 'Database',
+    icon: SiPostgresql,
+    href: 'https://www.postgresql.org',
+  },
+  {
     name: 'Tailwind CSS',
     role: 'Styling',
     icon: SiTailwindcss,
     href: 'https://tailwindcss.com',
   },
   {
-    name: 'Framer Motion',
-    role: 'Motion',
-    icon: SiFramer,
-    href: 'https://www.framer.com/motion',
-  },
-  {
-    name: 'Vercel',
-    role: 'Hosting',
-    icon: SiVercel,
-    href: 'https://vercel.com',
-  },
-  {
     name: 'Shopify',
     role: 'Commerce',
     icon: SiShopify,
     href: 'https://www.shopify.com',
-  },
-  {
-    name: 'Redux',
-    role: 'State',
-    icon: SiRedux,
-    href: 'https://redux.js.org',
   },
 ];
 
