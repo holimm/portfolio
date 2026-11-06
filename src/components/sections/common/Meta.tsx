@@ -24,10 +24,11 @@ export const LocalTime = () => {
   return <span className="tabular-nums">{time ?? '--:--:--'} (UTC+7)</span>;
 };
 
-/** Pulsing status dot with the current availability. */
+/** Status dot with the current availability. */
 export const Availability = () => (
-  <span className="flex items-center gap-2">
-    <span className="bg-success size-2 animate-pulse rounded-full" />
-    Open for freelance
+  <span className="flex items-start gap-2">
+    {/* Pinned to the first line in case the label wraps in a narrow column */}
+    <span className="bg-contrast-medium mt-[calc(0.5lh-0.25rem)] size-2 shrink-0 rounded-full" />
+    Currently unavailable
   </span>
 );

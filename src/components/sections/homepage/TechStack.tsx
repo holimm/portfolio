@@ -66,7 +66,12 @@ export const TechStack = forwardRef<HTMLDivElement, LayoutProps>(
 
                   <tech.icon
                     aria-hidden="true"
-                    className="size-8 transition-transform duration-500 group-hover:scale-110 md:size-11"
+                    className={cn(
+                      'transition-transform duration-500 group-hover:scale-110',
+                      // Wordmark logos aren't square, so they carry their own size
+                      ('iconClassName' in tech && tech.iconClassName) ||
+                        'size-8 md:size-11'
+                    )}
                   />
 
                   <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">

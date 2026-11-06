@@ -131,10 +131,12 @@ export const Footer = forwardRef<HTMLDivElement, LayoutProps>(
             </div>
 
             <div className="flex items-end justify-between gap-6">
-              <RevealLine>
+              {/* Negative margin sits on the clipping wrapper, not the text, so the glyphs' bottoms aren't cut.
+                  Size stops growing at the container's max width (screen-3xl, 1792px) so the word never overflows it. */}
+              <RevealLine className="-mb-[min(3.8vw,68px)] shrink-0">
                 <p
                   aria-hidden="true"
-                  className="font-oldschool-grotesk-compressed text-contrast-highest -mb-[0.1em] -ml-[0.03em] text-[length:38vw] leading-[0.8] font-bold tracking-tight whitespace-nowrap select-none"
+                  className="font-oldschool-grotesk-compressed text-contrast-highest -ml-[0.03em] pt-[0.04em] pr-[0.15em] text-[length:min(38vw,681px)] leading-[0.8] font-bold tracking-tight whitespace-nowrap select-none"
                 >
                   HO LIM
                 </p>

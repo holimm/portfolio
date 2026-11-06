@@ -21,7 +21,7 @@ Disallow: /sub-path-1
 Disallow: /path-2
 
 # Host
-Host: http://localhost:5000
+Host: https://www.holim.dev
 
 # Sitemaps
-Sitemap: http://localhost:5000/sitemap.xml
+Sitemap: https://www.holim.dev/sitemap.xml

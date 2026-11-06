@@ -25,7 +25,7 @@ import {
 // `desktopOnly` facts are dropped on phones, where the next panel already covers them
 const ABOUT_FACTS = [
   { label: 'Education', value: 'Saigon University' },
-  { label: 'Experience', value: '1+ year in web development' },
+  { label: 'Experience', value: '2+ year in web development' },
   {
     label: 'Off the clock',
     value: 'Piano, coffee & new places',
@@ -60,7 +60,7 @@ const IntroPanel = () => (
             contrast="high"
             className="max-w-[38ch] text-lg leading-snug md:text-2xl"
           >
-            I graduated from Saigon University and have over a year of
+            I graduated from Saigon University and have over two years of
             experience in website development. I’m passionate about creating
             modern, high-performance websites and bringing interfaces to life
             through thoughtful design and animation.
